@@ -11,7 +11,6 @@ passport.use(
       proxy: true
     },
     (token, tokenSecret, profile, done) => {
-      console.log(profile);
       return done(err, profile);
     }
   )
