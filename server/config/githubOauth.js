@@ -1,12 +1,12 @@
 const passport = require("passport");
-const GithubStrategy = require("passport-github2").Strategy;
+const GitHubStrategy = require("passport-github2").Strategy;
 
 passport.use(
   "github",
-  new GithubStrategy(
+  new GitHubStrategy(
     {
-      consumerKey: process.env.TWITTER_API,
-      consumerSecret: process.env.TWITTER_SECRET,
+      clientID: process.env.GIT_HUB_CLIENT_ID,
+      clientSecret: process.GIT_HUB_CLIENT_SECRET,
       callbackURL: "/auth/github/callback",
       proxy: true
     },

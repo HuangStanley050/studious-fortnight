@@ -6,9 +6,12 @@ router
   .get(
     "/auth/github",
     passport.authenticate("github", {
-      scope: ["profile", "email"],
+      scope: ["user:email"],
       session: false
-    })
+    }),
+    (req, res) => {
+      console.log("something is wrong");
+    }
   )
   .get(
     "/auth/github/callback",
