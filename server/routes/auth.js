@@ -6,7 +6,10 @@ router
   .get("/auth", (req, res) => res.send("auth route"))
   .get(
     "/auth/github",
-    passport.authenticate("github", { scope: ["user:email"], session: false })
+    passport.authenticate("github", {
+      scope: ["user:email", "read:org"],
+      session: false
+    })
   )
   .get(
     "/auth/github/callback",

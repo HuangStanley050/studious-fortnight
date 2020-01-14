@@ -1,12 +1,13 @@
 const express = require("express");
 const path = require("path");
+
 const authRouter = require("./routes/auth");
+
 const app = express();
 require("./config/githubOauth");
 
-//if (process.env.NODE_ENV === "production") {
 app.use(express.static(path.join(__dirname, "../client/build")));
-//}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
