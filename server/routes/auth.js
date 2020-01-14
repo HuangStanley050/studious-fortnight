@@ -4,10 +4,17 @@ const router = express.Router();
 
 router
   .get("/auth", (req, res) => res.send("auth route"))
-  .get("/auth/facebook", passport.authenticate("facebook", { session: false }))
+  .get(
+    "/auth/facebook",
+    passport.authenticate("facebook", { scope: ["email"], session: false })
+  )
   .get(
     "/auth/facebook/callback",
-    passport.authenticate("facebook", { session: false })
+    passport.authenticate("facebook", { session: false }),
+    (req, res) => {
+      console.log(req.user);
+      res.send("login successful");
+    }
   )
   .get(
     "/auth/github",
