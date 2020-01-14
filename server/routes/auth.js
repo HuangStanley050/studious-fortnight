@@ -5,6 +5,8 @@ const router = express.Router();
 
 router
   .get("/auth", (req, res) => res.send("auth route"))
+  .post("/auth/local/login", (req, res) => res.send("local login route"))
+  .post("/auth/local/register", (req, res) => res.send("local register route"))
   .get(
     "/auth/google",
     passport.authenticate("google", {
@@ -15,7 +17,7 @@ router
   .get(
     "/auth/google/callback",
     passport.authenticate("google", { session: false }),
-    AuthController.login
+    AuthController.oAuthLogin
   )
   .get(
     "/auth/facebook",
@@ -24,7 +26,7 @@ router
   .get(
     "/auth/facebook/callback",
     passport.authenticate("facebook", { session: false }),
-    AuthController.login
+    AuthController.oAuthLogin
   )
   .get(
     "/auth/github",
