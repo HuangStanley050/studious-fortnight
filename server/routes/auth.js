@@ -6,6 +6,18 @@ const router = express.Router();
 router
   .get("/auth", (req, res) => res.send("auth route"))
   .get(
+    "/auth/google",
+    passport.authenticate("google", {
+      scope: ["profile", "email"],
+      session: false
+    })
+  )
+  .get(
+    "/auth/google/callback",
+    passport.authenticate("google", { session: false }),
+    AuthController.login
+  )
+  .get(
     "/auth/facebook",
     passport.authenticate("facebook", { scope: ["email"], session: false })
   )
