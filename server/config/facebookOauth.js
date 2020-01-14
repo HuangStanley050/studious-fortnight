@@ -12,7 +12,6 @@ passport.use(
       proxy: true
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
       return done(false, profile);
     }
   )

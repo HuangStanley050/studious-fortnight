@@ -1,5 +1,6 @@
 const express = require("express");
 const passport = require("passport");
+const AuthController = require("../controllers/auth");
 const router = express.Router();
 
 router
@@ -11,10 +12,7 @@ router
   .get(
     "/auth/facebook/callback",
     passport.authenticate("facebook", { session: false }),
-    (req, res) => {
-      console.log(req.user);
-      res.send("login successful");
-    }
+    AuthController.login
   )
   .get(
     "/auth/github",
