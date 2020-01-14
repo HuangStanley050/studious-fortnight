@@ -1,12 +1,20 @@
 const express = require("express");
 const path = require("path");
+
+const authRouter = require("./routes/auth");
+
 const app = express();
+require("./config/githubOauth");
+require("./config/facebookOauth");
 
 app.use(express.static(path.join(__dirname, "../client/build")));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(authRouter);
 app.get("/api", (req, res) => res.send("all api routes"));
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(`${__dirname}../client/build/index.html`));
 });
