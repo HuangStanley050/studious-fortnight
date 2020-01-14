@@ -5,6 +5,7 @@ const authRouter = require("./routes/auth");
 
 const app = express();
 require("./config/githubOauth");
+require("./config/facebookOauth");
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 
