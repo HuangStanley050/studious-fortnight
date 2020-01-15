@@ -5,8 +5,8 @@ const router = express.Router();
 
 router
   .get("/auth", (req, res) => res.send("auth route"))
-  .post("/auth/local/login", (req, res) => res.send("local login route"))
-  .post("/auth/local/register", (req, res) => res.send("local register route"))
+  .post("/auth/local/login", AuthController.localLogin)
+  .post("/auth/local/register", AuthController.localRegister)
   .get(
     "/auth/google",
     passport.authenticate("google", {
