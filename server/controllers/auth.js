@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-exports.login = (req, res, next) => {
+exports.oAuthLogin = (req, res, next) => {
   const payload = {
     ...req.user
   };
@@ -10,3 +10,5 @@ exports.login = (req, res, next) => {
   //res.send({ message: "Authenticated", token });
   res.send(token);
 };
+exports.localLogin = (req, res, next) => {};
+exports.localRegister = (req, res, next) => {};
