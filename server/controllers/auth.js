@@ -51,8 +51,8 @@ exports.localLogin = async (req, res, next) => {
 };
 exports.localRegister = async (req, res, next) => {
   const { name, email, password } = req.body;
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(password, salt);
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(password, salt);
 
   try {
     let user = User.find(account => account.email === email);
