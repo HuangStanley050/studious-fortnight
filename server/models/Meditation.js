@@ -22,6 +22,10 @@ const meditationSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
+    },
+    courseId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Courses"
     }
   },
   { collection: "meditation" }
