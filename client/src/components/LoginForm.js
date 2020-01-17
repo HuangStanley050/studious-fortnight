@@ -10,7 +10,7 @@ const Form = (props) => {
 
     axios.post(`/auth/local/login`, data).then((response) => {
       console.log(response.data);
-      props.history.push('/');
+      // props.history.push('/');
     });
   };
 
@@ -25,8 +25,8 @@ const Form = (props) => {
       <br />
       <input type="submit" />
       <br />
-      <a href="/auth/google"><button> Google </button></a>
-      <a href="/auth/facebook"><button> Facebook </button></a> 
+      <a href="/auth/google"><p> Google </p></a>
+      <a href="/auth/facebook"><p> Facebook </p></a> 
     </form>
   )
 };
