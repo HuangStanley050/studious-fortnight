@@ -26,10 +26,6 @@ const userSchema = new mongoose.Schema({
       unlocked: Boolean,
       image: String
     }
-<<<<<<< HEAD
-  }
-)
-=======
   ],
   preferredMeditationTime: {
     type: String
@@ -48,6 +44,5 @@ const userSchema = new mongoose.Schema({
     ref: "Meditation"
   }
 });
->>>>>>> master
 
 module.exports = mongoose.model("user", userSchema);
