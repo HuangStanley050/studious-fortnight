@@ -1,19 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-
-const User = [
-  // simulate database for User collection
-  {
-    // password is 'password'
-    email: "test@test.com",
-    password: "$2y$15$itxqOKHwMoGSiSpFJhnp6.wR8PNaws9OQpR/uFKlQWoh/j7jootCy"
-  },
-  {
-    // password is 'test1234'
-    email: "test@test2.com",
-    password: "$2y$15$0NSv/m4O6uYeUKKvb7lDC.t1jR78qFgVIkFpvLdWXQhX/p1UdZck2"
-  }
-];
+const User = require("../models/User");
 
 exports.oAuthLogin = (req, res, next) => {
   const payload = {
@@ -29,7 +16,7 @@ exports.localLogin = async (req, res, next) => {
   const { email, password } = req.body;
   let user;
   try {
-    user = User.find(account => account.email === email); // simulate data base look up
+    user = await User.findOne({ email }); // simulate data base look up
     if (!user) {
       throw new Error("User doesn't exist");
     }
@@ -55,13 +42,14 @@ exports.localRegister = async (req, res, next) => {
   const hash = await bcrypt.hash(password, salt);
 
   try {
-    let user = User.find(account => account.email === email);
+    let user = await User.findOne({ email });
+    console.log(user);
     if (user) {
       throw new Error("User already exists");
     }
-    const newUser = { email, password: hash };
-    User.push(newUser);
-    return res.send({ msg: "user registered", newUser });
+    const newUser = new User({ email, password: hash });
+    let registerUser = await newUser.save();
+    return res.send({ msg: "user registered", registerUser });
   } catch (err) {
     console.log(err);
   }
