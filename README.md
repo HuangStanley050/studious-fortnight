@@ -6,5 +6,7 @@ MERN meditation app
 **Development**
 
 cd into project root directory, run "npm install"
+
 cd into /client folder and run "npm install"
+
 cd back into project root directory and run "npm run dev"
