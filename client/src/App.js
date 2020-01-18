@@ -1,12 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Login from './pages/Login';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+//import Login from './pages/Login';
 
 function App() {
   return (
     <>
-    <Login />
+      <h1>Hello world</h1>
     </>
   );
 }
