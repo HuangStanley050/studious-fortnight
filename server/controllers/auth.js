@@ -20,7 +20,9 @@ exports.localLogin = async (req, res, next) => {
     if (!user) {
       throw new Error("User doesn't exist");
     }
-
+    if (user.externalProvider) {
+      throw new Error("User has an account already");
+    }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       throw new Error("Password is not correct");
