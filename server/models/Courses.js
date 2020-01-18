@@ -1,31 +1,39 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const courseSchema = new mongoose.Schema(
-{   
-    beginnerCourse: [{
-        level: Number,  
+  {
+    beginnerCourse: [
+      {
+        level: Number,
         music: String,
         time: Number,
         quote: String
-      }],
-      intermediateCourse: [{
-        level: Number,  
+      }
+    ],
+    intermediateCourse: [
+      {
+        level: Number,
         music: String,
         time: Number,
         quote: String
-      }],
-      advancedCourse: [{
-        level: Number,  
+      }
+    ],
+    advancedCourse: [
+      {
+        level: Number,
         music: String,
         time: Number,
         quote: String
-      }],
-      meditationId: [{
+      }
+    ],
+    meditationId: [
+      {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Meditation"
-      }],
-}, {collection: 'course'}
-)
+      }
+    ]
+  },
+  { collection: "course" }
+);
 
-
-module.exports = mongoose.model('course', courseSchema);
+module.exports = mongoose.model("course", courseSchema);

@@ -21,7 +21,10 @@ router
   )
   .get(
     "/auth/facebook",
-    passport.authenticate("facebook", { scope: ["email"], session: false })
+    passport.authenticate("facebook", {
+      scope: ["email"],
+      session: false
+    })
   )
   .get(
     "/auth/facebook/callback",
