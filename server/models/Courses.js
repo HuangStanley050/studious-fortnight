@@ -7,7 +7,7 @@ const courseSchema = new mongoose.Schema(
       level: Number,
       music: String
     },
-    userId: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     meditationId: [
       {
         type: mongoose.Schema.Types.ObjectId,
