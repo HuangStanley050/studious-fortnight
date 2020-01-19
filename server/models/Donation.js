@@ -16,7 +16,7 @@ const donationSchema = new mongoose.Schema(
       ref: "User"
     }
   },
-  { collection: "meditation" }
+  { collection: "meditation", timestamps: true }
 );
 
 module.exports = mongoose.model("donation", donationSchema);
