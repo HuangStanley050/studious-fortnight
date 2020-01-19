@@ -28,6 +28,7 @@ const meditationSchema = new mongoose.Schema(
       ref: "Courses"
     }
   },
+  { timestamps: true },
   { collection: "meditation" }
 );
 ```
@@ -48,6 +49,7 @@ const courseSchema = new mongoose.Schema(
       }
     ]
   },
+  { timestamps: true },
   { collection: "course" }
 );
 ```
