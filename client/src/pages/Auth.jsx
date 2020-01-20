@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import { loginOkay } from "../store/actions/authActions";
 import { connect } from "react-redux";
 import Login from "../components/Login";
+
 import Register from "../components/Register";
 
 const AuthPage = ({ isAuth, loginOkay }) => {
@@ -23,8 +24,8 @@ const AuthPage = ({ isAuth, loginOkay }) => {
   return (
     <Container>
       <h1>Auth page</h1>
-      <Login />
-      {/*<Register />*/}
+      {/*<Login />*/}
+      <Register />
     </Container>
   );
 };

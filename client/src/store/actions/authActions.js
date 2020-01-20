@@ -16,7 +16,28 @@ const loginFail = err => ({
   err
 });
 
+const registerStart = () => ({
+  type: Action.REGISTER_START
+});
+
+const registerOkay = () => ({
+  type: Action.REGISTER_START
+});
+
+const registerFail = err => ({
+  type: Action.REGISTER_START,
+  err
+});
+
 // async function
+//
+
+export const register = userInfo => {
+  return async dispatch => {
+    console.log(userInfo);
+    dispatch(registerStart());
+  };
+};
 
 export const login = userInfo => {
   return async dispatch => {
