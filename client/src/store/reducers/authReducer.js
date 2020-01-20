@@ -13,6 +13,7 @@ const reducer = (state = initialState, action) => {
         loading: true
       };
     case Action.LOGIN_OKAY:
+      console.log(action.userInfo);
       return {
         ...state,
         isAuth: true,
