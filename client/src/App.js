@@ -1,20 +1,30 @@
 import React from "react";
-import "./App.css";
 
-//import Login from './pages/Login';
-
-//import PaymentForm from "./components/PaymentForm";
-//import Login from './pages/Login';
-
+import { Container } from "reactstrap";
+import { Route, Switch } from "react-router-dom";
+import NavBar from "./components/NavBar.jsx";
+import Home from "./pages/Home.jsx";
+import Footer from "./components/Footer.jsx";
+import Discover from "./pages/Discover.jsx";
+import Profile from "./pages/Profile.jsx";
+import Contact from "./pages/Contact.jsx";
+import About from "./pages/About.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 function App() {
   return (
-    <>
-      <h1>Hello world</h1>
-
-      {/*<PaymentForm />*/}
-
-    </>
+    <Container>
+      <NavBar />
+      <Switch>
+        <Route path="/" component={Home} exact={true} />
+        <Route path="/discover" component={Discover} />
+        <Route path="/profile/stats" component={Profile} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/about" component={About} />
+        <Route component={NotFoundPage} />
+      </Switch>
+      <Footer />
+    </Container>
   );
 }
 
