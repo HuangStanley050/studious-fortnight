@@ -4,7 +4,7 @@ const courseSchema = new mongoose.Schema(
   {
     courseDetail: {
       difficulty: String,
-      level: Number,
+      levels: Number,
       music: String
     },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
