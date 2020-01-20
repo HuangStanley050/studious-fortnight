@@ -20,7 +20,7 @@ const Form = (props) => {
       <input name="email" placeholder="email" ref={register({required: true, minLength: 4, maxLength: 15 })} />
       {errors.name && "Please add an email between 4 and 15 characters."}
       <br />
-      <input name="password" placeholder="password" ref={register({ required: true })} />
+      <input name="password" type="password" placeholder="password" ref={register({ required: true })} />
       {errors.location && "Please add a location."}
       <br />
       <input type="submit" />

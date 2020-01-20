@@ -3,6 +3,7 @@ const path = require("path");
 const passport = require("passport");
 const mongoose = require("mongoose");
 const authRouter = require("./routes/auth");
+const courseRouter = require("./routes/course");
 const app = express();
 require("./config/githubOauth");
 require("./config/facebookOauth");
@@ -18,6 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(authRouter);
+app.use(courseRouter);
+
 app.get("/api", passport.authenticate("jwt", { session: false }), (req, res) =>
   res.send("all api routes")
 );
