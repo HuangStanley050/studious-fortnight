@@ -4,8 +4,8 @@ const passport = require("passport");
 const PaymentController = require("../controllers/payment");
 
 router.post(
-  "/api/dontation",
-  //passport.authenticate("jwt", { session: false }),
+  "/api/donation",
+  passport.authenticate("jwt", { session: false }),
   PaymentController.handlePayment
 );
 
