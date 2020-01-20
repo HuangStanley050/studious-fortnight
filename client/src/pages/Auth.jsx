@@ -8,7 +8,7 @@ const AuthPage = props => {
     <Container>
       <h1>Auth page</h1>
       <Login />
-      <Register />
+      {/*<Register />*/}
     </Container>
   );
 };
