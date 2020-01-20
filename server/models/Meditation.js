@@ -5,8 +5,8 @@ const meditationSchema = new mongoose.Schema(
     sessionDetail: {
       level: String,
       quote: String,
-      currentTime: Date,
-      totalTime: Date
+      currentTime:  Number,
+      totalTime: Number
     },
     completed: Boolean,
     userId: {
