@@ -2,30 +2,12 @@ const mongoose = require("mongoose");
 
 const courseSchema = new mongoose.Schema(
   {
-    beginnerCourse: [
-      {
-        level: Number,
-        music: String,
-        time: Number,
-        quote: String
-      }
-    ],
-    intermediateCourse: [
-      {
-        level: Number,
-        music: String,
-        time: Number,
-        quote: String
-      }
-    ],
-    advancedCourse: [
-      {
-        level: Number,
-        music: String,
-        time: Number,
-        quote: String
-      }
-    ],
+    courseDetail: {
+      difficulty: String,
+      level: Number,
+      music: String
+    },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     meditationId: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -33,7 +15,7 @@ const courseSchema = new mongoose.Schema(
       }
     ]
   },
-  { collection: "course" }
+  { collection: "course", timestamps: true }
 );
 
 module.exports = mongoose.model("course", courseSchema);

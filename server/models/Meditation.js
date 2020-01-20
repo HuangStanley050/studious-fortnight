@@ -2,23 +2,13 @@ const mongoose = require("mongoose");
 
 const meditationSchema = new mongoose.Schema(
   {
-    completedSession: [
-      {
-        name: String,
-        level: Number,
-        time_completed: Date,
-        quote: String
-      }
-    ],
-    activeSession: {
-      name: String,
-      current_time: Date
+    sessionDetail: {
+      level: String,
+      quote: String,
+      currentTime: Date,
+      totalTime: Date
     },
-    completed: [
-      {
-        name: String
-      }
-    ],
+    completed: Boolean,
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
@@ -28,7 +18,7 @@ const meditationSchema = new mongoose.Schema(
       ref: "Courses"
     }
   },
-  { collection: "meditation" }
+  { collection: "meditation", timestamps: true }
 );
 
 module.exports = mongoose.model("meditation", meditationSchema);
