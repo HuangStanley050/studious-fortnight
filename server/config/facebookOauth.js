@@ -18,9 +18,10 @@ passport.use(
       try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-          const { email } = existingUser;
+          const { email, id } = existingUser;
           const user = {
-            email
+            email,
+            id
           };
           return done(null, user);
         }

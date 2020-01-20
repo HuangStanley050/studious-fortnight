@@ -8,6 +8,8 @@ import {
   Label,
   Input,
   FormText,
+  NavItem,
+  NavLink,
   Container
 } from "reactstrap";
 
@@ -65,6 +67,11 @@ const Login = ({ login }) => {
             placeholder="your password"
           />
         </FormGroup>
+
+        <NavLink href="/auth/facebook">Login with Facebook</NavLink>
+
+        <NavLink href="auth/google">Login with Google</NavLink>
+
         <Button>Submit</Button>
       </Form>
     </Container>

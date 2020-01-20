@@ -6,7 +6,7 @@ const loginStart = () => ({
   type: Action.LOGIN_START
 });
 
-const loginOkay = userInfo => ({
+export const loginOkay = userInfo => ({
   type: Action.LOGIN_OKAY,
   userInfo
 });
