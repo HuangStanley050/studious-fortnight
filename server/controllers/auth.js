@@ -28,7 +28,8 @@ exports.localLogin = async (req, res, next) => {
       throw new Error("Password is not correct");
     }
     const payload = {
-      email: user.email
+      email: user.email,
+      id: user.id
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "1h"
