@@ -4,6 +4,8 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const authRouter = require("./routes/auth");
 const courseRouter = require("./routes/course");
+const paymentRouter = require("./routes/payment");
+
 const app = express();
 require("./config/githubOauth");
 require("./config/facebookOauth");
@@ -24,6 +26,10 @@ app.use(courseRouter);
 app.get("/api", passport.authenticate("jwt", { session: false }), (req, res) =>
   res.send("all api routes")
 );
+app.use(paymentRouter);
+// app.get("/api", passport.authenticate("jwt", { session: false }), (req, res) =>
+//   res.send("all api routes")
+// );
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(`${__dirname}../client/build/index.html`));
