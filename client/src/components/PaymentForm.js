@@ -2,6 +2,8 @@ import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 
+// this jwt is only temporariy for testing, will need to fetch it from localstorage in the future
+
 const jwt =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdDMuY29tIiwiaWQiOiI1ZTIxMjliN2Q4YTYxYjE5MmI4Y2MxZDIiLCJpYXQiOjE1Nzk0ODcyNjAsImV4cCI6MTU3OTQ5MDg2MH0.JGbmELtrGMyl4pu47BaSmytnhWI8CDCnC41W_w0bRp0";
 
