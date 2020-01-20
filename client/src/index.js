@@ -1,38 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import App from "./App";
+
 import store from "./setupStore";
 import { Provider } from "react-redux";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import NavBar from './components/NavBar.jsx';
-import Home from './pages/Home.jsx';
-import Footer from './components/Footer.jsx';
-import Discover from './pages/Discover.jsx';
-import Profile from './pages/Profile.jsx';
-import Contact from "./pages/Contact.jsx";
-import About from './pages/About.jsx';
-import NotFoundPage from './pages/NotFoundPage.jsx';
-
+import { BrowserRouter as Router } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
 const app = (
   <Provider store={store}>
-    <BrowserRouter>
-      <NavBar />
-      <div>
-        <Switch>
-          <Route path="/" component={Home} exact={true} />
-          <Route path="/discover" component={Discover} />
-          <Route path="/profile/stats" component={Profile} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/about" component={About} />
-
-          <Route component={NotFoundPage} />
-        </Switch>
-      </div>
-      <Footer />
-    </BrowserRouter>
+    <Router>
+      <App />
+    </Router>
   </Provider>
 );
 
