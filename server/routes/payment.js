@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Donation = require("../models/Donation");
+const passport = require("passport");
+const PaymentController = require("../controllers/payment");
 
-router.post("/api/dontation", (req, res) => res.send("donation route"));
+router.post(
+  "/api/donation",
+  passport.authenticate("jwt", { session: false }),
+  PaymentController.handlePayment
+);
 
 module.exports = router;
