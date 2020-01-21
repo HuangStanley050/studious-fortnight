@@ -23,13 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(authRouter);
 app.use(courseRouter);
 
-app.get("/api", passport.authenticate("jwt", { session: false }), (req, res) =>
-  res.send("all api routes")
-);
 app.use(paymentRouter);
-// app.get("/api", passport.authenticate("jwt", { session: false }), (req, res) =>
-//   res.send("all api routes")
-// );
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(`${__dirname}../client/build/index.html`));
