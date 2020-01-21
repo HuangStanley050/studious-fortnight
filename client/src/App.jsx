@@ -13,7 +13,9 @@ import About from "./pages/About.jsx";
 import AuthPage from "./pages/Auth.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import PasswordReset from "./pages/PasswordReset";
+import PrivateRoute from './components/PrivateRoute';
 import PasswordRecovery from "./pages/PasswordRecovery";
+
 
 function App() {
   return (
@@ -22,10 +24,10 @@ function App() {
       <div className="container">
         <Switch>
           <Route path="/" component={Landing} exact={true} />
-          <Route path="/my" component={Home} exact={true} />
-          <Route path="/my/discover" component={Discover} exact={true} />
-          <Route path="/my/discover/:id" component={DiscoverShow} />
-          <Route path="/my/profile/stats" component={Profile} />
+          <PrivateRoute path="/my" component={Home} exact={true} />
+          <PrivateRoute path="/my/discover" component={Discover} exact={true} />
+          <PrivateRoute path="/my/discover/:id" component={DiscoverShow} />
+          <PrivateRoute path="/my/profile/stats" component={Profile} />
           <Route path="/contact" component={Contact} />
           <Route path="/about" component={About} />
           <Route path="/auth" component={AuthPage} />
