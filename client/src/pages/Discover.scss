@@ -1,0 +1,39 @@
+.discover-content {
+  display: flex;
+  .left-select-content {
+    height: 100%;
+    width: 35%;
+    // background: red;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+
+    .course-link:hover {
+      cursor: pointer;
+    }
+
+    .badge-link:hover {
+      cursor: pointer;
+    }
+  }
+  
+  .right-display-content {
+    height: 100%;
+    width: 57.5%;
+    margin-right: 2.5%;
+    // background: blue;
+
+    .course-image {
+      width: 100%;
+      border-radius: 25px;
+      opacity: 0.5;
+      filter: alpha(opacity=50);
+    }
+
+    .badge-image {
+      width: 50%;
+      border-radius: 25px;
+      opacity: 0.5;
+      filter: alpha(opacity=50);
+    }
+  }
+}
