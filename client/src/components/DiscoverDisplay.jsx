@@ -8,7 +8,8 @@ const DiscoverDisplay = (props) => {
       {(currentlyShowing === "courses") ? (
         <>
           <h1>{activeCourse.name}</h1>
-          <p>Duration: {activeCourse.duration}, lessons: {activeCourse.lessons}</p>
+          <p>Duration: {activeCourse.duration}</p>
+          <p>Completed lessons: {activeCourse.completedLessons}/{activeCourse.totalLessons}</p>
           <Link to={`/my/discover/${activeCourse.id}`}>
             <img className="course-image" src={activeCourse.image_url} />
           </Link>
