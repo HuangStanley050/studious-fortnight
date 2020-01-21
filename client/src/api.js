@@ -1,4 +1,5 @@
 export default {
-  login: "/auth/local/login",
-  register: "/auth/local/register"
+  login: "/api/auth/local/login",
+  register: "/api/auth/local/register",
+  resetPassword: "/api/auth/local/password_reset"
 };

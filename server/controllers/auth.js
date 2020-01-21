@@ -6,20 +6,29 @@ sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 exports.resetPassword = async (req, res) => {
   const { email } = req.body;
+  let user;
   const token = jwt.sign({ email }, process.env.JWT_SECRET, {
     expiresIn: "1h"
   });
-  let user = await User.findOne({ email });
 
-  const msg = {
-    to: "ewgodhand@gmail.com", // test email for now
-    from: "CMCFlow@meditation.com",
-    subject: "Password Reset Link",
-    text: "To reset your password",
-    html: `<a href="${process.env.PASSWORD_REDIRECT}reset_password/${user._id}/${token}">Reset your password</a>`
-  };
-  sgMail.send(msg);
-  res.send("reset password route");
+  try {
+    user = await User.findOne({ email });
+    const msg = {
+      to: email, // test email for now
+      from: "CMCFlow@meditation.com",
+      subject: "Password Reset Link",
+      text: "To reset your password",
+      html: `<a href="${process.env.PASSWORD_REDIRECT}reset_password/${user._id}/${token}">Reset your password</a>`
+    };
+    sgMail.send(msg);
+    return res.send("reset password route");
+  } catch (err) {
+    // user doesn't exists
+
+    return res.status(400).send({
+      msg: "Unable to reset password"
+    });
+  }
 };
 exports.setNewPassword = async (req, res) => {
   res.send("set new password");
