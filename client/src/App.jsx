@@ -1,4 +1,4 @@
-import './App.scss';
+import "./App.scss";
 import React, { useEffect, useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import NavBar from "./components/NavBar.jsx";
@@ -12,6 +12,7 @@ import Contact from "./pages/Contact.jsx";
 import About from "./pages/About.jsx";
 import AuthPage from "./pages/Auth.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
+import PasswordReset from "./pages/PasswordReset";
 
 function App() {
   return (
@@ -27,6 +28,15 @@ function App() {
           <Route path="/contact" component={Contact} />
           <Route path="/about" component={About} />
           <Route path="/auth" component={AuthPage} />
+          <Route
+            path="/reset_password/:userId/:token"
+            render={({ match }) => (
+              <PasswordReset
+                userId={match.params.userId}
+                token={match.params.token}
+              />
+            )}
+          />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

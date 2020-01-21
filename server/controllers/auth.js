@@ -16,7 +16,7 @@ exports.resetPassword = async (req, res) => {
     from: "CMCFlow@meditation.com",
     subject: "Password Reset Link",
     text: "To reset your password",
-    html: `<a href="http://localhost:8000/api/local/auth/password_new/${user._id}/${token}">Reset your password</a>`
+    html: `<a href="${process.env.PASSWORD_REDIRECT}rest_password/${user._id}/${token}">Reset your password</a>`
   };
   sgMail.send(msg);
   res.send("reset password route");
