@@ -4,7 +4,6 @@ const AuthController = require("../controllers/auth");
 const router = express.Router();
 
 router
-  .get("/auth", (req, res) => res.send("auth route"))
   .post("/auth/local/login", AuthController.localLogin)
   .post("/auth/local/register", AuthController.localRegister)
   .get(
