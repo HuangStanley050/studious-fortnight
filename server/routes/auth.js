@@ -4,6 +4,11 @@ const AuthController = require("../controllers/auth");
 const router = express.Router();
 
 router
+  .post("/api/auth/local/password_reset", AuthController.resetPassword)
+  .get(
+    "/api/auth/local/password_new/:userId/:token",
+    AuthController.setNewPassword
+  )
   .post("/api/auth/local/login", AuthController.localLogin)
   .post("/api/auth/local/register", AuthController.localRegister)
   .get(

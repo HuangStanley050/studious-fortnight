@@ -1,7 +1,29 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_KEY);
 
+exports.resetPassword = async (req, res) => {
+  const { email } = req.body;
+  const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+    expiresIn: "1h"
+  });
+  let user = await User.findOne({ email });
+
+  const msg = {
+    to: "ewgodhand@gmail.com",
+    from: "CMCFlow@meditation.com",
+    subject: "Password Reset Link",
+    text: "To reset your password",
+    html: `<a href="http://localhost:8000/api/local/auth/password_new/${user._id}/${token}">Reset your password</a>`
+  };
+  sgMail.send(msg);
+  res.send("reset password route");
+};
+exports.setNewPassword = async (req, res) => {
+  res.send("set new password");
+};
 exports.oAuthLogin = (req, res, next) => {
   const payload = {
     ...req.user
