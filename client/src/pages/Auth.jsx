@@ -18,8 +18,10 @@ const AuthPage = ({ isAuth, loginOkay, hasRegistered }) => {
     if (window.location.search !== "" && !isAuth) {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get("jwt");
+      console.log(token);
       const { email, id } = jwt_decode(token);
       const userInfo = { email, id };
+
       loginOkay(userInfo);
     }
   }, [isAuth, loginOkay]);
