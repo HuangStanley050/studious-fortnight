@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import { Container } from "reactstrap";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import NavBar from "./components/NavBar.jsx";
 import Home from "./pages/Home.jsx";
 import Footer from "./components/Footer.jsx";

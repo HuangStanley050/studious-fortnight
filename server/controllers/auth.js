@@ -10,7 +10,7 @@ exports.oAuthLogin = (req, res, next) => {
   console.log(req.user);
   console.log(token);
   //res.send({ message: "Authenticated", token });
-  res.send(token);
+  res.redirect(`/auth?jwt=${token}`);
 };
 exports.localLogin = async (req, res, next) => {
   const { email, password } = req.body;
@@ -40,7 +40,7 @@ exports.localLogin = async (req, res, next) => {
   }
 };
 exports.localRegister = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { email, password } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 

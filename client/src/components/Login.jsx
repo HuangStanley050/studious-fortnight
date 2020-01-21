@@ -8,6 +8,8 @@ import {
   Label,
   Input,
   FormText,
+  NavItem,
+  NavLink,
   Container
 } from "reactstrap";
 
@@ -42,6 +44,7 @@ const Login = ({ login }) => {
   };
   return (
     <Container>
+      <h3>Login</h3>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="exampleEmail">Email</Label>
@@ -65,6 +68,11 @@ const Login = ({ login }) => {
             placeholder="your password"
           />
         </FormGroup>
+
+        <NavLink href="/api/auth/facebook">Login with Facebook</NavLink>
+
+        <NavLink href="/api/auth/google">Login with Google</NavLink>
+
         <Button>Submit</Button>
       </Form>
     </Container>

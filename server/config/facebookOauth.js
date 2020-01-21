@@ -8,7 +8,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_CLIENT,
       clientSecret: process.env.FACEBOOK_SECRET,
-      callbackURL: "/auth/facebook/callback",
+      callbackURL: "/api/auth/facebook/callback",
       profileFields: ["id", "displayName", "email", "name"],
       proxy: true
     },
@@ -18,9 +18,10 @@ passport.use(
       try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-          const { email } = existingUser;
+          const { email, id } = existingUser;
           const user = {
-            email
+            email,
+            id
           };
           return done(null, user);
         }
