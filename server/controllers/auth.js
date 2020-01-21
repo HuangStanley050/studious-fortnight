@@ -12,11 +12,11 @@ exports.resetPassword = async (req, res) => {
   let user = await User.findOne({ email });
 
   const msg = {
-    to: "ewgodhand@gmail.com",
+    to: "ewgodhand@gmail.com", // test email for now
     from: "CMCFlow@meditation.com",
     subject: "Password Reset Link",
     text: "To reset your password",
-    html: `<a href="${process.env.PASSWORD_REDIRECT}rest_password/${user._id}/${token}">Reset your password</a>`
+    html: `<a href="${process.env.PASSWORD_REDIRECT}reset_password/${user._id}/${token}">Reset your password</a>`
   };
   sgMail.send(msg);
   res.send("reset password route");
