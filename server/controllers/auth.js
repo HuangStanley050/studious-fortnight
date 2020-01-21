@@ -10,7 +10,7 @@ exports.oAuthLogin = (req, res, next) => {
   console.log(req.user);
   console.log(token);
   //res.send({ message: "Authenticated", token });
-  res.redirect(`../?jwt=${token}`);
+  res.redirect(`/auth?jwt=${token}`);
 };
 exports.localLogin = async (req, res, next) => {
   const { email, password } = req.body;

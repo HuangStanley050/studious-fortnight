@@ -69,9 +69,9 @@ const Login = ({ login }) => {
           />
         </FormGroup>
 
-        <NavLink href="/auth/facebook">Login with Facebook</NavLink>
+        <NavLink href="/api/auth/facebook">Login with Facebook</NavLink>
 
-        <NavLink href="auth/google">Login with Google</NavLink>
+        <NavLink href="/api/auth/google">Login with Google</NavLink>
 
         <Button>Submit</Button>
       </Form>
