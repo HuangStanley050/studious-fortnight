@@ -1,0 +1,20 @@
+.footer {
+  height: 60px;   /* Height of the footer */
+  // background: red;
+
+  flex-shrink: 0;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: var(--main-border);
+
+  .link {
+    margin-left: 10px;
+    text-decoration: none;
+    color: var(--main-link-color);
+  }
+  .link:hover {
+    color: var(--main-link-hover);
+  }
+}

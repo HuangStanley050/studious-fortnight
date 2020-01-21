@@ -1,0 +1,10 @@
+.container {
+  margin-top: 80px;
+  height: 100%;
+  width: 100%;
+
+  //set to keep footer "sticky" to the bottom
+  min-height: calc(100vh - 80px - 60px);
+  display: flex;
+  flex-direction: column;
+}
