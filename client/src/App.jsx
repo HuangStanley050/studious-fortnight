@@ -1,6 +1,6 @@
-import React from "react";
 import './App.scss';
-import { Route, Switch } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 import NavBar from "./components/NavBar.jsx";
 import Landing from "./pages/Landing.jsx";
 import Home from "./pages/Home.jsx";

@@ -4,42 +4,41 @@ const AuthController = require("../controllers/auth");
 const router = express.Router();
 
 router
-  .get("/auth", (req, res) => res.send("auth route"))
-  .post("/auth/local/login", AuthController.localLogin)
-  .post("/auth/local/register", AuthController.localRegister)
+  .post("/api/auth/local/login", AuthController.localLogin)
+  .post("/api/auth/local/register", AuthController.localRegister)
   .get(
-    "/auth/google",
+    "/api/auth/google",
     passport.authenticate("google", {
       scope: ["profile", "email"],
       session: false
     })
   )
   .get(
-    "/auth/google/callback",
+    "/api/auth/google/callback",
     passport.authenticate("google", { session: false }),
     AuthController.oAuthLogin
   )
   .get(
-    "/auth/facebook",
+    "/api/auth/facebook",
     passport.authenticate("facebook", {
       scope: ["email"],
       session: false
     })
   )
   .get(
-    "/auth/facebook/callback",
+    "/api/auth/facebook/callback",
     passport.authenticate("facebook", { session: false }),
     AuthController.oAuthLogin
   )
   .get(
-    "/auth/github",
+    "/api/auth/github",
     passport.authenticate("github", {
       scope: ["user:email", "read:org"],
       session: false
     })
   )
   .get(
-    "/auth/github/callback",
+    "/api/auth/github/callback",
     passport.authenticate("github", {
       session: false
     }),

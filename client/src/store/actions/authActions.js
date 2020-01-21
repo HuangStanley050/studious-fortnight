@@ -6,7 +6,7 @@ const loginStart = () => ({
   type: Action.LOGIN_START
 });
 
-const loginOkay = userInfo => ({
+export const loginOkay = userInfo => ({
   type: Action.LOGIN_OKAY,
   userInfo
 });
@@ -16,7 +16,30 @@ const loginFail = err => ({
   err
 });
 
+const registerStart = () => ({
+  type: Action.REGISTER_START
+});
+
+const registerOkay = () => ({
+  type: Action.REGISTER_OKAY
+});
+
+const registerFail = err => ({
+  type: Action.REGISTER_START,
+  err
+});
+
 // async function
+//
+
+export const register = userInfo => {
+  return async dispatch => {
+    dispatch(registerStart());
+    let result = await axios.post(API.register, userInfo);
+    console.log(result.data);
+    dispatch(registerOkay());
+  };
+};
 
 export const login = userInfo => {
   return async dispatch => {
