@@ -21,7 +21,7 @@ const registerStart = () => ({
 });
 
 const registerOkay = () => ({
-  type: Action.REGISTER_START
+  type: Action.REGISTER_OKAY
 });
 
 const registerFail = err => ({
@@ -34,8 +34,10 @@ const registerFail = err => ({
 
 export const register = userInfo => {
   return async dispatch => {
-    console.log(userInfo);
     dispatch(registerStart());
+    let result = await axios.post(API.register, userInfo);
+    console.log(result.data);
+    dispatch(registerOkay());
   };
 };
 
