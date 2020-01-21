@@ -25,13 +25,14 @@ const reducer = (state = initialState, action) => {
         loading: true
       };
     case Action.LOGIN_OKAY:
-      console.log(action.userInfo);
+      console.log(action.payload.userInfo);
+      localStorage.setItem("CMCFlow", action.payload.token);
       return {
         ...state,
         isAuth: true,
         userInfo: {
           ...state.userInfo,
-          ...action.userInfo
+          ...action.payload.userInfo
         },
         loading: false
       };

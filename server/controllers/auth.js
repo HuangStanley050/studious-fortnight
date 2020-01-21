@@ -14,7 +14,7 @@ exports.resetPassword = async (req, res) => {
   try {
     user = await User.findOne({ email });
     const msg = {
-      to: email, // test email for now
+      to: email,
       from: "CMCFlow@meditation.com",
       subject: "Password Reset Link",
       text: "To reset your password",
