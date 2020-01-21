@@ -1,4 +1,6 @@
-## Setup APIS
+Monday Stand-up:
+
+# Setup APIS
 
 API access points for when user submits the quiz after registration => set information based on experience level submitted
 
@@ -53,3 +55,12 @@ const courseSchema = new mongoose.Schema(
   { collection: "course" }
 );
 ```
+
+Tuesday Stand-up: 
+
+- Mark: Basic react styling with CSS stuff 
+  - navbar sticky to top
+  - footer always on the bottom
+  - do rough templates for discover and profile page
+- Carl: continue with play meditation component
+- Stanley: Auth / register

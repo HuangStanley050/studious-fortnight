@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-// import ProfileNavBar from '../components/ProfileNavBar.jsx';
+import ProfileNavBar from '../components/ProfileNavBar.jsx';
+import './Profile.scss';
 
 const Profile = () => {
   const [display, setDisplay] = useState("stats");
@@ -12,10 +13,8 @@ const Profile = () => {
 
   return (
     <>
-      <span onClick={displayContent} value="stats">STATS</span> &nbsp;
-      <span onClick={displayContent} value="journey">JOURNEY</span> &nbsp;
-      <span onClick={displayContent} value="account">ACCOUNT</span>
-
+      <ProfileNavBar display={display} displayContent={displayContent} />
+      <h1> </h1>
       <h1>{ (display === "stats") ? "Stats component" : null }</h1>
       <h1>{ (display === "journey") ? "Journey Component" : null }</h1>
       <h1>{ (display === "account") ? "Account Component" : null }</h1>
