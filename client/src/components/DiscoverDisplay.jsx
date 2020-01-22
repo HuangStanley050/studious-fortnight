@@ -1,12 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import DiscoverDisplayStatus from './DiscoverDisplayStatus.jsx';
 
 const DiscoverDisplay = (props) => {
   const { usersMeditations, currentlyShowing, activeCourse, activeBadge } = props;
 
   let completedLessons = 0;
   usersMeditations.forEach((meditation) => {
-    if(meditation.courseId === activeCourse.courseId && meditation.completed === false) {
+    if(meditation.courseId === activeCourse.courseId && meditation.completed === true) {
       completedLessons++;
     }
   })
@@ -17,12 +18,9 @@ const DiscoverDisplay = (props) => {
         <>
           <h1>{activeCourse.name}</h1>
           <p>Duration: {activeCourse.duration}</p>
-          <p>Completed lessons: 
-            {completedLessons}
-            /{activeCourse.totalLessons} 
-          </p>
+          <DiscoverDisplayStatus completedLessons={completedLessons} activeCourse={activeCourse} />
           <Link className="picture-content" to={`/my/discover/${activeCourse.id}`}>
-            <img className="course-image" src={activeCourse.image_url} />
+            <img className="course-image" src={activeCourse.image_url} alt="" />
           </Link>
         </>
       ) : (

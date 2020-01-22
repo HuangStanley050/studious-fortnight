@@ -1,10 +1,10 @@
-const Course = require('../models/Courses');
-const Meditation = require('../models/Meditation');
-const User = require('../models/User');
+const Course = require("../models/Courses");
+const Meditation = require("../models/Meditation");
+const User = require("../models/User");
 
 const createSessionDetail = (startingChoice, level) => {
   switch (startingChoice) {
-    case "beginner": 
+    case "beginner":
       return {
         level: level + 1,
         quote: "A wise man says things here to a beginner meditator",
@@ -25,49 +25,40 @@ const createSessionDetail = (startingChoice, level) => {
         currentTime: 0,
         totalTime: 600 // in seconds, 10 minutes
       };
-    default: 
+    default:
       break;
   }
-}
+};
 
 const createCourse = async (userId, startingChoice, courseDetail, res) => {
   try {
-    const newCourse = await Course.create( {courseDetail, userId} );
+    const newCourse = await Course.create({ courseDetail, userId });
     //create new meditation:
-    let meditationArray = []; 
+    let meditationArray = [];
     let i = 0;
 
     for (i; i < courseDetail.levels; i++) {
-      const newMeditation = await Meditation
-      .create({
+      const newMeditation = await Meditation.create({
         sessionDetail: createSessionDetail(startingChoice, i),
         completed: false,
         userId,
         courseId: newCourse
       });
       meditationArray.push(newMeditation);
-    };
+    }
     newCourse.meditationId = meditationArray;
     await newCourse.save();
 
     //find the user based on id
     //push courseid into user courseId as an array;
     //push meditation array into meditationId;
-    User.findOne( {_id: userId} ).then( (user) => {
+    User.findOne({ _id: userId }).then(user => {
       if (user.courseId !== null) {
-        user.courseId = [
-          ...user.courseId,
-          newCourse
-        ];
+        user.courseId = [...user.courseId, newCourse];
       } else {
-        user.courseId = [
-          newCourse
-        ];
+        user.courseId = [newCourse];
       }
-      user.meditationId = [
-        ...user.meditationId,
-        ...meditationArray 
-      ];
+      user.meditationId = [...user.meditationId, ...meditationArray];
       user.save();
     });
 
@@ -80,45 +71,36 @@ const createCourse = async (userId, startingChoice, courseDetail, res) => {
       newMeditations: meditationArray
     });
   } catch (err) {
-    console.log("=================================")
+    console.log("=================================");
     console.log("in error hmm");
     console.log(err);
     res.status(402).json(err);
   }
-}
+};
 
 exports.returnCourses = async (req, res) => {
-  const { userId } = req.body;
+  const { id } = req.user;
 
-  Course.find({userId: userId})
-  .then((allCourses) => {
-    res.json(allCourses);
-  })
-  .catch( (err) => res.json(err) );
-}
+  const courses = await Course.find({ userId: id });
+  return res.json(courses);
+};
 
 exports.returnMeditations = async (req, res) => {
-  const { userId } = req.body;
+  const { id } = req.user;
 
-  Meditation.find({userId: userId})
-  .then((allMeditations) => {
-    res.json(allMeditations);
-  })
-  .catch( (err) => res.json(err) );
-}
+  let meditations = await Meditation.find({ userId: id });
+  return res.json(meditations);
+};
 
 exports.returnBadges = async (req, res) => {
-  const { userId } = req.body;
+  const { id } = req.user;
 
-  User.find({_id: userId})
-  .then((user) => {
-    res.json(user[0].badges);
-  })
-  .catch( (err) => res.json(err) );
+  let user = await User.find({_id: id});
+  return res.json(user[0].badges);
 }
 
 exports.starterCourse = async (req, res) => {
-  //purpose: to create new course for specific user based on initial quiz. 
+  //purpose: to create new course for specific user based on initial quiz.
   //recieve info from user survey for starting difficulty level:
 
   const { userId, startingChoice = "beginner" } = req.body;
@@ -132,7 +114,7 @@ exports.starterCourse = async (req, res) => {
       levels: 3,
       music: "testmusic.mp3" //dummy data used for now.
     };
-    //create new course: 
+    //create new course:
     createCourse(userId, startingChoice, courseDetail, res);
   } else if (startingChoice === "intermediate") {
     //intermediate session: 5 minutes each, 4 sessions
@@ -143,7 +125,7 @@ exports.starterCourse = async (req, res) => {
     };
     //create new course:
     createCourse(userId, startingChoice, courseDetail, res);
-  } else if ( startingChoice === "expert" ) {
+  } else if (startingChoice === "expert") {
     //intermediate session: 5 minutes each, 5 sessions
     const courseDetail = {
       difficulty: "expert",
@@ -153,26 +135,29 @@ exports.starterCourse = async (req, res) => {
     createCourse(userId, startingChoice, courseDetail, res);
   }
 
-  User.findById({_id: userId}).then((user) => {
-    user.badges[0].unlocked = "true";
-    user.save();
-  }).catch((err) => {
-    res.send(err);
-    console.log(err);
-  });
+  User.findById({ _id: userId })
+    .then(user => {
+      user.badges[0].unlocked = "true";
+      user.save();
+    })
+    .catch(err => {
+      res.send(err);
+      console.log(err);
+    });
 };
 
 exports.nextCourse = async (req, res) => {
   const { userId } = req.body;
 
-  User.findOne( {_id: userId} ).then( (user) => {
-    const lastCourseId = user.courseId[user.courseId.length - 1]
+  User.findOne({ _id: userId }).then(user => {
+    const lastCourseId = user.courseId[user.courseId.length - 1];
 
-    Course.findOne( {_id: lastCourseId }).then( (course) => {
+    Course.findOne({ _id: lastCourseId })
+      .then(course => {
         const courseDifficulty = course.courseDetail.difficulty;
         let courseDetail;
-        switch(courseDifficulty) {
-          case "beginner": 
+        switch (courseDifficulty) {
+          case "beginner":
             console.log("added beginner course");
             //create a new course with choice as "intermediate"
             courseDetail = {
@@ -195,18 +180,19 @@ exports.nextCourse = async (req, res) => {
             res.send("added expert course, intermediate finished");
             break;
           case "expert":
-            console.log("added no courses, you finished expert!")
+            console.log("added no courses, you finished expert!");
             res.send("added no courses");
             //do something to say "completed all?" or do nothing for now.. MVP
             break;
           default:
             //unreachable code basically
             break;
-        } 
-    }).catch((err) => {
-      res.send("the user has not started any courses yet. Where are you accessing this API link?")
-    })
-
+        }
+      })
+      .catch(err => {
+        res.send(
+          "the user has not started any courses yet. Where are you accessing this API link?"
+        );
+      });
   });
-
-}
+};
