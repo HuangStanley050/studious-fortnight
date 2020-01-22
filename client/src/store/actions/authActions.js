@@ -6,9 +6,9 @@ const loginStart = () => ({
   type: Action.LOGIN_START
 });
 
-export const loginOkay = userInfo => ({
+export const loginOkay = (userInfo, token) => ({
   type: Action.LOGIN_OKAY,
-  userInfo
+  payload: { userInfo, token }
 });
 
 const loginFail = err => ({
@@ -43,10 +43,13 @@ export const register = userInfo => {
 
 export const login = userInfo => {
   return async dispatch => {
-    console.log(userInfo);
+    //console.log(userInfo);
     dispatch(loginStart());
     let result = await axios.post(API.login, userInfo);
-    dispatch(loginOkay(result.data.userInfo));
+    const userDetail = result.data.userInfo;
+    const token = result.data.token;
+    dispatch(loginOkay(userDetail, token));
+
     console.log(result.data);
   };
 };

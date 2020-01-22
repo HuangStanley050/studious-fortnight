@@ -14,6 +14,8 @@ import AuthPage from "./pages/Auth.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import PasswordReset from "./pages/PasswordReset";
 import PrivateRoute from './components/PrivateRoute';
+import PasswordRecovery from "./pages/PasswordRecovery";
+
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
           <Route path="/contact" component={Contact} />
           <Route path="/about" component={About} />
           <Route path="/auth" component={AuthPage} />
+          <Route path="/password_recovery" component={PasswordRecovery} />
           <Route
             path="/reset_password/:userId/:token"
             render={({ match }) => (

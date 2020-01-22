@@ -8,7 +8,7 @@ const paymentRouter = require("./routes/payment");
 const cors = require('cors');
 
 const app = express();
-require("./config/githubOauth");
+
 require("./config/facebookOauth");
 require("./config/jwtStrategy");
 require("./config/googleOauth");

@@ -5,8 +5,9 @@ const router = express.Router();
 
 router
   .post("/api/auth/local/password_reset", AuthController.resetPassword)
-  .get(
-    "/api/auth/local/password_new/:userId/:token",
+  .post(
+    "/api/auth/local/password_new",
+    passport.authenticate("jwt", { session: false }),
     AuthController.setNewPassword
   )
   .post("/api/auth/local/login", AuthController.localLogin)
@@ -34,23 +35,6 @@ router
     "/api/auth/facebook/callback",
     passport.authenticate("facebook", { session: false }),
     AuthController.oAuthLogin
-  )
-  .get(
-    "/api/auth/github",
-    passport.authenticate("github", {
-      scope: ["user:email", "read:org"],
-      session: false
-    })
-  )
-  .get(
-    "/api/auth/github/callback",
-    passport.authenticate("github", {
-      session: false
-    }),
-    (req, res) => {
-      console.log(req);
-      res.send("hello");
-    }
   );
 
 module.exports = router;

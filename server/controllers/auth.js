@@ -6,23 +6,48 @@ sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 exports.resetPassword = async (req, res) => {
   const { email } = req.body;
+  let user;
   const token = jwt.sign({ email }, process.env.JWT_SECRET, {
     expiresIn: "1h"
   });
-  let user = await User.findOne({ email });
 
-  const msg = {
-    to: "ewgodhand@gmail.com", // test email for now
-    from: "CMCFlow@meditation.com",
-    subject: "Password Reset Link",
-    text: "To reset your password",
-    html: `<a href="${process.env.PASSWORD_REDIRECT}reset_password/${user._id}/${token}">Reset your password</a>`
-  };
-  sgMail.send(msg);
-  res.send("reset password route");
+  try {
+    user = await User.findOne({ email });
+    const msg = {
+      to: email,
+      from: "CMCFlow@meditation.com",
+      subject: "Password Reset Link",
+      text: "To reset your password",
+      html: `<a href="${process.env.PASSWORD_REDIRECT}reset_password/${user._id}/${token}">Reset your password</a>`
+    };
+    sgMail.send(msg);
+    return res.status(200).send("Email sent for reset password");
+  } catch (err) {
+    // user doesn't exists
+    // or other issues
+    return res.status(400).send({
+      msg: "Unable to reset password"
+    });
+  }
 };
 exports.setNewPassword = async (req, res) => {
-  res.send("set new password");
+  const { email } = req.user;
+  const password = req.body.email;
+
+  try {
+    let user = await User.findOne({ email });
+    if (user.externalProvider) {
+      throw new Error("user has an oauth account");
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    user.password = hash;
+    await user.save();
+    res.send("set new password");
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("Unable to set new password");
+  }
 };
 exports.oAuthLogin = (req, res, next) => {
   const payload = {
@@ -44,10 +69,12 @@ exports.localLogin = async (req, res, next) => {
     }
     if (user.externalProvider) {
       throw new Error("User has an account already");
+      return res.status(400).send("User has an existing account");
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      throw new Error("Password is not correct");
+      //throw new Error("Password is not correct");
+      return res.status(400).send("Unable to login");
     }
     const payload = {
       email: user.email,
@@ -70,7 +97,8 @@ exports.localRegister = async (req, res, next) => {
     let user = await User.findOne({ email });
     console.log(user);
     if (user) {
-      throw new Error("User already exists");
+      //throw new Error("User already exists");
+      return res.status(400).send("User already exists");
     }
     const newUser = new User({ email, password: hash });
     let registerUser = await newUser.save();
