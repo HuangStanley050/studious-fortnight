@@ -21,10 +21,6 @@ const PasswordReset = ({ userId, token }) => {
       [e.target.name]: e.target.value
     });
   };
-  // if (!userId.match(/^[0-9a-fA-F]{24}$/) || !jwt_decode(token)) {
-  //   console.log("not a valid userId");
-  //   return <Redirect to="/" />;
-  // }
   const handleSubmit = async e => {
     e.preventDefault();
     let result = await axios({
@@ -35,6 +31,10 @@ const PasswordReset = ({ userId, token }) => {
     });
     console.log(result.data);
   };
+  if (!userId.match(/^[0-9a-fA-F]{24}$/) || !jwt_decode(token)) {
+    console.log("not a valid userId");
+    return <Redirect to="/" />;
+  }
   return (
     <div>
       <form onSubmit={handleSubmit}>

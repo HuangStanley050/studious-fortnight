@@ -32,7 +32,8 @@ exports.resetPassword = async (req, res) => {
 };
 exports.setNewPassword = async (req, res) => {
   const { email } = req.user;
-  const { password } = req.body;
+  const password = req.body.email;
+
   try {
     let user = await User.findOne({ email });
     if (user.externalProvider) {
