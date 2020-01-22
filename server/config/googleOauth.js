@@ -1,6 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/User");
+const badges = require("../hardcoded_data/badges");
 
 passport.use(
   "google",
@@ -27,7 +28,8 @@ passport.use(
 
         let newUser = await new User({
           email,
-          externalProvider
+          externalProvider,
+          badges
         }).save();
       } catch (err) {
         return done(null, newUser);

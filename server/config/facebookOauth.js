@@ -1,6 +1,7 @@
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 const User = require("../models/User");
+const badges = require("../hardcoded_data/badges");
 
 passport.use(
   "facebook",
@@ -28,7 +29,8 @@ passport.use(
 
         let newUser = await new User({
           email,
-          externalProvider
+          externalProvider,
+          badges
         }).save();
       } catch (err) {
         return done(null, newUser);
