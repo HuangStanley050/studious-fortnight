@@ -25,9 +25,15 @@ const PasswordReset = ({ userId, token }) => {
   //   console.log("not a valid userId");
   //   return <Redirect to="/" />;
   // }
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log(passwordDetail);
+    let result = await axios({
+      headers: { Authorization: `bearer ${token}` },
+      method: "post",
+      url: API.newPassword,
+      data: { email: passwordDetail.password }
+    });
+    console.log(result.data);
   };
   return (
     <div>
