@@ -74,4 +74,4 @@ const PasswordReset = ({ userId, token, history }) => {
   );
 };
 
-export default withRouter()(PasswordReset);
+export default withRouter(PasswordReset);
