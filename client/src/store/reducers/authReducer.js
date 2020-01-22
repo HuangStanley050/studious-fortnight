@@ -26,7 +26,9 @@ const reducer = (state = initialState, action) => {
       };
     case Action.LOGIN_OKAY:
       // console.log(action.payload.userInfo);
+      console.log(action.payload.token);
       localStorage.setItem("CMCFlow", action.payload.token);
+      console.log("local set!");
       return {
         ...state,
         isAuth: true,
