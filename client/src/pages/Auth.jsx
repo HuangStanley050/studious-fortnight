@@ -21,7 +21,7 @@ const AuthPage = ({ isAuth, loginOkay, hasRegistered }) => {
 
       const { email, id } = jwt_decode(token);
       const userInfo = { email, id };
-
+      console.log("from oauth ", token);
       loginOkay(userInfo, token);
     }
   }, [isAuth, loginOkay]);
@@ -40,7 +40,7 @@ const AuthPage = ({ isAuth, loginOkay, hasRegistered }) => {
   );
 };
 const mapDispatch = dispatch => ({
-  loginOkay: userInfo => dispatch(loginOkay(userInfo))
+  loginOkay: (userInfo, token) => dispatch(loginOkay(userInfo, token))
 });
 const mapState = state => ({
   isAuth: state.auth.isAuth,
