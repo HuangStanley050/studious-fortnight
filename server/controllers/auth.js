@@ -31,7 +31,22 @@ exports.resetPassword = async (req, res) => {
   }
 };
 exports.setNewPassword = async (req, res) => {
-  res.send("set new password");
+  const { email } = req.user;
+  const { password } = req.body;
+  try {
+    let user = await User.findOne({ email });
+    if (user.externalProvider) {
+      throw new Error("user has an oauth account");
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    user.password = hash;
+    await user.save();
+    res.send("set new password");
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("Unable to set new password");
+  }
 };
 exports.oAuthLogin = (req, res, next) => {
   const payload = {
@@ -53,10 +68,12 @@ exports.localLogin = async (req, res, next) => {
     }
     if (user.externalProvider) {
       throw new Error("User has an account already");
+      return res.status(400).send("User has an existing account");
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      throw new Error("Password is not correct");
+      //throw new Error("Password is not correct");
+      return res.status(400).send("Unable to login");
     }
     const payload = {
       email: user.email,

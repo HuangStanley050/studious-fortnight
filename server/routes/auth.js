@@ -5,8 +5,9 @@ const router = express.Router();
 
 router
   .post("/api/auth/local/password_reset", AuthController.resetPassword)
-  .get(
-    "/api/auth/local/password_new/:userId/:token",
+  .post(
+    "/api/auth/local/password_new",
+    passport.authenticate("jwt", { session: false }),
     AuthController.setNewPassword
   )
   .post("/api/auth/local/login", AuthController.localLogin)
