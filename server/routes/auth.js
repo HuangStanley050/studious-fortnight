@@ -35,23 +35,6 @@ router
     "/api/auth/facebook/callback",
     passport.authenticate("facebook", { session: false }),
     AuthController.oAuthLogin
-  )
-  .get(
-    "/api/auth/github",
-    passport.authenticate("github", {
-      scope: ["user:email", "read:org"],
-      session: false
-    })
-  )
-  .get(
-    "/api/auth/github/callback",
-    passport.authenticate("github", {
-      session: false
-    }),
-    (req, res) => {
-      console.log(req);
-      res.send("hello");
-    }
   );
 
 module.exports = router;

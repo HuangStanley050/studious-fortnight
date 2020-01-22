@@ -7,7 +7,7 @@ const courseRouter = require("./routes/course");
 const paymentRouter = require("./routes/payment");
 
 const app = express();
-require("./config/githubOauth");
+
 require("./config/facebookOauth");
 require("./config/jwtStrategy");
 require("./config/googleOauth");
