@@ -33,13 +33,20 @@ exports.resetPassword = async (req, res) => {
 exports.setNewPassword = async (req, res) => {
   const { email } = req.user;
   const { password } = req.body;
-  let user = await User.findOne({ email });
-
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(password, salt);
-  user.password = hash;
-  await user.save();
-  res.send("set new password");
+  try {
+    let user = await User.findOne({ email });
+    if (user.externalProvider) {
+      throw new Error("user has an oauth account");
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    user.password = hash;
+    await user.save();
+    res.send("set new password");
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("Unable to set new password");
+  }
 };
 exports.oAuthLogin = (req, res, next) => {
   const payload = {
