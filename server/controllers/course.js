@@ -62,7 +62,7 @@ const createCourse = async (userId, startingChoice, courseDetail, res) => {
       user.save();
     });
 
-    console.log("=================================");
+    console.log("=================================")
     console.log("success");
     res.status(200).json({
       title: "New course",
@@ -92,11 +92,18 @@ exports.returnMeditations = async (req, res) => {
   return res.json(meditations);
 };
 
+exports.returnBadges = async (req, res) => {
+  const { id } = req.user;
+
+  let user = await User.find({_id: id});
+  return res.json(user[0].badges);
+}
+
 exports.starterCourse = async (req, res) => {
   //purpose: to create new course for specific user based on initial quiz.
   //recieve info from user survey for starting difficulty level:
 
-  const { userId, startingChoice } = req.body;
+  const { userId, startingChoice = "beginner" } = req.body;
 
   console.log(userId, startingChoice);
   //create mongoose models required from the user

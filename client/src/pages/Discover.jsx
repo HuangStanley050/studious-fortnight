@@ -6,46 +6,26 @@ import DiscoverDisplay from "../components/DiscoverDisplay.jsx";
 import { connect } from "react-redux";
 import axios from "axios";
 
-// //api call to discover all available courses, hard coded for now:
+//discover all available courses, hard coded:
 import courses from "../dummyData/courses";
-// //api call to discover all available badges, hard coded for now:
-import badges from "../dummyData/badges";
 import API from "../api";
 
-// Need to work out how many meditation sessions are completed in a course, and pass them down into discover discoverDisplay!
-
 const Discover = ({ user }) => {
-  const loggedInUserId = user.id;
-
+  // const loggedInUserId = user.id;
   const [usersCourses, setUsersCourses] = useState([]);
   const [usersMeditations, setUsersMeditations] = useState([]);
-  const [usersbadges, setUsersBadges] = useState([]);
+  const [usersBadges, setUsersBadges] = useState([]);
 
-  //set currentlyShowing hardcoded to beginner
+  //set currentlyShowing hardcoded to courses
   const [currentlyShowing, setShowing] = useState("courses");
   //set activeCourse hardcoded to beginner
   const [activeCourse, setCourse] = useState(courses[0]);
   //set activeBadge hardcoded to "Journey starter"
-  const [activeBadge, setBadge] = useState(badges[0]);
+  const [activeBadge, setBadge] = useState({});
 
-  //used to get actual users stuff:
-
-  //get users meditation data	    //get users meditation data
-
-  /******
-
-  Two data fetch calls are very similar we might be able to refactor into one function or use Promise.all[] inside that function to resolve the two promises
-
-  Again looking at this, we need redux to keep all data available because at home page we need to have some meditation data and if we were to keep all data here, we won't be able to pass data to Home page to show that meditation session.
- **/
-
+  //fetch users info from API:
   useEffect(() => {
-    //get users courses data
-    //setUsersCourses(response.data);
-    //get users meditation data
-    //setUsersMeditations(response.data);
-    //fetch badge data
-
+    //get users course data
     const fetchUsersCoursesData = async () => {
       const token = localStorage.getItem("CMCFlow");
       console.log(token);
@@ -54,9 +34,11 @@ const Discover = ({ user }) => {
         method: "get",
         url: API.courseData
       });
-      console.log(response.data);
-      // this is where you do your set state
-    };
+      console.log(response.data, "<== course data")
+      setUsersCourses(response.data);
+    }
+    fetchUsersCoursesData();
+    //get users meditation data
     const fetchUsersMeditationData = async () => {
       const token = localStorage.getItem("CMCFlow");
       const response = await axios({
@@ -64,12 +46,27 @@ const Discover = ({ user }) => {
         method: "get",
         url: API.meditationData
       });
-      console.log(response.data);
+      console.log(response.data, "<== meditation data");
       // set the state here
+      setUsersMeditations(response.data);
     };
-    fetchUsersCoursesData();
     fetchUsersMeditationData();
-  }, [loggedInUserId, usersCourses]);
+    //fetch users badge data
+    const fetchUsersBadgeData = async () => {
+      // const response = await axios.get(`http://localhost:8000/api/badges`, {
+      //   body: { userId: loggedInUserId }
+      // });
+      const token = localStorage.getItem("CMCFlow");
+      const response = await axios({
+        headers: { Authorization: `bearer ${token}` },
+        method: "get",
+        url: API.badgeData
+      });
+      console.log(response.data, "<=== badge data"); 
+      setUsersBadges(response.data);
+    }
+    fetchUsersBadgeData();
+  }, []);
 
   useEffect(() => {
     usersCourses.forEach(course => {
@@ -84,7 +81,7 @@ const Discover = ({ user }) => {
         setCourse(fixedCourse);
       }
     });
-  }, [activeCourse, usersCourses]);
+  }, [usersCourses, usersBadges]);
 
   const setTheCourseDisplay = async e => {
     setShowing("courses");
@@ -109,14 +106,14 @@ const Discover = ({ user }) => {
   const setTheBadgeDisplay = e => {
     setShowing("badges");
     const setTo = e.currentTarget.getAttribute("value");
-    const findBadge = badges.find(badge => badge.name === setTo);
+    const findBadge = usersBadges.find(badge => badge.name === setTo);
     setBadge(findBadge);
   };
 
   //calculate how many badges are unlocked:
   let unlocked = 0;
-  for (let i = 0; i < badges.length - 1; i++) {
-    if (badges[i].unlocked === true) {
+  for (let i = 0; i < usersBadges.length - 1; i++) {
+    if (usersBadges[i].unlocked === true) {
       unlocked++;
     }
   }
@@ -125,7 +122,7 @@ const Discover = ({ user }) => {
     <div className="discover-content">
       <div className="left-select-content">
         <h2>Courses</h2>
-        {/* <p>Active course id: {activeCourse.courseId} </p> */}
+        {/* <p>Active course id: {activeCourse.courseId} </p>  */}
         <DiscoverCoursesList
           courses={courses}
           usersMeditations={usersMeditations}
@@ -134,16 +131,13 @@ const Discover = ({ user }) => {
 
         <br />
         <h2>Badges</h2>
-        <p>
-          Unlocked: {unlocked} / {badges.length}{" "}
-        </p>
-        {badges.length > unlocked ? (
-          <p>Keep meditating to unlock more badges!</p>
-        ) : (
+        <p>Unlocked: {unlocked} / {usersBadges.length} </p>
+        {usersBadges.length > unlocked ? 
+          <p>Keep meditating to unlock more badges!</p> : 
           <p>You unlocked all the badges, congrats!</p>
-        )}
+        }
         <DiscoverBadgesList
-          badges={badges}
+          badges={usersBadges}
           setTheBadgeDisplay={setTheBadgeDisplay}
         />
       </div>

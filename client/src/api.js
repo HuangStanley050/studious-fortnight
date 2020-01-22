@@ -4,5 +4,6 @@ export default {
   resetPassword: "/api/auth/local/password_reset",
   newPassword: "/api/auth/local/password_new",
   courseData: "/api/course",
-  meditationData: "/api/meditation"
+  meditationData: "/api/meditation",
+  badgeData: "/api/badges"
 };
