@@ -21,10 +21,10 @@ exports.resetPassword = async (req, res) => {
       html: `<a href="${process.env.PASSWORD_REDIRECT}reset_password/${user._id}/${token}">Reset your password</a>`
     };
     sgMail.send(msg);
-    return res.send("reset password route");
+    return res.status(200).send("Email sent for reset password");
   } catch (err) {
     // user doesn't exists
-
+    // or other issues
     return res.status(400).send({
       msg: "Unable to reset password"
     });
