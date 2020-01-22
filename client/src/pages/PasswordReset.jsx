@@ -34,6 +34,7 @@ const PasswordReset = ({ userId, token }) => {
       <form onSubmit={handleSubmit}>
         <h1>Password reset form</h1>
         <div>
+          <h4>Password</h4>
           <input
             type="password"
             name="password"
@@ -42,6 +43,7 @@ const PasswordReset = ({ userId, token }) => {
           />
         </div>
         <div>
+          <h4>Confirm Password</h4>
           <input
             type="password"
             name="confirmPassword"
