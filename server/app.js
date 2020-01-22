@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const authRouter = require("./routes/auth");
 const courseRouter = require("./routes/course");
 const paymentRouter = require("./routes/payment");
-const cors = require('cors');
 
 const app = express();
 
@@ -19,7 +18,7 @@ mongoose.connect(process.env.MONGODB_URI, () =>
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 app.use(express.json());
-app.use(cors());
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(authRouter);
