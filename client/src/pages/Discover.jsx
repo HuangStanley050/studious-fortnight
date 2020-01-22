@@ -31,6 +31,15 @@ const Discover = ({ user }) => {
   //used to get actual users stuff:
 
   //get users meditation data	    //get users meditation data
+
+  /******
+
+  Two data fetch calls are very similar we might be able to refactor into one function or use Promise.all[] inside that function to resolve the two promises
+
+  Again looking at this, we need redux to keep all data available because at home page we need to have some meditation data and if we were to keep all data here, we won't be able to pass data to Home page to show that meditation session.
+
+
+  ****/
   const fetchUsersCoursesData = async () => {
     const token = localStorage.getItem("CMCFlow");
     console.log(token);
