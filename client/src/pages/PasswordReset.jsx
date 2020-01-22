@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
+
 import API from "../api";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -7,7 +8,7 @@ import jwt_decode from "jwt-decode";
 /*
 id.match(/^[0-9a-fA-F]{24}$/)
  */
-const PasswordReset = ({ userId, token }) => {
+const PasswordReset = ({ userId, token, history }) => {
   // check if the route params is valid
   // prevent user from getting to it directly from client side
   // this will only load from the link opened from user email
@@ -23,16 +24,25 @@ const PasswordReset = ({ userId, token }) => {
   };
   const handleSubmit = async e => {
     e.preventDefault();
-    let result = await axios({
-      headers: { Authorization: `bearer ${token}` },
-      method: "post",
-      url: API.newPassword,
-      data: { email: passwordDetail.password }
-    });
-    console.log(result.data);
+    try {
+      let result = await axios({
+        headers: { Authorization: `bearer ${token}` },
+        method: "post",
+        url: API.newPassword,
+        data: { email: passwordDetail.password }
+      });
+      setPasswordDetail({
+        ...passwordDetail,
+        password: "",
+        confirmPassword: ""
+      });
+      history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
   if (!userId.match(/^[0-9a-fA-F]{24}$/) || !jwt_decode(token)) {
-    console.log("not a valid userId");
+    console.log("not a valid userId or token");
     return <Redirect to="/" />;
   }
   return (
@@ -64,4 +74,4 @@ const PasswordReset = ({ userId, token }) => {
   );
 };
 
-export default PasswordReset;
+export default withRouter()(PasswordReset);
