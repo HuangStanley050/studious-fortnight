@@ -8,8 +8,12 @@ router.get("/api/course", courseController.returnCourses);
 //route to get all a users meditations
 router.get("/api/meditation", courseController.returnMeditations);
 
+//route to get all a users badges
+router.get("/api/badges", courseController.returnBadges);
+
 //route to create a new course upon sign up quiz submission
 router.post("/api/course/start", courseController.starterCourse);
+
 
 //route to begin next course
 router.post("/api/course/begin_next", courseController.nextCourse);

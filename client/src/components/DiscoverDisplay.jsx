@@ -3,12 +3,9 @@ import {Link} from 'react-router-dom';
 
 const DiscoverDisplay = (props) => {
   const { usersMeditations, currentlyShowing, activeCourse, activeBadge } = props;
-  // console.log(usersMeditations)
-  console.log(activeCourse);
 
   let completedLessons = 0;
   usersMeditations.forEach((meditation) => {
-    console.log(meditation.completed);
     if(meditation.courseId === activeCourse.courseId && meditation.completed === false) {
       completedLessons++;
     }

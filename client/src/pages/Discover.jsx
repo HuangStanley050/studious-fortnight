@@ -18,7 +18,7 @@ const Discover = ({user}) => {
 
   const [usersCourses, setUsersCourses] = useState([]);
   const [usersMeditations, setUsersMeditations] = useState([]);
-  const [usersbadges, setUsersBadges] = useState([]);
+  const [usersBadges, setUsersBadges] = useState([]);
 
   //set currentlyShowing hardcoded to beginner
   const [currentlyShowing, setShowing] = useState("courses");
@@ -37,7 +37,6 @@ const Discover = ({user}) => {
       await setUsersCourses(response.data);
     }
     fetchUsersCoursesData();
-    console.log(usersCourses);
     
     //get users meditation data
     const fetchUsersMeditationData = async () => {
@@ -47,7 +46,16 @@ const Discover = ({user}) => {
       setUsersMeditations(response.data);
     }
     fetchUsersMeditationData();
+
     //fetch badge data
+    const fetchUsersBadgeData = async () => {
+      const response = await axios.get(`http://localhost:8000/api/badges`, {
+        body: { userId: loggedInUserId }
+      });
+      console.log(response.data); //<==== not working
+      setUsersBadges(response.data);
+    }
+    fetchUsersBadgeData();
   }, []);
 
   useEffect(() => {
@@ -107,7 +115,7 @@ const Discover = ({user}) => {
 
         <br />
         <h2>Badges</h2>
-        <p>Unlocked: {unlocked} / {badges.length} </p>
+        <p>Unlocked: {unlocked} / {usersBadges.length} </p>
         {badges.length > unlocked ? 
           <p>Keep meditating to unlock more badges!</p> : 
           <p>You unlocked all the badges, congrats!</p>
