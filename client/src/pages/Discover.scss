@@ -22,27 +22,18 @@
     margin-right: 2.5%;
     // background: blue;
 
-    .course-image {
+    .picture-content {
+      display: flex;
       width: 80%;
+      // height: 100%;
+      background: var(--main-link-color);
       border-radius: 25px;
-      opacity: 0.5;
-      filter: alpha(opacity=50);
+      .course-image {
+        width: 100%;
+        opacity: 0.9;
+        filter: alpha(opacity=50);
+      }
     }
-
-    // .picture-content {
-    //   display: flex;
-    //   width: 50%;
-    //   height: 100%;
-    //   background: var(--main-link-color);
-    //   border-radius: 25px;
-    // .course-image {
-    //   width: 80%;
-    //   border-radius: 25px;
-    //   opacity: 0.5;
-    //   filter: alpha(opacity=50);
-    // }
-    // }
-
 
     .badge-image {
       width: 50%;
