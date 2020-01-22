@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_KEY);
+const badges = require("../hardcoded_data/badges");
 
 exports.resetPassword = async (req, res) => {
   const { email } = req.body;
@@ -101,6 +102,8 @@ exports.localRegister = async (req, res, next) => {
       return res.status(400).send("User already exists");
     }
     const newUser = new User({ email, password: hash });
+    //pre-load badges with unlocked: false as default setting
+    newUser.badges = badges;
     let registerUser = await newUser.save();
     return res.send({ msg: "user registered", registerUser });
   } catch (err) {

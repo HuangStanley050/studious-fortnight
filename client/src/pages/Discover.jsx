@@ -50,23 +50,17 @@ const Discover = ({user}) => {
     //fetch badge data
   }, []);
 
-  // useEffect(() => {
-  //         //set active courseId straight away
-  //     console.log(usersCourses.length);
-  //     usersCourses.forEach((course) => {
-  //       console.log("ahhh")
-  //       console.log(activeCourse.name.toLowerCase())
-  //       console.log(course.courseDetail.difficulty.toLowerCase())
-  //       if(activeCourse.name.toLowerCase() == course.courseDetail.difficulty.toLowerCase()) {
-  //         console.log("here")
-  //         const fixedCourse = {
-  //           ...activeCourse, 
-  //           courseId: course._id
-  //         }
-  //         setCourse(fixedCourse);
-  //       };
-  //     });
-  // }, []);
+  useEffect(() => {
+      usersCourses.forEach((course) => {
+        if(activeCourse.name.toLowerCase() == course.courseDetail.difficulty.toLowerCase()) {
+          const fixedCourse = {
+            ...activeCourse, 
+            courseId: course._id
+          }
+          setCourse(fixedCourse);
+        };
+      });
+  }, [usersCourses]);
 
   const setTheCourseDisplay = async (e) => {
     setShowing("courses");
@@ -104,7 +98,7 @@ const Discover = ({user}) => {
     <div className="discover-content">
       <div className="left-select-content">
         <h2>Courses</h2>
-        <p>Active course id: {activeCourse.courseId} </p>
+        {/* <p>Active course id: {activeCourse.courseId} </p> */}
         <DiscoverCoursesList 
           courses={courses} 
           usersMeditations={usersMeditations}

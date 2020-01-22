@@ -53,13 +53,12 @@ const createCourse = async (userId, startingChoice, courseDetail, res) => {
     //find the user based on id
     //push courseid into user courseId as an array;
     //push meditation array into meditationId;
-    User.findOne( {__id: userId} ).then( (user) => {
+    User.findOne( {_id: userId} ).then( (user) => {
       if (user.courseId !== null) {
         user.courseId = [
           ...user.courseId,
           newCourse
         ];
-
       } else {
         user.courseId = [
           newCourse
@@ -112,7 +111,10 @@ exports.returnMeditations = async (req, res) => {
 exports.starterCourse = async (req, res) => {
   //purpose: to create new course for specific user based on initial quiz. 
   //recieve info from user survey for starting difficulty level:
-  const { userId, startingChoice = "beginner" } = req.body;
+
+  const { userId, startingChoice } = req.body;
+
+  console.log(userId, startingChoice);
   //create mongoose models required from the user
   if (startingChoice === "beginner") {
     //beginner session: 3 minutes each, 3 sessions
@@ -123,7 +125,6 @@ exports.starterCourse = async (req, res) => {
     };
     //create new course: 
     createCourse(userId, startingChoice, courseDetail, res);
-
   } else if (startingChoice === "intermediate") {
     //intermediate session: 5 minutes each, 4 sessions
     const courseDetail = {
@@ -142,7 +143,16 @@ exports.starterCourse = async (req, res) => {
     };
     createCourse(userId, startingChoice, courseDetail, res);
   }
+
+  User.findById({_id: userId}).then((user) => {
+    user.badges[0].unlocked = "true";
+    user.save();
+  }).catch((err) => {
+    res.send(err);
+    console.log(err);
+  });
 };
+
 
 exports.nextCourse = async (req, res) => {
   const { userId } = req.body;

@@ -67,4 +67,12 @@ Tuesday Stand-up:
 
 
 Badges: 
-Need to populate badges data into user on user creation. All "unlocked" turned off. 
+- Need to populate badges data into user on user creation w/ all "unlocked" turned off. 
+- need to add fields to model: description "string"
+- 
+
+
+
+DATA FLOW: 
+Step 1: New user signs up (currently a post request on postman) => badge data auto seeded
+Step 2: User completes quiz (currently a post request on postman, just need user Id and difficulty (auto set to beginner)) => populates a course (i.e. beginner) with meditation sessions (i.e. 3 for beginner, w/ duration) => unlocks journey starter badge

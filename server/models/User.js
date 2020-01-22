@@ -23,9 +23,11 @@ const userSchema = new mongoose.Schema(
     },
     badges: [
       {
+        id: Number,
         name: String,
         unlocked: Boolean,
-        image: String
+        image_url: String,
+        description: String
       }
     ],
     preferredMeditationTime: {
