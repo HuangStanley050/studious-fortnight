@@ -54,16 +54,23 @@ const createCourse = async (userId, startingChoice, courseDetail, res) => {
     //push courseid into user courseId as an array;
     //push meditation array into meditationId;
     User.findOne( {_id: userId} ).then( (user) => {
-      user.courseId = [
-        ...user.courseId,
-        newCourse
-      ];
+      if (user.courseId !== null) {
+        user.courseId = [
+          ...user.courseId,
+          newCourse
+        ];
+      } else {
+        user.courseId = [
+          newCourse
+        ];
+      }
       user.meditationId = [
         ...user.meditationId,
         ...meditationArray 
       ];
       user.save();
     });
+
 
     console.log("=================================")
     console.log("success");
@@ -81,10 +88,33 @@ const createCourse = async (userId, startingChoice, courseDetail, res) => {
   }
 }
 
+exports.returnCourses = async (req, res) => {
+  const { userId } = req.body;
+
+  Course.find({userId: userId})
+  .then((allCourses) => {
+    res.json(allCourses);
+  })
+  .catch( (err) => res.json(err) );
+}
+
+exports.returnMeditations = async (req, res) => {
+  const { userId } = req.body;
+
+  Meditation.find({userId: userId})
+  .then((allMeditations) => {
+    res.json(allMeditations);
+  })
+  .catch( (err) => res.json(err) );
+}
+
 exports.starterCourse = async (req, res) => {
   //purpose: to create new course for specific user based on initial quiz. 
   //recieve info from user survey for starting difficulty level:
-  const { userId, startingChoice = "beginner" } = req.body;
+
+  const { userId, startingChoice } = req.body;
+
+  console.log(userId, startingChoice);
   //create mongoose models required from the user
   if (startingChoice === "beginner") {
     //beginner session: 3 minutes each, 3 sessions
@@ -113,7 +143,16 @@ exports.starterCourse = async (req, res) => {
     };
     createCourse(userId, startingChoice, courseDetail, res);
   }
+
+  User.findById({_id: userId}).then((user) => {
+    user.badges[0].unlocked = "true";
+    user.save();
+  }).catch((err) => {
+    res.send(err);
+    console.log(err);
+  });
 };
+
 
 exports.nextCourse = async (req, res) => {
   const { userId } = req.body;

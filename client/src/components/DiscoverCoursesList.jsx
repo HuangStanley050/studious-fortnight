@@ -1,11 +1,14 @@
 import React from 'react';
 
-const DiscoverCoursesList = (props) => {
+const DiscoverCoursesList = ({courses, setTheCourseDisplay}) => {
+  // console.log(courses)
+
   return (
     <>
-    {props.courses.map((course) => {
+    {courses.map((course) => {
+      const {id, name} = course;
       return (
-          <h6 key={course.id} className="course-link" onClick={props.setTheCourseDisplay} value={course.name}>- {course.name}</h6>
+          <h6 key={id} className="course-link" onClick={setTheCourseDisplay} value={name}>- {name}</h6>
       )
     })}
     </>
