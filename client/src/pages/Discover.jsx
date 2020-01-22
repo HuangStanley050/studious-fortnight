@@ -29,54 +29,53 @@ const Discover = ({ user }) => {
   const [activeBadge, setBadge] = useState(badges[0]);
 
   //used to get actual users stuff:
+
+  //get users meditation data	    //get users meditation data
+  const fetchUsersCoursesData = async () => {
+    const token = localStorage.getItem("CMCFlow");
+    console.log(token);
+    const response = await axios({
+      headers: { Authorization: `bearer ${token}` },
+      method: "get",
+      url: API.courseData
+    });
+    console.log(response.data);
+    // this is where you do your set state
+  };
+  const fetchUsersMeditationData = async () => {
+    const token = localStorage.getItem("CMCFlow");
+    const response = await axios({
+      headers: { Authorization: `bearer ${token}` },
+      method: "get",
+      url: API.meditationData
+    });
+    console.log(response.data);
+    // set the state here
+  };
   useEffect(() => {
     //get users courses data
-    const fetchUsersCoursesData = () => {
-      console.log(API.courseData);
-      return axios
-        .get(API.courseData, {
-          body: { userId: loggedInUserId }
-        })
-        .then(data => data);
-      //setUsersCourses(response.data);
-    };
-    fetchUsersCoursesData()
-      .then(result => {
-        console.log(result);
-      })
-      .catch(err => console.log(err));
-
+    //setUsersCourses(response.data);
     //get users meditation data
-    const fetchUsersMeditationData = () => {
-      console.log(API.meditationData);
-      return axios
-        .get(API.meditationData, {
-          body: { userId: loggedInUserId }
-        })
-        .then(result => result);
-      //setUsersMeditations(response.data);
-    };
-    fetchUsersMeditationData()
-      .then(result => console.log(result))
-      .catch(err => console.log(err));
-
+    //setUsersMeditations(response.data);
     //fetch badge data
+    fetchUsersCoursesData();
+    fetchUsersMeditationData();
   }, [loggedInUserId, usersCourses]);
 
-  // useEffect(() => {
-  //   usersCourses.forEach(course => {
-  //     if (
-  //       activeCourse.name.toLowerCase() ===
-  //       course.courseDetail.difficulty.toLowerCase()
-  //     ) {
-  //       const fixedCourse = {
-  //         ...activeCourse,
-  //         courseId: course._id
-  //       };
-  //       setCourse(fixedCourse);
-  //     }
-  //   });
-  // }, [activeCourse, usersCourses]);
+  useEffect(() => {
+    usersCourses.forEach(course => {
+      if (
+        activeCourse.name.toLowerCase() ===
+        course.courseDetail.difficulty.toLowerCase()
+      ) {
+        const fixedCourse = {
+          ...activeCourse,
+          courseId: course._id
+        };
+        setCourse(fixedCourse);
+      }
+    });
+  }, [activeCourse, usersCourses]);
 
   const setTheCourseDisplay = async e => {
     setShowing("courses");
