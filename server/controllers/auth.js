@@ -79,7 +79,8 @@ exports.localRegister = async (req, res, next) => {
     let user = await User.findOne({ email });
     console.log(user);
     if (user) {
-      throw new Error("User already exists");
+      //throw new Error("User already exists");
+      return res.status(400).send("User already exists");
     }
     const newUser = new User({ email, password: hash });
     let registerUser = await newUser.save();
