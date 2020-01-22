@@ -37,36 +37,36 @@ const Discover = ({ user }) => {
   Two data fetch calls are very similar we might be able to refactor into one function or use Promise.all[] inside that function to resolve the two promises
 
   Again looking at this, we need redux to keep all data available because at home page we need to have some meditation data and if we were to keep all data here, we won't be able to pass data to Home page to show that meditation session.
+ **/
 
-
-  ****/
-  const fetchUsersCoursesData = async () => {
-    const token = localStorage.getItem("CMCFlow");
-    console.log(token);
-    const response = await axios({
-      headers: { Authorization: `bearer ${token}` },
-      method: "get",
-      url: API.courseData
-    });
-    console.log(response.data);
-    // this is where you do your set state
-  };
-  const fetchUsersMeditationData = async () => {
-    const token = localStorage.getItem("CMCFlow");
-    const response = await axios({
-      headers: { Authorization: `bearer ${token}` },
-      method: "get",
-      url: API.meditationData
-    });
-    console.log(response.data);
-    // set the state here
-  };
   useEffect(() => {
     //get users courses data
     //setUsersCourses(response.data);
     //get users meditation data
     //setUsersMeditations(response.data);
     //fetch badge data
+
+    const fetchUsersCoursesData = async () => {
+      const token = localStorage.getItem("CMCFlow");
+      console.log(token);
+      const response = await axios({
+        headers: { Authorization: `bearer ${token}` },
+        method: "get",
+        url: API.courseData
+      });
+      console.log(response.data);
+      // this is where you do your set state
+    };
+    const fetchUsersMeditationData = async () => {
+      const token = localStorage.getItem("CMCFlow");
+      const response = await axios({
+        headers: { Authorization: `bearer ${token}` },
+        method: "get",
+        url: API.meditationData
+      });
+      console.log(response.data);
+      // set the state here
+    };
     fetchUsersCoursesData();
     fetchUsersMeditationData();
   }, [loggedInUserId, usersCourses]);
