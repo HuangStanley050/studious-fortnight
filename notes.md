@@ -64,3 +64,7 @@ Tuesday Stand-up:
   - do rough templates for discover and profile page
 - Carl: continue with play meditation component
 - Stanley: Auth / register
+
+
+Badges: 
+Need to populate badges data into user on user creation. All "unlocked" turned off. 

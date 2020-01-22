@@ -1,15 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './Discover.scss';
 import DiscoverCoursesList from '../components/DiscoverCoursesList.jsx';
 import DiscoverBadgesList from '../components/DiscoverBadgesList.jsx';
 import DiscoverDisplay from '../components/DiscoverDisplay.jsx';
+import {connect} from "react-redux";
+import axios from 'axios';
 
-//api call to discover all available courses, hard coded for now:
+// //api call to discover all available courses, hard coded for now:
 import courses from "../dummyData/courses";
-//api call to discover all available badges, hard coded for now:
+// //api call to discover all available badges, hard coded for now:
 import badges from "../dummyData/badges";
 
-const Discover = () => {
+// Need to work out how many meditation sessions are completed in a course, and pass them down into discover discoverDisplay! 
+
+const Discover = ({user}) => {
+  const loggedInUserId = user.id;
+
+  const [usersCourses, setUsersCourses] = useState([]);
+  const [usersMeditations, setUsersMeditations] = useState([]);
+  const [usersbadges, setUsersBadges] = useState([]);
+
   //set currentlyShowing hardcoded to beginner
   const [currentlyShowing, setShowing] = useState("courses");
   //set activeCourse hardcoded to beginner
@@ -17,11 +27,62 @@ const Discover = () => {
   //set activeBadge hardcoded to "Journey starter"
   const [activeBadge, setBadge] = useState(badges[0]);
 
-  const setTheCourseDisplay = (e) => {
+  //used to get actual users stuff:
+  useEffect(() => {
+    //get users courses data
+    const fetchUsersCoursesData = async () => {
+      const response = await axios.get(`http://localhost:8000/api/course`, {
+        body: { userId: loggedInUserId }
+      });
+      await setUsersCourses(response.data);
+    }
+    fetchUsersCoursesData();
+    console.log(usersCourses);
+    
+    //get users meditation data
+    const fetchUsersMeditationData = async () => {
+      const response = await axios.get(`http://localhost:8000/api/meditation`, {
+        body: { userId: loggedInUserId }
+      });
+      setUsersMeditations(response.data);
+    }
+    fetchUsersMeditationData();
+    //fetch badge data
+  }, []);
+
+  // useEffect(() => {
+  //         //set active courseId straight away
+  //     console.log(usersCourses.length);
+  //     usersCourses.forEach((course) => {
+  //       console.log("ahhh")
+  //       console.log(activeCourse.name.toLowerCase())
+  //       console.log(course.courseDetail.difficulty.toLowerCase())
+  //       if(activeCourse.name.toLowerCase() == course.courseDetail.difficulty.toLowerCase()) {
+  //         console.log("here")
+  //         const fixedCourse = {
+  //           ...activeCourse, 
+  //           courseId: course._id
+  //         }
+  //         setCourse(fixedCourse);
+  //       };
+  //     });
+  // }, []);
+
+  const setTheCourseDisplay = async (e) => {
     setShowing("courses");
     const setTo = e.currentTarget.getAttribute("value");
     const findCourse = courses.find((course) => course.name === setTo);
     setCourse(findCourse);
+
+    usersCourses.forEach((course) => {
+      if(findCourse.name.toLowerCase() == course.courseDetail.difficulty.toLowerCase()) {
+        const fixedCourse = {
+          ...findCourse, 
+          courseId: course._id
+        }
+        setCourse(fixedCourse);
+      };
+    });
   }
 
   const setTheBadgeDisplay = (e) => {
@@ -43,8 +104,10 @@ const Discover = () => {
     <div className="discover-content">
       <div className="left-select-content">
         <h2>Courses</h2>
+        <p>Active course id: {activeCourse.courseId} </p>
         <DiscoverCoursesList 
           courses={courses} 
+          usersMeditations={usersMeditations}
           setTheCourseDisplay={setTheCourseDisplay} 
         />
 
@@ -58,11 +121,12 @@ const Discover = () => {
         <DiscoverBadgesList 
           badges={badges} 
           setTheBadgeDisplay={setTheBadgeDisplay} 
-        />
+        /> 
       </div>
 
       <div className="right-display-content">
         <DiscoverDisplay 
+          usersMeditations={usersMeditations}
           activeCourse={activeCourse} 
           activeBadge={activeBadge} 
           currentlyShowing={currentlyShowing}
@@ -72,4 +136,7 @@ const Discover = () => {
   )
 }
 
-export default Discover;
+const mapState = state=>({
+  user: state.auth.userInfo
+})
+export default connect(mapState)(Discover);

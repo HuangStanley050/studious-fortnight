@@ -53,17 +53,25 @@ const createCourse = async (userId, startingChoice, courseDetail, res) => {
     //find the user based on id
     //push courseid into user courseId as an array;
     //push meditation array into meditationId;
-    User.findOne( {_id: userId} ).then( (user) => {
-      user.courseId = [
-        ...user.courseId,
-        newCourse
-      ];
+    User.findOne( {__id: userId} ).then( (user) => {
+      if (user.courseId !== null) {
+        user.courseId = [
+          ...user.courseId,
+          newCourse
+        ];
+
+      } else {
+        user.courseId = [
+          newCourse
+        ];
+      }
       user.meditationId = [
         ...user.meditationId,
         ...meditationArray 
       ];
       user.save();
     });
+
 
     console.log("=================================")
     console.log("success");
@@ -81,6 +89,26 @@ const createCourse = async (userId, startingChoice, courseDetail, res) => {
   }
 }
 
+exports.returnCourses = async (req, res) => {
+  const { userId } = req.body;
+
+  Course.find({userId: userId})
+  .then((allCourses) => {
+    res.json(allCourses);
+  })
+  .catch( (err) => res.json(err) );
+}
+
+exports.returnMeditations = async (req, res) => {
+  const { userId } = req.body;
+
+  Meditation.find({userId: userId})
+  .then((allMeditations) => {
+    res.json(allMeditations);
+  })
+  .catch( (err) => res.json(err) );
+}
+
 exports.starterCourse = async (req, res) => {
   //purpose: to create new course for specific user based on initial quiz. 
   //recieve info from user survey for starting difficulty level:
@@ -95,6 +123,7 @@ exports.starterCourse = async (req, res) => {
     };
     //create new course: 
     createCourse(userId, startingChoice, courseDetail, res);
+
   } else if (startingChoice === "intermediate") {
     //intermediate session: 5 minutes each, 4 sessions
     const courseDetail = {

@@ -2,15 +2,29 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const DiscoverDisplay = (props) => {
-  const {currentlyShowing, activeCourse, activeBadge} = props;
+  const { usersMeditations, currentlyShowing, activeCourse, activeBadge } = props;
+  // console.log(usersMeditations)
+  console.log(activeCourse);
+
+  let completedLessons = 0;
+  usersMeditations.forEach((meditation) => {
+    console.log(meditation.completed);
+    if(meditation.courseId === activeCourse.courseId && meditation.completed === false) {
+      completedLessons++;
+    }
+  })
+
   return (
     <>
       {(currentlyShowing === "courses") ? (
         <>
           <h1>{activeCourse.name}</h1>
           <p>Duration: {activeCourse.duration}</p>
-          <p>Completed lessons: {activeCourse.completedLessons}/{activeCourse.totalLessons}</p>
-          <Link to={`/my/discover/${activeCourse.id}`}>
+          <p>Completed lessons: 
+            {completedLessons}
+            /{activeCourse.totalLessons} 
+          </p>
+          <Link className="picture-content" to={`/my/discover/${activeCourse.id}`}>
             <img className="course-image" src={activeCourse.image_url} />
           </Link>
         </>
