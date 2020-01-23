@@ -7,18 +7,43 @@ const PageOne = props => {
   return (
     <form onSubmit={nextPage}>
       <h1>Page one</h1>
-      <Field
-        name="firstName"
-        type="text"
-        component={renderField}
-        label="First Name"
-      />
-      <Field
-        name="lastName"
-        type="text"
-        component={renderField}
-        label="Last Name"
-      />
+      <h2>how much exp do you have?</h2>
+      <div>
+        <div>
+          <label>
+            <Field
+              name="experience"
+              type="radio"
+              component={renderField}
+              value="No experience"
+            />{" "}
+            No experience
+          </label>
+        </div>
+        <div>
+          <label>
+            <Field
+              name="experience"
+              type="radio"
+              component={renderField}
+              value="Some experience"
+            />{" "}
+            Some experience
+          </label>
+        </div>
+        <div>
+          <label>
+            <Field
+              name="experience"
+              type="radio"
+              component={renderField}
+              value="Expert experience"
+            />{" "}
+            Expert experience
+          </label>
+        </div>
+      </div>
+
       <div>
         <button type="submit" className="next">
           Next

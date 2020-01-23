@@ -3,6 +3,8 @@ import { Container } from "reactstrap";
 import { reduxForm } from "redux-form";
 import PageOne from "./PageOne";
 import PageTwo from "./PageTwo";
+import PageThree from "./PageThree";
+import PageFour from "./PageFour";
 
 const Quiz = props => {
   const [currentPage, setPage] = useState(1);
@@ -13,7 +15,11 @@ const Quiz = props => {
     <Container>
       <h1>starting quizz page</h1>
       {currentPage === 1 && <PageOne nextPage={nextPage} />}
-      {currentPage === 2 && <PageTwo prevPage={prevPage} />}
+      {currentPage === 2 && <PageTwo prevPage={prevPage} nextPage={nextPage} />}
+      {currentPage === 3 && (
+        <PageThree prevPage={prevPage} nextPage={nextPage} />
+      )}
+      {currentPage === 4 && <PageFour prevPage={prevPage} />}
     </Container>
   );
 };

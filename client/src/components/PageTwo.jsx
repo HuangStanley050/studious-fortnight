@@ -3,30 +3,45 @@ import renderField from "./renderField";
 import { Field, reduxForm } from "redux-form";
 
 const PageTwo = props => {
-  const { prevPage } = props;
+  const { prevPage, nextPage } = props;
   return (
     <form>
-      <Field name="email" type="email" component={renderField} label="Email" />
+      <h1>Page two</h1>
+      <h2>What brings you to CMCFlow</h2>
+
       <div>
-        <label>Sex</label>
+        <label>Referral</label>
         <div>
           <label>
-            <Field name="sex" component="input" type="radio" value="male" />{" "}
-            Male
+            <Field
+              name="referral"
+              component="input"
+              type="radio"
+              value="friend"
+            />{" "}
+            Friend
           </label>
           <label>
-            <Field name="sex" component="input" type="radio" value="female" />{" "}
-            Female
+            <Field
+              name="referral"
+              component="input"
+              type="radio"
+              value="internet"
+            />{" "}
+            Internet
           </label>
           <label>
-            <Field name="sex" component="input" type="radio" value="other" />{" "}
-            Other
+            <Field name="referral" component="input" type="radio" value="tv" />{" "}
+            TV
           </label>
         </div>
       </div>
       <div>
         <button type="button" className="previous" onClick={prevPage}>
           Previous
+        </button>
+        <button type="button" className="next" onClick={nextPage}>
+          Next
         </button>
       </div>
     </form>
