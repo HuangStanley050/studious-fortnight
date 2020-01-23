@@ -4,6 +4,7 @@ const User = require("../models/User");
 const sgMail = require("@sendgrid/mail");
 const badges = require("../hardcoded_data/badges");
 const emailValidate = require("../utils/emailValidate");
+const passwordValidate = require("../utils/passwordValidate");
 sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 exports.resetPassword = async (req, res) => {
@@ -99,6 +100,9 @@ exports.localRegister = async (req, res, next) => {
   try {
     if (!emailValidate(email)) {
       throw new Error("Email is not valid");
+    }
+    if (!passwordValidate(password)) {
+      throw new Error("Password not valid");
     }
     let user = await User.findOne({ email });
     //console.log(user);
