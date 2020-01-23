@@ -104,6 +104,7 @@ exports.localRegister = async (req, res, next) => {
     const newUser = new User({ email, password: hash });
     //pre-load badges with unlocked: false as default setting
     newUser.badges = badges;
+    newUser.currentMeditation = "";
     let registerUser = await newUser.save();
     return res.send({ msg: "user registered", registerUser });
   } catch (err) {

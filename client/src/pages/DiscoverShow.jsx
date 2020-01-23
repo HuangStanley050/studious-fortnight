@@ -72,18 +72,32 @@ const DiscoverShow = (props) => {
       }
     }
     fetchSessionData();
-  }, []);
+  }, [isStarted]);
 
   const showSessions = () => {
     setViewSessions(!viewSessions);
   }
 
-  const addToMyCourses = (e) => {
-    console.log("add to my courses")
+  const addToMyCourses = async () => {
     //logic to add to course here. API call post! 
-    const courseName = e.currentTarget.getAttribute("value").toLowerCase();
-    
-    //
+    const token = localStorage.getItem("CMCFlow");
+    const response = await axios({
+      headers: { Authorization: `bearer ${token}` },
+      data: {courseName: course.name.toLowerCase()},
+      method: "post",
+      url: API.addCourse
+    }); 
+
+    if(response.data) {
+      setIsStarted(true);
+    }
+  }
+
+  const setCurrentCourse = () => {
+    //need to change controller or something so user has a currentMeditation field
+
+    //add to my courses now sets current meditation course automatically 
+    //need to do this for other courses too? or if click a link in the drop down thing
   }
 
   const playCourse = () => {
@@ -91,15 +105,15 @@ const DiscoverShow = (props) => {
     //logic to go to course (it already exists)
     //logic to go to set the "current" course, first incompleted meditation of that course.
     // i.e. something like this:
-
-    // props.history.push("/my");
+    setCurrentCourse();
+    props.history.push("/my");
   }
 
   const startCourse = (e) => {
     console.log("clicked start course")
     //first add course 
     addToMyCourses();
-    playCourse()
+    playCourse();
   }
 
   return (
@@ -125,7 +139,6 @@ const DiscoverShow = (props) => {
           <div className="add-button">
             <i 
               className="far fa-plus-square fa-3x"
-              value={course.name}
               onClick={addToMyCourses}
             ></i>
             &nbsp; ADD TO MY COURSES

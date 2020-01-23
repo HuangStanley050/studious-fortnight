@@ -34,4 +34,11 @@ router.post(
 //route to begin next course
 router.post("/api/course/begin_next", courseController.nextCourse);
 
+//route to add new course from discover page
+router.post(
+  "/api/course/add",
+  passport.authenticate("jwt", { session: false }),
+  courseController.addCourse
+);
+
 module.exports = router;

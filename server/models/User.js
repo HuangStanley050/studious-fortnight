@@ -8,6 +8,9 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true
+    }, 
+    currentMeditation: {
+      type: String
     },
     externalProvider: {
       type: String
@@ -59,8 +62,7 @@ const userSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Donation"
       }
-    ],
-    currentMeditation: String
+    ]
   },
   { timestamps: true }
 );

@@ -6,5 +6,6 @@ export default {
   courseData: "/api/course",
   meditationData: "/api/meditation",
   badgeData: "/api/badges",
-  setCourse: "/api/course/start"
+  setCourse: "/api/course/start",
+  addCourse: "/api/course/add"
 };
