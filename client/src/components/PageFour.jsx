@@ -1,11 +1,35 @@
 import React from "react";
 import renderField from "./renderField";
-import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
+import axios from "axios";
+import API from "../api";
+import { closeQuiz } from "../store/actions/quizActions";
+import { Field, reduxForm, getFormValues } from "redux-form";
 
-const PageFour = props => {
-  const { prevPage } = props;
+let PageFour = ({ values, prevPage, dispatch }) => {
+  const submitHandler = async e => {
+    e.preventDefault();
+    const { experience } = values;
+    let startingChoice;
+    if (experience === "No experience") {
+      startingChoice = "beginner";
+    } else if (experience === "Some experience") {
+      startingChoice = "intermediate";
+    } else {
+      startingChoice = "expert";
+    }
+    const token = localStorage.getItem("CMCFlow");
+    let result = await axios({
+      headers: { Authorization: `bearer ${token}` },
+      method: "post",
+      url: API.setCourse,
+      data: { startingChoice }
+    });
+    console.log(result.data);
+    dispatch(closeQuiz());
+  };
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <h1>Page Four</h1>
       <h2>Preferred Meditation Time</h2>
       <div>
@@ -41,6 +65,9 @@ const PageFour = props => {
   );
 };
 
+PageFour = connect(state => ({
+  values: getFormValues("quiz")(state)
+}))(PageFour);
 export default reduxForm({
   form: "quiz", // <------ same form name
   destroyOnUnmount: false, // <------ preserve form data

@@ -30,9 +30,9 @@ const createSessionDetail = (startingChoice, level) => {
   }
 };
 
-const createCourse = async (userId, startingChoice, courseDetail, res) => {
+const createCourse = async (id, startingChoice, courseDetail, res) => {
   try {
-    const newCourse = await Course.create({ courseDetail, userId });
+    const newCourse = await Course.create({ courseDetail, userId: id });
     //create new meditation:
     let meditationArray = [];
     let i = 0;
@@ -41,7 +41,7 @@ const createCourse = async (userId, startingChoice, courseDetail, res) => {
       const newMeditation = await Meditation.create({
         sessionDetail: createSessionDetail(startingChoice, i),
         completed: false,
-        userId,
+        userId: id,
         courseId: newCourse
       });
       meditationArray.push(newMeditation);
@@ -52,7 +52,7 @@ const createCourse = async (userId, startingChoice, courseDetail, res) => {
     //find the user based on id
     //push courseid into user courseId as an array;
     //push meditation array into meditationId;
-    User.findOne({ _id: userId }).then(user => {
+    User.findOne({ _id: id }).then(user => {
       if (user.courseId !== null) {
         user.courseId = [...user.courseId, newCourse];
       } else {
@@ -62,7 +62,7 @@ const createCourse = async (userId, startingChoice, courseDetail, res) => {
       user.save();
     });
 
-    console.log("=================================")
+    console.log("=================================");
     console.log("success");
     res.status(200).json({
       title: "New course",
@@ -95,18 +95,18 @@ exports.returnMeditations = async (req, res) => {
 exports.returnBadges = async (req, res) => {
   const { id } = req.user;
 
-  let user = await User.find({_id: id});
+  let user = await User.find({ _id: id });
   return res.json(user[0].badges);
-}
+};
 
 
 exports.starterCourse = async (req, res) => {
   //purpose: to create new course for specific user based on initial quiz.
   //recieve info from user survey for starting difficulty level:
-
-  const { userId, startingChoice = "beginner" } = req.body;
-
-  console.log(userId, startingChoice);
+  const { id } = req.user;
+  const { startingChoice = "beginner" } = req.body;
+  console.log("start course controller in action....");
+  console.log(id, startingChoice);
   //create mongoose models required from the user
   if (startingChoice === "beginner") {
     //beginner session: 3 minutes each, 3 sessions
@@ -116,7 +116,7 @@ exports.starterCourse = async (req, res) => {
       music: "testmusic.mp3" //dummy data used for now.
     };
     //create new course:
-    createCourse(userId, startingChoice, courseDetail, res);
+    createCourse(id, startingChoice, courseDetail, res);
   } else if (startingChoice === "intermediate") {
     //intermediate session: 5 minutes each, 4 sessions
     const courseDetail = {
@@ -125,7 +125,7 @@ exports.starterCourse = async (req, res) => {
       music: "testmusic.mp3" //dummy data used for now.
     };
     //create new course:
-    createCourse(userId, startingChoice, courseDetail, res);
+    createCourse(id, startingChoice, courseDetail, res);
   } else if (startingChoice === "expert") {
     //intermediate session: 5 minutes each, 5 sessions
     const courseDetail = {
@@ -133,10 +133,10 @@ exports.starterCourse = async (req, res) => {
       levels: 5,
       music: "testmusic.mp3" //dummy data used for now.
     };
-    createCourse(userId, startingChoice, courseDetail, res);
+    createCourse(id, startingChoice, courseDetail, res);
   }
 
-  User.findById({ _id: userId })
+  User.findById({ _id: id })
     .then(user => {
       user.badges[0].unlocked = "true";
       user.save();

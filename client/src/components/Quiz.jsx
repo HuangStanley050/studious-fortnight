@@ -7,6 +7,8 @@ import PageTwo from "./PageTwo";
 import PageThree from "./PageThree";
 import PageFour from "./PageFour";
 import { closeQuiz } from "../store/actions/quizActions";
+import API from "../api";
+import axios from "axios";
 
 let Quiz = ({ hasRegistered, turnOffQuiz }) => {
   const [currentPage, setPage] = useState(1);
@@ -18,7 +20,7 @@ let Quiz = ({ hasRegistered, turnOffQuiz }) => {
     <Container>
       <h1>starting quizz page</h1>
       <span>
-        <button onClick={() => turnOffQuiz()}>Close Quiz</button>
+        <button onClick={turnOffQuiz}>Close Quiz</button>
       </span>
       {currentPage === 1 && <PageOne nextPage={nextPage} />}
       {currentPage === 2 && <PageTwo prevPage={prevPage} nextPage={nextPage} />}
@@ -30,7 +32,18 @@ let Quiz = ({ hasRegistered, turnOffQuiz }) => {
   );
 };
 const mapDispatch = dispatch => ({
-  turnOffQuiz: () => dispatch(closeQuiz())
+  turnOffQuiz: async () => {
+    // let the api knows that the user have close off the quiz and set default to 'beginner'
+    const token = localStorage.getItem("CMCFlow");
+    let result = axios({
+      url: API.setCourse,
+      headers: { Authorization: `bearer ${token}` },
+      method: "post",
+      data: { startingChoice: "beginner" }
+    });
+    console.log(result.data);
+    dispatch(closeQuiz());
+  }
 });
 Quiz = connect(
   null,
