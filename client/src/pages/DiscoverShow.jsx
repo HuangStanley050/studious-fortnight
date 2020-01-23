@@ -4,6 +4,7 @@ import "./DiscoverShow.scss";
 import courses from "../dummyData/courses";
 import axios from 'axios';
 import API from "../api";
+import {fetchSessionData, fetchUsersCourseData} from "../components/fetchForDiscoverShow.js";
 
 const DiscoverShow = (props) => {
   const [viewSessions, setViewSessions] = useState(false);
@@ -15,63 +16,10 @@ const DiscoverShow = (props) => {
   //course data: 
   const course = courses.find((course) => course.id == id);
 
-  // console.log(course.name, "<==course dummy")
-
   //api call to find users course if it exists
   useEffect(() => {
-    const fetchUsersCourseData = async () => {
-      const token = localStorage.getItem("CMCFlow");
-      const response = await axios({
-        headers: { Authorization: `bearer ${token}` },
-        method: "get",
-        url: API.courseData
-      }); 
-
-      response.data.map((userCourse) => {
-        const usersCourse = userCourse.courseDetail.difficulty;
-        if( usersCourse.toLowerCase() == course.name.toLowerCase()) {
-          // console.log(usersCourse, "match!")
-          setIsStarted(true);
-        }
-      });
-    }
-    fetchUsersCourseData();
-
-    const fetchSessionData = async () => {
-      const token = localStorage.getItem("CMCFlow");
-      const responseMeditation = await axios({
-        headers: { Authorization: `bearer ${token}` },
-        method: "get",
-        url: API.meditationData
-      }); 
-      // console.log(responseMeditation.data, "<== list of all meditations");
-      //only push relevant sessions
-      //first get courseData
-      const responseCourse = await axios({
-        headers: { Authorization: `bearer ${token}` },
-        method: "get",
-        url: API.courseData
-      });
-      // console.log(responseCourse.data, "<==list of all courses");
-
-      let usersCourseId = "";
-
-      responseCourse.data.forEach((theCourse) => {
-        if(theCourse.courseDetail.difficulty.toLowerCase() === course.name.toLowerCase()) {
-          usersCourseId = theCourse._id;
-          // console.log(theCourse._id, "<== course Id")
-        } else {
-          //user hasn't started this course yet
-          // console.log("user hasnt started course");
-        }
-      });
-
-      if(usersCourseId != "") {
-        const usersSessions = responseMeditation.data.filter((session) => session.courseId === usersCourseId);
-        setSessions(usersSessions);
-      }
-    }
-    fetchSessionData();
+    fetchUsersCourseData(course, setIsStarted);
+    fetchSessionData(course, setSessions);
   }, [isStarted]);
 
   const showSessions = () => {
@@ -89,31 +37,44 @@ const DiscoverShow = (props) => {
     }); 
 
     if(response.data) {
-      setIsStarted(true);
+      await setIsStarted(true);
     }
   }
 
-  const setCurrentCourse = () => {
-    //need to change controller or something so user has a currentMeditation field
+  const goHomeToPlay = () => {
+    props.history.push("/my")
+  }
 
-    //add to my courses now sets current meditation course automatically 
-    //need to do this for other courses too? or if click a link in the drop down thing
+  const updateTheCurrentMeditation = async (meditationId) => {
+    //api call which updates users currentMeditation
+    const token = localStorage.getItem("CMCFlow");
+    const response = await axios({
+      headers: { Authorization: `bearer ${token}` },
+      data: { meditationId: meditationId },
+      method: "post",
+      url: API.updateCurrentMeditation
+    }); 
+  }
+
+  const setCurrentMeditation = (e) => {
+    const sessionIndex = e.currentTarget.getAttribute("value");
+    const meditationId = sessions[sessionIndex]._id
+
+    updateTheCurrentMeditation(meditationId);
+    goHomeToPlay();
   }
 
   const playCourse = () => {
-    console.log("play course");
-    //logic to go to course (it already exists)
-    //logic to go to set the "current" course, first incompleted meditation of that course.
-    // i.e. something like this:
-    setCurrentCourse();
-    props.history.push("/my");
-  }
-
-  const startCourse = (e) => {
-    console.log("clicked start course")
-    //first add course 
-    addToMyCourses();
-    playCourse();
+    // //logic to go to course (it already exists)
+    // iterate through sessions, find the first one that isn't completed, set that to completed course then redirect to home 
+    let meditationId = sessions[0]._id;
+    sessions.forEach((session) => {
+      if(session.completed === true) {
+        meditationId = session._id;
+      }
+    })
+    updateTheCurrentMeditation(meditationId);
+    goHomeToPlay();
   }
 
   return (
@@ -170,7 +131,7 @@ const DiscoverShow = (props) => {
                     {session.completed == true ?
                       <i className="far fa-check-square"></i>
                     :
-                      <i className="far fa-caret-square-right"></i>
+                      <i className="far fa-caret-square-right" value={index} onClick={setCurrentMeditation}></i>
                     }
                     Session {index + 1}
                   </span>
@@ -198,8 +159,8 @@ const DiscoverShow = (props) => {
         </>
       :
         <>
-        <div className="begin-button" onClick={startCourse}>BEGIN</div>
-        <div className="time-button" onClick={startCourse}>{course.duration.toUpperCase()}</div>
+        <div className="begin-button" onClick={addToMyCourses}>BEGIN</div>
+        <div className="time-button" onClick={addToMyCourses}>{course.duration.toUpperCase()}</div>
         </>
       }
 

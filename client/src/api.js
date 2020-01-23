@@ -8,5 +8,6 @@ export default {
   userMeditation: "/api/meditation_user",
   badgeData: "/api/badges",
   setCourse: "/api/course/start",
-  addCourse: "/api/course/add"
+  addCourse: "/api/course/add",
+  updateCurrentMeditation: "/api/course/update-meditation"
 };
