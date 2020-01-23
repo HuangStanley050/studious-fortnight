@@ -26,7 +26,8 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "react-youtube": "^7.9.0",
-    "stripe": "^8.4.0"
+    "stripe": "^8.4.0",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "concurrently": "^5.0.2",
