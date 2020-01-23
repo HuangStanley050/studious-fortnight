@@ -106,8 +106,9 @@ setComplete = () => {
       async componentWillUnmount() {
         const player = this.state.player
         const currentTime = player.getCurrentTime()
-        
+        const token = localStorage.getItem("CMCFlow");
       const endOfSession = await axios({
+          headers:{Authorization: `bearer ${token}`},
           data: {
             currentTime: currentTime,
             completed: this.state.watchComplete
