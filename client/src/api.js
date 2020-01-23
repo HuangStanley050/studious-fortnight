@@ -5,5 +5,6 @@ export default {
   newPassword: "/api/auth/local/password_new",
   courseData: "/api/course",
   meditationData: "/api/meditation",
-  badgeData: "/api/badges"
+  badgeData: "/api/badges",
+  setCourse: "/api/course/start"
 };
