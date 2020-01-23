@@ -58,25 +58,25 @@ const DiscoverShow = (props) => {
 
       let usersCourseId = "";
 
-      // responseCourse.data.forEach((theCourse) => {
-      //   // console.log(theCourse.courseDetail.difficulty)
-      //   // console.log(course.name)
-      //   if(theCourse.courseDetail.difficulty.toLowerCase() === course.name.toLowerCase()) {
-      //     usersCourseId = theCourse._id;
-      //     console.log(theCourse._id, "<== course Id")
+      responseCourse.data.forEach((theCourse) => {
+        // console.log(theCourse.courseDetail.difficulty)
+        // console.log(course.name)
+        if(theCourse.courseDetail.difficulty.toLowerCase() === course.name.toLowerCase()) {
+          usersCourseId = theCourse._id;
+          console.log(theCourse._id, "<== course Id")
 
-      //     //set sessions that are of the right course only
-      //     // let sessionsToSet = [];
-      //     // responseMeditation.data.forEach((meditation) => {
-      //     //   if(meditation.courseId === theCourse._id) {
-      //     //     console.log("hmm")
-      //     //   }
-      //     // })
-      //   } else {
-      //     //user hasn't started this course yet
-      //     console.log("user hasnt started course");
-      //   }
-      // })
+          //set sessions that are of the right course only
+          // let sessionsToSet = [];
+          // responseMeditation.data.forEach((meditation) => {
+          //   if(meditation.courseId === theCourse._id) {
+          //     console.log("hmm")
+          //   }
+          // })
+        } else {
+          //user hasn't started this course yet
+          console.log("user hasnt started course");
+        }
+      })
 
       setSessions(responseMeditation.data);
     }
