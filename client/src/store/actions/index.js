@@ -1,3 +1,4 @@
 import authAction from "./auth";
+import quizAction from "./quiz";
 
-export default { ...authAction };
+export default { ...authAction, ...quizAction };
