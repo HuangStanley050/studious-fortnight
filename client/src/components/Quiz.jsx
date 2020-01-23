@@ -18,7 +18,7 @@ let Quiz = ({ hasRegistered, turnOffQuiz }) => {
     <Container>
       <h1>starting quizz page</h1>
       <span>
-        <button onClick={() => turnOffQuiz()}>Close Quiz</button>
+        <button onClick={turnOffQuiz}>Close Quiz</button>
       </span>
       {currentPage === 1 && <PageOne nextPage={nextPage} />}
       {currentPage === 2 && <PageTwo prevPage={prevPage} nextPage={nextPage} />}
