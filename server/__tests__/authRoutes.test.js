@@ -11,6 +11,6 @@ test("Local login should fail with incorrect password", async done => {
   //console.log(res);
   expect(res.text).toBe("Unable to login");
   expect(res.statusCode).toBe(400);
-  mongoose.connection.close();
+  //mongoose.connection.close();
   done();
 });
