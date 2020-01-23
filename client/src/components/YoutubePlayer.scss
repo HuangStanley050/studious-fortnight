@@ -1,0 +1,40 @@
+
+.vidPlayer{
+    pointer-events: none;
+  }
+  
+  .playerButton{
+    cursor: pointer;
+    background: transparent;
+    font-size: 16px;
+    border-radius: 3px;
+    color: palevioletred;
+    border: 2px solid palevioletred;
+    margin: 0 1em;
+    padding: 0.25em 1em;
+    transition: 0.5s all ease-out;
+    &:hover {
+      background-color: palevioletred;
+      color: white;
+            }
+    }
+  
+    .track{
+      width: 100%;
+      height: 20px;
+      background-color: #222;
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px #000;
+      #thumb{
+        width: auto;
+        height: 100%;
+        background-color: #6bccf9;
+        border-radius: 8px;
+        transition: width 0.5s linear;
+    }  
+    }
+      
+  
+  
+  
+  
