@@ -1,5 +1,6 @@
 const app = require("../app"); // Link to your server file
 const supertest = require("supertest");
+const mongoose = require("mongoose");
 const request = supertest(app);
 
 test("Local login should fail with incorrect password", async done => {
@@ -11,4 +12,10 @@ test("Local login should fail with incorrect password", async done => {
   expect(res.text).toBe("Unable to login");
   expect(res.statusCode).toBe(400);
   done();
+  afterAll(async () => {
+    // drop connection to the collection
+    const connection = mongoose.connection;
+    console.log(connection);
+    await connection.drop();
+  });
 });
