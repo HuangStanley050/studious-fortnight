@@ -4,7 +4,8 @@ const initialState = {
   isAuth: false,
   hasRegistered: false,
   userInfo: {},
-  loading: false
+  loading: false,
+  error: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,6 +25,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         hasRegistered: true
+      };
+    case Action.REGISTER_FAIL:
+      const error = action.err.response.data.msg;
+      //console.log(action.err.response.data.msg);
+      return {
+        ...state,
+        loading: false,
+        error
       };
     case Action.LOGIN_START:
       return {

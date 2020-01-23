@@ -25,7 +25,7 @@ const registerOkay = () => ({
 });
 
 const registerFail = err => ({
-  type: Action.REGISTER_START,
+  type: Action.REGISTER_FAIL,
   err
 });
 
@@ -34,22 +34,32 @@ const registerFail = err => ({
 
 export const register = userInfo => {
   return async dispatch => {
-    dispatch(registerStart());
-    let result = await axios.post(API.register, userInfo);
-    console.log(result.data);
-    dispatch(registerOkay());
+    try {
+      dispatch(registerStart());
+      let result = await axios.post(API.register, userInfo);
+      //console.log(result.data);
+      dispatch(registerOkay());
+    } catch (err) {
+      //console.log(err.response);
+      dispatch(registerFail(err));
+    }
   };
 };
 
 export const login = userInfo => {
   return async dispatch => {
     //console.log(userInfo);
-    dispatch(loginStart());
-    let result = await axios.post(API.login, userInfo);
-    const userDetail = result.data.userInfo;
-    const token = result.data.token;
-    dispatch(loginOkay(userDetail, token));
+    try {
+      dispatch(loginStart());
+      let result = await axios.post(API.login, userInfo);
+      const userDetail = result.data.userInfo;
+      const token = result.data.token;
+      dispatch(loginOkay(userDetail, token));
+    } catch (err) {
+      console.log(err);
+      dispatch(loginFail(err));
+    }
 
-    console.log(result.data);
+    //console.log(result.data);
   };
 };
