@@ -2,8 +2,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_KEY);
 const badges = require("../hardcoded_data/badges");
+const emailValidate = require("../utils/emailValidate");
+sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 exports.resetPassword = async (req, res) => {
   const { email } = req.body;
@@ -62,6 +63,7 @@ exports.oAuthLogin = (req, res, next) => {
 };
 exports.localLogin = async (req, res, next) => {
   const { email, password } = req.body;
+
   let user;
   try {
     user = await User.findOne({ email }); // simulate data base look up
@@ -95,11 +97,14 @@ exports.localRegister = async (req, res, next) => {
   const hash = await bcrypt.hash(password, salt);
 
   try {
+    if (!emailValidate(email)) {
+      throw new Error("Email is not valid");
+    }
     let user = await User.findOne({ email });
-    console.log(user);
+    //console.log(user);
     if (user) {
       //throw new Error("User already exists");
-      return res.status(400).send("User already exists");
+      throw new Error("User already exists");
     }
     const newUser = new User({ email, password: hash });
     //pre-load badges with unlocked: false as default setting
@@ -109,5 +114,6 @@ exports.localRegister = async (req, res, next) => {
     return res.send({ msg: "user registered", registerUser });
   } catch (err) {
     console.log(err);
+    return res.status(400).send("Unable to register");
   }
 };
