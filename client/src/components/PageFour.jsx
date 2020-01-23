@@ -3,9 +3,10 @@ import renderField from "./renderField";
 import { connect } from "react-redux";
 import axios from "axios";
 import API from "../api";
+import { closeQuiz } from "../store/actions/quizActions";
 import { Field, reduxForm, getFormValues } from "redux-form";
 
-let PageFour = ({ values, prevPage }) => {
+let PageFour = ({ values, prevPage, dispatch }) => {
   const submitHandler = async e => {
     e.preventDefault();
     const { experience } = values;
@@ -18,13 +19,14 @@ let PageFour = ({ values, prevPage }) => {
       startingChoice = "expert";
     }
     const token = localStorage.getItem("CMCFlow");
-    let result = axios({
+    let result = await axios({
       headers: { Authorization: `bearer ${token}` },
       method: "post",
       url: API.setCourse,
       data: { startingChoice }
     });
     console.log(result.data);
+    dispatch(closeQuiz());
   };
   return (
     <form onSubmit={submitHandler}>
