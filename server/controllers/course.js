@@ -32,7 +32,7 @@ const createSessionDetail = (startingChoice, level) => {
 
 const createCourse = async (id, startingChoice, courseDetail, res) => {
   try {
-    const newCourse = await Course.create({ courseDetail, id });
+    const newCourse = await Course.create({ courseDetail, userId: id });
     //create new meditation:
     let meditationArray = [];
     let i = 0;
