@@ -82,7 +82,7 @@ exports.localLogin = async (req, res, next) => {
       id: user.id
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1h"
+      expiresIn: "24h"
     });
     return res.send({ msg: "login success", token, userInfo: payload });
   } catch (err) {
@@ -104,6 +104,7 @@ exports.localRegister = async (req, res, next) => {
     const newUser = new User({ email, password: hash });
     //pre-load badges with unlocked: false as default setting
     newUser.badges = badges;
+    newUser.currentMeditation = "";
     let registerUser = await newUser.save();
     return res.send({ msg: "user registered", registerUser });
   } catch (err) {

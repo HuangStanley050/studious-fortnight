@@ -28,13 +28,13 @@ const Discover = ({ user }) => {
     //get users course data
     const fetchUsersCoursesData = async () => {
       const token = localStorage.getItem("CMCFlow");
-      console.log(token);
+      // console.log(token);
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
         url: API.courseData
       });
-      console.log(response.data, "<== course data")
+      // console.log(response.data, "<== course data")
       setUsersCourses(response.data);
     }
     fetchUsersCoursesData();
@@ -46,23 +46,20 @@ const Discover = ({ user }) => {
         method: "get",
         url: API.meditationData
       });
-      console.log(response.data, "<== meditation data");
+      // console.log(response.data, "<== meditation data");
       // set the state here
       setUsersMeditations(response.data);
     };
     fetchUsersMeditationData();
     //fetch users badge data
     const fetchUsersBadgeData = async () => {
-      // const response = await axios.get(`http://localhost:8000/api/badges`, {
-      //   body: { userId: loggedInUserId }
-      // });
       const token = localStorage.getItem("CMCFlow");
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
         url: API.badgeData
       });
-      console.log(response.data, "<=== badge data"); 
+      // console.log(response.data, "<=== badge data"); 
       setUsersBadges(response.data);
     }
     fetchUsersBadgeData();

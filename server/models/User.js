@@ -8,6 +8,9 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true
+    }, 
+    currentMeditation: {
+      type: String
     },
     externalProvider: {
       type: String

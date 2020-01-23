@@ -138,6 +138,10 @@ exports.starterCourse = async (req, res) => {
   User.findById({ _id: id })
     .then(user => {
       user.badges[0].unlocked = "true";
+      //find 
+      Meditation.find({userId: id, completed: false}).then((meditation) => {
+        user.currentMeditation = meditation._id;
+      })
       user.save();
     })
     .catch(err => {
@@ -196,3 +200,115 @@ exports.nextCourse = async (req, res) => {
       });
   });
 };
+
+exports.addCourse = async (req, res) => {
+  const { id } = req.user;
+  const { courseName } = req.body;
+
+  // console.log(id, "<== id")
+  // console.log(courseName, "<== course name")
+  // console.log("in the controller");
+
+  if (courseName === "beginner") {
+    //beginner session: 3 minutes each, 3 sessions
+    const courseDetail = {
+      difficulty: "beginner",
+      levels: 3,
+      music: "testmusic.mp3" //dummy data used for now.
+    };
+    //create new course:
+    createCourse(id, courseName, courseDetail, res);
+
+    //updates users current meditation
+    User.findById({ _id: id })
+    .then(user => { 
+      // console.log("in finding user");
+      // console.log("found user==>", user._id);
+  
+      Meditation.findOne({userId: id, completed: false})
+      .then((meditation) => {
+        console.log("FALSE meditation==>", meditation._id);
+  
+        user.currentMeditation = meditation._id;
+        user.save()
+      })
+      .catch(err => {
+        res.send(err);
+        console.log(err);
+      });
+    })
+    .catch(err => {
+        res.send(err);
+        console.log(err);
+      });
+
+  } else if (courseName === "intermediate") {
+    //intermediate session: 5 minutes each, 4 sessions
+    const courseDetail = {
+      difficulty: "intermediate",
+      levels: 4,
+      music: "testmusic.mp3" //dummy data used for now.
+    };
+    //create new course:
+    createCourse(id, courseName, courseDetail, res);
+
+    //updates users current meditation
+    User.findById({ _id: id })
+    .then(user => { 
+      // console.log("in finding user");
+      // console.log("found user==>", user._id);
+  
+      Meditation.findOne({userId: id, completed: false})
+      .then((meditation) => {
+        // console.log("FALSE meditation==>", meditation);
+  
+        user.currentMeditation = meditation._id;
+        user.save()
+      })
+      .catch(err => {
+        res.send(err);
+        console.log(err);
+      });
+    })
+    .catch(err => {
+        res.send(err);
+        console.log(err);
+      });
+
+  } else if (courseName === "expert") {
+    //intermediate session: 5 minutes each, 5 sessions
+    const courseDetail = {
+      difficulty: "expert",
+      levels: 5,
+      music: "testmusic.mp3" //dummy data used for now.
+    };
+    createCourse(id, courseName, courseDetail, res);
+
+    //updates users current meditation
+    User.findById({ _id: id })
+    .then(user => { 
+      //updates users current meditation
+      // console.log("in finding user");
+      // console.log("found user==>", user._id);
+  
+      Meditation.findOne({userId: id, completed: false})
+      .then((meditation) => {
+        // console.log("FALSE meditation==>", meditation);
+  
+        user.currentMeditation = meditation._id;
+        user.save()
+      })
+      .catch(err => {
+        res.send(err);
+        console.log(err);
+      });
+    })
+    .catch(err => {
+        res.send(err);
+        console.log(err);
+      });
+
+  } else {
+    console.log("invalid data provided!");
+  };
+}
