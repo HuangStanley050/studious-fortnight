@@ -4,14 +4,12 @@ import "./DiscoverShow.scss";
 import courses from "../dummyData/courses";
 import axios from 'axios';
 import API from "../api";
-import { response } from 'express';
-
-//get the "DAY 1 OF BEGINNER" thing to be dynamically coded
 
 const DiscoverShow = (props) => {
   const [viewSessions, setViewSessions] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [sessions, setSessions] = useState([]);
+
   //course id from the URL:
   const {id} = props.match.params;
   //course data: 
@@ -46,7 +44,7 @@ const DiscoverShow = (props) => {
         method: "get",
         url: API.meditationData
       }); 
-      console.log(responseMeditation.data);
+      // console.log(responseMeditation.data, "<== list of all meditations");
       //only push relevant sessions
       //first get courseData
       const responseCourse = await axios({
@@ -54,31 +52,24 @@ const DiscoverShow = (props) => {
         method: "get",
         url: API.courseData
       });
-      console.log(responseCourse.data);
+      // console.log(responseCourse.data, "<==list of all courses");
 
       let usersCourseId = "";
 
       responseCourse.data.forEach((theCourse) => {
-        // console.log(theCourse.courseDetail.difficulty)
-        // console.log(course.name)
         if(theCourse.courseDetail.difficulty.toLowerCase() === course.name.toLowerCase()) {
           usersCourseId = theCourse._id;
-          console.log(theCourse._id, "<== course Id")
-
-          //set sessions that are of the right course only
-          // let sessionsToSet = [];
-          // responseMeditation.data.forEach((meditation) => {
-          //   if(meditation.courseId === theCourse._id) {
-          //     console.log("hmm")
-          //   }
-          // })
+          // console.log(theCourse._id, "<== course Id")
         } else {
           //user hasn't started this course yet
-          console.log("user hasnt started course");
+          // console.log("user hasnt started course");
         }
-      })
+      });
 
-      setSessions(responseMeditation.data);
+      if(usersCourseId != "") {
+        const usersSessions = responseMeditation.data.filter((session) => session.courseId === usersCourseId);
+        setSessions(usersSessions);
+      }
     }
     fetchSessionData();
   }, []);
@@ -89,6 +80,7 @@ const DiscoverShow = (props) => {
 
   const addToMyCourses = (e) => {
     //logic to add to course here. API call post! 
+
   }
 
   const playCourse = () => {
@@ -115,15 +107,23 @@ const DiscoverShow = (props) => {
 
         {/* if course has been started, render continue button. if it hasn't, render add button */}
         { isStarted ? 
-          <div className="add-button" onClick={playCourse}>
-            <i className="far fa-plus-square fa-3x"></i>
+          <div className="add-button">
+            <i 
+              className="far fa-plus-square fa-3x"
+              value={course.name}
+              onClick={playCourse}
+            ></i >
             &nbsp; CONTINUE
           </div>
-          : 
-            <div className="add-button" onClick={addToMyCourses}>
-              <i className="far fa-plus-square fa-3x"></i>
-              &nbsp; ADD TO MY COURSES
-            </div>
+        : 
+          <div className="add-button">
+            <i 
+              className="far fa-plus-square fa-3x"
+              value={course.name}
+              onClick={addToMyCourses}
+            ></i>
+            &nbsp; ADD TO MY COURSES
+          </div>
         }
       </div>
 
@@ -131,37 +131,45 @@ const DiscoverShow = (props) => {
         <img src={course.image_url}></img>
       </div>
     </div>
-  
-    <div className="display-sessions">
-      <div className="session-button">
-        <i 
-          className="far fa-caret-square-down fa-3x"
-          onClick={showSessions}
-        ></i>
-        &nbsp; VIEW SESSIONS
+        
+    {/* if user has started this course and has sessions, show view sessions drop down. if they don't, dont show it */}
+    {sessions.length !== 0 ? 
+    // "got sessions"
+      <div className="display-sessions">
+        <div className="session-button">
+          <i 
+            className="far fa-caret-square-down fa-3x"
+            onClick={showSessions}
+          ></i>
+          &nbsp; VIEW SESSIONS
+        </div>
+        {viewSessions ? 
+            sessions.map((session, index) => {
+              return (
+                <div className="session" key={index+1}>
+                  <span>
+                    {session.completed == true ?
+                      <i className="far fa-check-square"></i>
+                    :
+                      <i className="far fa-caret-square-right"></i>
+                    }
+                    Session {index + 1}
+                  </span>
+                  <div>
+                    <span>Duration: {session.sessionDetail.currentTime} / {session.sessionDetail.totalTime}</span>
+                  </div>
+                </div>
+              )
+            })
+        : 
+          ""
+        } 
       </div>
-      {viewSessions ? 
-        sessions.map((session, index) => {
-          return (
-            <div className="session" key={index+1}>
-              <span>
-                {session.completed == true ?
-                  <i className="far fa-check-square"></i>
-                :
-                  <i className="far fa-caret-square-right"></i>
-                }
-                Session {index + 1}
-              </span>
-              <div>
-                <span>Duration: {session.sessionDetail.currentTime} / {session.sessionDetail.totalTime}</span>
-              </div>
-            </div>
-          )
-        })
-      : 
-        ""
-      } 
-    </div>
+    :
+    // "no sesh"
+      ""
+    }
+    
 
     <div className="discover-show-footer">
       <div className="begin-button" onClick={startCourse}>BEGIN</div>
