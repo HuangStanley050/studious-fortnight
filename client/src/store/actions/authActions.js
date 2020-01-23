@@ -29,6 +29,7 @@ const registerFail = err => ({
   err
 });
 
+export const clearError = () => ({ type: Action.CLEAR_AUTH_ERROR });
 // async function
 //
 

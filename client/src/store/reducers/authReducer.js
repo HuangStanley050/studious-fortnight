@@ -10,6 +10,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case Action.CLEAR_AUTH_ERROR:
+      return {
+        ...state,
+        error: ""
+      };
     case Action.TURN_OFF_QUIZ:
       return {
         ...state,
