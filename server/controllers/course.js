@@ -197,3 +197,7 @@ exports.nextCourse = async (req, res) => {
       });
   });
 };
+
+exports.addCourse = async (req, res) => {
+  
+}

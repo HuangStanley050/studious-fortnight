@@ -79,18 +79,24 @@ const DiscoverShow = (props) => {
   }
 
   const addToMyCourses = (e) => {
+    console.log("add to my courses")
     //logic to add to course here. API call post! 
-
+    const courseName = e.currentTarget.getAttribute("value").toLowerCase();
+    
+    //
   }
 
   const playCourse = () => {
+    console.log("play course");
     //logic to go to course (it already exists)
     //logic to go to set the "current" course, first incompleted meditation of that course.
     // i.e. something like this:
-    props.history.push("/my");
+
+    // props.history.push("/my");
   }
 
   const startCourse = (e) => {
+    console.log("clicked start course")
     //first add course 
     addToMyCourses();
     playCourse()
@@ -172,8 +178,18 @@ const DiscoverShow = (props) => {
     
 
     <div className="discover-show-footer">
-      <div className="begin-button" onClick={startCourse}>BEGIN</div>
-      <div className="time-button" onClick={startCourse}>{course.duration.toUpperCase()}</div>
+      {isStarted ? 
+        <>
+        <div className="begin-button" onClick={playCourse}>CONTINUE</div>
+        <div className="time-button" onClick={playCourse}>{course.duration.toUpperCase()}</div>
+        </>
+      :
+        <>
+        <div className="begin-button" onClick={startCourse}>BEGIN</div>
+        <div className="time-button" onClick={startCourse}>{course.duration.toUpperCase()}</div>
+        </>
+      }
+
       <div className="title">DAY 1 OF {course.name.toUpperCase()}</div>
     </div>
 
