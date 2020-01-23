@@ -1,13 +1,18 @@
 import Action from "../actions";
 const initialState = {
   isAuth: true,
-  hasRegistered: false,
+  hasRegistered: true,
   userInfo: {},
   loading: false
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case Action.TURN_OFF_QUIZ:
+      return {
+        ...state,
+        hasRegistered: false
+      };
     case Action.REGISTER_START:
       return {
         ...state,
