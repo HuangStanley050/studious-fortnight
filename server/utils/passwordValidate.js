@@ -7,10 +7,10 @@ Minimum eight in length
  */
 
 function passwordValidate(password) {
-  const re = /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{6,}$/;
-  console.log(password);
-  console.log(re.test(re));
-  return re.test(re);
+  const re = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
+  //console.log(password);
+  //console.log(re.test(re));
+  return re.test(password);
 }
 
 module.exports = passwordValidate;

@@ -117,7 +117,7 @@ exports.localRegister = async (req, res, next) => {
     let registerUser = await newUser.save();
     return res.send({ msg: "user registered", registerUser });
   } catch (err) {
-    console.log(err);
-    return res.status(400).send("Unable to register");
+    console.log(err.message);
+    return res.status(400).json({ msg: err.message });
   }
 };
