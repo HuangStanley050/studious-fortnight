@@ -99,6 +99,7 @@ exports.returnBadges = async (req, res) => {
   return res.json(user[0].badges);
 }
 
+
 exports.starterCourse = async (req, res) => {
   //purpose: to create new course for specific user based on initial quiz.
   //recieve info from user survey for starting difficulty level:

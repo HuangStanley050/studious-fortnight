@@ -53,9 +53,6 @@ const Discover = ({ user }) => {
     fetchUsersMeditationData();
     //fetch users badge data
     const fetchUsersBadgeData = async () => {
-      // const response = await axios.get(`http://localhost:8000/api/badges`, {
-      //   body: { userId: loggedInUserId }
-      // });
       const token = localStorage.getItem("CMCFlow");
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },

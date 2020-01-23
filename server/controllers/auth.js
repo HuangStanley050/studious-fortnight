@@ -82,7 +82,7 @@ exports.localLogin = async (req, res, next) => {
       id: user.id
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1h"
+      expiresIn: "24h"
     });
     return res.send({ msg: "login success", token, userInfo: payload });
   } catch (err) {

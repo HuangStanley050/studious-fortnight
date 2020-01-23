@@ -9,6 +9,7 @@ const meditationSchema = new mongoose.Schema(
       totalTime: Number
     },
     completed: Boolean,
+    active: Boolean,
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"

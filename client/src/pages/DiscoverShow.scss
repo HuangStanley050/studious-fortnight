@@ -11,7 +11,7 @@
     .add-button {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       width: 180px;
       height: 40px;
       font-size: 12px;
@@ -32,6 +32,34 @@
       filter: alpha(opacity=50);
       width: 100%;
     }
+  }
+}
+
+.display-sessions {
+  margin-top: 20px;
+  width: 100%;
+  .far {
+    padding-right: 4px;
+  }
+  .far:hover {
+    cursor: pointer;
+  }
+  .session {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    background: var(--main-link-color);
+    color: white;
+    border-bottom: 2px solid white;
+  }
+  .session-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 180px;
+    height: 40px;
+    font-size: 12px;
   }
 }
 
