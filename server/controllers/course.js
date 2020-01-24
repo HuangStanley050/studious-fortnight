@@ -81,9 +81,10 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
 const updateCurrentMeditation = async id => {
   const user = await User.findById({ _id: id });
   const meditation = await Meditation.findOne({ userId: id, completed: false });
-  console.log(meditation);
-  user.currentMeditation = meditation._id;
+
+  user.currentMeditation = meditation.id;
   await user.save();
+  console.log("Updating user meditation: ", meditation);
 };
 
 exports.returnCourses = async (req, res) => {
