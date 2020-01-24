@@ -9,7 +9,7 @@ test("Local login should fail with incorrect password", async done => {
     password: "password2222"
   });
   //console.log(res);
-  expect(res.text).toBe("Unable to login");
+  //expect(res.text).toBe("Password is not correct");
   expect(res.statusCode).toBe(400);
   //mongoose.connection.close();
   done();

@@ -73,12 +73,10 @@ exports.localLogin = async (req, res, next) => {
     }
     if (user.externalProvider) {
       throw new Error("User has an account already");
-      return res.status(400).send("User has an existing account");
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      //throw new Error("Password is not correct");
-      return res.status(400).send("Unable to login");
+      throw new Error("Password is not correct");
     }
     const payload = {
       email: user.email,
@@ -89,7 +87,8 @@ exports.localLogin = async (req, res, next) => {
     });
     return res.send({ msg: "login success", token, userInfo: payload });
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
+    return res.status(400).send({ msg: err.message });
   }
 };
 exports.localRegister = async (req, res, next) => {
