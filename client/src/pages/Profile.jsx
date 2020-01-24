@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import ProfileNavBar from '../components/ProfileNavBar.jsx';
+import Stats from '../components/Stats.jsx';
 import './Profile.scss';
 
 const Profile = () => {
@@ -15,7 +16,7 @@ const Profile = () => {
     <>
       <ProfileNavBar display={display} displayContent={displayContent} />
       <h1> </h1>
-      <h1>{ (display === "stats") ? "Stats component" : null }</h1>
+      <h1>{ (display === "stats") ? <Stats /> : null }</h1>
       <h1>{ (display === "journey") ? "Journey Component" : null }</h1>
       <h1>{ (display === "account") ? "Account Component" : null }</h1>
     </>
