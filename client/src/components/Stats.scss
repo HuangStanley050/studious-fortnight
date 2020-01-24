@@ -1,0 +1,32 @@
+.stats-content {
+  height: 100vh;
+  width: 100%;
+  // background: red;
+
+  display: flex;
+  align-items: space-between;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .stats-card {
+    width: 45%;
+    height: 30%;
+    border: 4px solid rgb(84, 84, 84);
+
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      color: rgba(22, 0, 148, 0.6);
+    }
+    .title {
+
+    }
+    .stat {
+      color: rgb(84, 84, 84)
+    }
+  }
+}
