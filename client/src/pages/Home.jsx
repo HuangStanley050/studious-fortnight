@@ -19,17 +19,7 @@ const Home = ({ hasRegistered }) => {
       console.log(response.data);
     };
     fetchMeditationData();
-
-  }, [currentMeditation, hasRegistered]);
-
-
-    
-
-
-
-  // useEffect(() => {
-  //   console.log("from home page, register status: ", hasRegistered);
-  // }, [hasRegistered]);
+  }, [hasRegistered]);
 
   return (
     <>
