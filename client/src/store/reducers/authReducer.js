@@ -40,11 +40,11 @@ const reducer = (state = initialState, action) => {
         error
       };
     case Action.LOGIN_FAIL:
-      console.log(action.err.response);
+      //console.log(action.err.response);
       return {
         ...state,
         loading: false,
-        error: "can't login"
+        error: action.err.response.data.msg
       };
     case Action.LOGIN_START:
       return {
