@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const authRouter = require("./routes/auth");
 const courseRouter = require("./routes/course");
 const paymentRouter = require("./routes/payment");
+const meditationRouter = require("./routes/meditation");
 
 const app = express();
 
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(authRouter);
 app.use(courseRouter);
-
+app.use(meditationRouter);
 app.use(paymentRouter);
 
 app.get("*", (req, res) => {

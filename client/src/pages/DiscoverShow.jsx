@@ -54,13 +54,14 @@ const DiscoverShow = (props) => {
       method: "post",
       url: API.updateCurrentMeditation
     }); 
+
   }
 
-  const setCurrentMeditation = (e) => {
+  const setCurrentMeditation = async (e) => {
     const sessionIndex = e.currentTarget.getAttribute("value");
     const meditationId = sessions[sessionIndex]._id
 
-    updateTheCurrentMeditation(meditationId);
+    await updateTheCurrentMeditation(meditationId);
     goHomeToPlay();
   }
 
