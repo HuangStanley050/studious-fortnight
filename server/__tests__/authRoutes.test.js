@@ -2,6 +2,7 @@ const app = require("../app"); // Link to your server file
 const supertest = require("supertest");
 const mongoose = require("mongoose");
 const request = supertest(app);
+const makeEmail = require("../utils/makeEmail");
 
 test("Local login should fail with incorrect password", async done => {
   const res = await request.post("/api/auth/local/login").send({
@@ -46,8 +47,9 @@ test("Local register should fail with invalid password", async done => {
 });
 
 test("Local register should be okay with valid password", async done => {
+  const email = makeEmail();
   const res = await request.post("/api/auth/local/register").send({
-    email: "bos4@test.com",
+    email,
     password: "asdfasdf1A@ddsaf"
   });
   /*
