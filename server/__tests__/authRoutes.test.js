@@ -47,9 +47,16 @@ test("Local register should fail with invalid password", async done => {
 
 test("Local register should be okay with valid password", async done => {
   const res = await request.post("/api/auth/local/register").send({
-    email: "asdfadsf@dddd.com",
+    email: "bos4@test.com",
     password: "asdfasdf1A@ddsaf"
   });
+  /*
+  At least one upper case English letter
+  At least one lower case English letter
+  At least one digit
+  At least one special character
+  Minimum eight in length
+   */
   expect(res.statusCode).toBe(200);
   done();
 });
