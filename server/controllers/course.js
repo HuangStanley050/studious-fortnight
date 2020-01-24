@@ -78,6 +78,13 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
   }
 };
 
+const updateCurrentMeditation = async (id) => {
+  const user = await User.findById({ _id: id })
+  const meditation = await Meditation.findOne({userId: id, completed: false})
+  user.currentMeditation = meditation._id;
+  user.save();
+}
+
 exports.returnCourses = async (req, res) => {
   const { id } = req.user;
 
@@ -104,7 +111,7 @@ exports.starterCourse = async (req, res) => {
   //recieve info from user survey for starting difficulty level:
   const { id } = req.user;
   const { startingChoice = "beginner" } = req.body;
-  console.log("start course controller in action....");
+
   console.log(id, startingChoice);
   //create mongoose models required from the user
   if (startingChoice === "beginner") {
@@ -116,6 +123,8 @@ exports.starterCourse = async (req, res) => {
     };
     //create new course:
     createCourse(id, startingChoice, courseDetail, res);
+    updateCurrentMeditation(id);
+
   } else if (startingChoice === "intermediate") {
     //intermediate session: 5 minutes each, 4 sessions
     const courseDetail = {
@@ -125,6 +134,7 @@ exports.starterCourse = async (req, res) => {
     };
     //create new course:
     createCourse(id, startingChoice, courseDetail, res);
+    updateCurrentMeditation(id);
   } else if (startingChoice === "expert") {
     //intermediate session: 5 minutes each, 5 sessions
     const courseDetail = {
@@ -133,21 +143,17 @@ exports.starterCourse = async (req, res) => {
       music: "testmusic.mp3" //dummy data used for now.
     };
     createCourse(id, startingChoice, courseDetail, res);
+    updateCurrentMeditation(id);
   }
 
-  User.findById({ _id: id })
-    .then(user => {
-      user.badges[0].unlocked = "true";
-      //find 
-      Meditation.find({userId: id, completed: false}).then((meditation) => {
-        user.currentMeditation = meditation._id;
-      })
-      user.save();
-    })
-    .catch(err => {
-      res.send(err);
-      console.log(err);
-    });
+  //unlocks badge for starting
+  const unlockStarterBadge = async () => {
+    const user = await User.findById({ _id: id })
+    user.badges[0].unlocked = "true";
+    user.save();
+  };
+  unlockStarterBadge();
+  
 };
 
 exports.nextCourse = async (req, res) => {
@@ -205,10 +211,6 @@ exports.addCourse = async (req, res) => {
   const { id } = req.user;
   const { courseName } = req.body;
 
-  // console.log(id, "<== id")
-  // console.log(courseName, "<== course name")
-  // console.log("in the controller");
-
   if (courseName === "beginner") {
     //beginner session: 3 minutes each, 3 sessions
     const courseDetail = {
@@ -218,30 +220,7 @@ exports.addCourse = async (req, res) => {
     };
     //create new course:
     createCourse(id, courseName, courseDetail, res);
-
-    //updates users current meditation
-    User.findById({ _id: id })
-    .then(user => { 
-      // console.log("in finding user");
-      // console.log("found user==>", user._id);
-  
-      Meditation.findOne({userId: id, completed: false})
-      .then((meditation) => {
-        console.log("FALSE meditation==>", meditation._id);
-  
-        user.currentMeditation = meditation._id;
-        user.save()
-      })
-      .catch(err => {
-        res.send(err);
-        console.log(err);
-      });
-    })
-    .catch(err => {
-        res.send(err);
-        console.log(err);
-      });
-
+    updateCurrentMeditation(id);
   } else if (courseName === "intermediate") {
     //intermediate session: 5 minutes each, 4 sessions
     const courseDetail = {
@@ -251,30 +230,7 @@ exports.addCourse = async (req, res) => {
     };
     //create new course:
     createCourse(id, courseName, courseDetail, res);
-
-    //updates users current meditation
-    User.findById({ _id: id })
-    .then(user => { 
-      // console.log("in finding user");
-      // console.log("found user==>", user._id);
-  
-      Meditation.findOne({userId: id, completed: false})
-      .then((meditation) => {
-        // console.log("FALSE meditation==>", meditation);
-  
-        user.currentMeditation = meditation._id;
-        user.save()
-      })
-      .catch(err => {
-        res.send(err);
-        console.log(err);
-      });
-    })
-    .catch(err => {
-        res.send(err);
-        console.log(err);
-      });
-
+    updateCurrentMeditation(id);
   } else if (courseName === "expert") {
     //intermediate session: 5 minutes each, 5 sessions
     const courseDetail = {
@@ -283,31 +239,7 @@ exports.addCourse = async (req, res) => {
       music: "testmusic.mp3" //dummy data used for now.
     };
     createCourse(id, courseName, courseDetail, res);
-
-    //updates users current meditation
-    User.findById({ _id: id })
-    .then(user => { 
-      //updates users current meditation
-      // console.log("in finding user");
-      // console.log("found user==>", user._id);
-  
-      Meditation.findOne({userId: id, completed: false})
-      .then((meditation) => {
-        // console.log("FALSE meditation==>", meditation);
-  
-        user.currentMeditation = meditation._id;
-        user.save()
-      })
-      .catch(err => {
-        res.send(err);
-        console.log(err);
-      });
-    })
-    .catch(err => {
-        res.send(err);
-        console.log(err);
-      });
-
+    updateCurrentMeditation(id);
   } else {
     console.log("invalid data provided!");
   };

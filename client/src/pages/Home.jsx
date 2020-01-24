@@ -22,7 +22,6 @@ const Home = ({ hasRegistered }) => {
     console.log(currentMeditation)
   }, [])
 
-
   // useEffect(() => {
   //   console.log("from home page, register status: ", hasRegistered);
   // }, [hasRegistered]);
