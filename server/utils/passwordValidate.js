@@ -8,8 +8,7 @@ Minimum eight in length
 
 function passwordValidate(password) {
   const re = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
-  console.log(password);
-  console.log(re.test(password));
+
   return re.test(password);
 }
 
