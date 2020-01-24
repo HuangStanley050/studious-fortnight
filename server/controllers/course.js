@@ -78,12 +78,14 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
   }
 };
 
-const updateCurrentMeditation = async (id) => {
-  const user = await User.findById({ _id: id })
-  const meditation = await Meditation.findOne({userId: id, completed: false})
-  user.currentMeditation = meditation._id;
-  user.save();
-}
+const updateCurrentMeditation = async id => {
+  const user = await User.findById({ _id: id });
+  const meditation = await Meditation.findOne({ userId: id, completed: false });
+
+  user.currentMeditation = meditation.id;
+  await user.save();
+  console.log("Updating user meditation: ", meditation);
+};
 
 exports.returnCourses = async (req, res) => {
   const { id } = req.user;
@@ -124,7 +126,6 @@ exports.starterCourse = async (req, res) => {
     //create new course:
     createCourse(id, startingChoice, courseDetail, res);
     updateCurrentMeditation(id);
-
   } else if (startingChoice === "intermediate") {
     //intermediate session: 5 minutes each, 4 sessions
     const courseDetail = {
@@ -148,12 +149,11 @@ exports.starterCourse = async (req, res) => {
 
   //unlocks badge for starting
   const unlockStarterBadge = async () => {
-    const user = await User.findById({ _id: id })
+    const user = await User.findById({ _id: id });
     user.badges[0].unlocked = "true";
     user.save();
   };
   unlockStarterBadge();
-  
 };
 
 exports.nextCourse = async (req, res) => {
@@ -242,8 +242,8 @@ exports.addCourse = async (req, res) => {
     updateCurrentMeditation(id);
   } else {
     console.log("invalid data provided!");
-  };
-}
+  }
+};
 
 exports.setCurrentMeditation = async (req, res) => {
   const { id } = req.user;
@@ -251,16 +251,24 @@ exports.setCurrentMeditation = async (req, res) => {
 
   //look up user
   //set their currentMeditation
-  User
-    .findById({ _id: id })
-    .then(user => { 
-      user.currentMeditation = meditationId;
-      user.save();
-      res.send(user);
-      console.log("successfully set new current meditation");
-    })
-    .catch(err => {
-      res.send(err);
-      console.log(err);
-    });
-}
+  try {
+    let user = await User.findById({ _id: id });
+    user.currentMeditation = meditationId;
+    let result = await user.save();
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+// User.findById({ _id: id })
+//   .then(user => {
+//     user.currentMeditation = meditationId;
+//     user.save();
+//     res.send(user);
+//     console.log("successfully set new current meditation");
+//   })
+//   .catch(err => {
+//     res.send(err);
+//     console.log(err);
+//   });

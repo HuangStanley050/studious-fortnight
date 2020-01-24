@@ -8,9 +8,10 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true
-    }, 
+    },
     currentMeditation: {
-      type: String
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Meditation"
     },
     externalProvider: {
       type: String
