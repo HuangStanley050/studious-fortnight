@@ -111,7 +111,7 @@ class YoutubePlayer extends React.Component {
         completed: this.state.watchComplete
       },
       method: "post",
-      url: API.updateMeditation
+      url: API.updateMeditationTime
     });
 
     console.log(...endOfSession);

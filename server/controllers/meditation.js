@@ -12,3 +12,16 @@ exports.returnUserMeditation = async (req, res) => {
     const meditation = await Meditation.findOne({_id: meditationId});
     return res.send(meditation);
 };
+
+exports.updateUserMeditation = async (req, res ) => {
+    const {currentTime, completed} = req.body
+
+    const user = await User.findById({ _id: id })
+    const meditation = await Meditation.findOne({_id: user.currentMeditation})
+    
+    meditation.sessionDetail.currentTime = currentTime
+    if (completed){
+        meditation.completed = true
+    }
+    await meditation.save()
+}

@@ -3,6 +3,7 @@ import Quiz from "../components/Quiz";
 import { connect } from "react-redux";
 import axios from "axios";
 import API from "../api";
+// import YoutubePlayer from "../components/YoutubePlayer.jsx"
 
 const Home = ({ hasRegistered }) => {
   const [currentMeditation, setCurrentMeditation] = useState("");
@@ -30,6 +31,11 @@ const Home = ({ hasRegistered }) => {
     <>
       <h1>Home page</h1>
       <p>Current meditation: {currentMeditation._id}</p>
+      {/* pass url={"url"} as props in YoutubePlayer */}
+      <YoutubePlayer 
+      videoId="hHW1oY26kxQ"
+      className="vidPlayer"
+      />
       {hasRegistered ? <Quiz /> : null}
     </>
   );
