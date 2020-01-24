@@ -312,3 +312,23 @@ exports.addCourse = async (req, res) => {
     console.log("invalid data provided!");
   };
 }
+
+exports.setCurrentMeditation = async (req, res) => {
+  const { id } = req.user;
+  const { meditationId } = req.body;
+
+  //look up user
+  //set their currentMeditation
+  User
+    .findById({ _id: id })
+    .then(user => { 
+      user.currentMeditation = meditationId;
+      user.save();
+      res.send(user);
+      console.log("successfully set new current meditation");
+    })
+    .catch(err => {
+      res.send(err);
+      console.log(err);
+    });
+}

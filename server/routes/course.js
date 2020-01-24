@@ -41,4 +41,18 @@ router.post(
   courseController.addCourse
 );
 
+//route to add new course from discover page
+router.post(
+  "/api/course/add",
+  passport.authenticate("jwt", { session: false }),
+  courseController.addCourse
+);
+
+//route to update users current meditation
+router.post(
+  "/api/course/update-meditation",
+  passport.authenticate("jwt", { session: false }),
+  courseController.setCurrentMeditation
+);
+
 module.exports = router;
