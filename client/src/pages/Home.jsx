@@ -14,13 +14,18 @@ const Home = ({ hasRegistered }) => {
         headers: { Authorization: `bearer ${token}` },
         method: "get",
         url: API.userMeditation
-      })
-      await setCurrentMeditation(response.data);
-    }
+      });
+      setCurrentMeditation(response.data);
+      console.log(response.data);
+    };
     fetchMeditationData();
 
-    console.log(currentMeditation)
-  }, [])
+  }, [currentMeditation, hasRegistered]);
+
+
+    
+
+
 
   // useEffect(() => {
   //   console.log("from home page, register status: ", hasRegistered);
