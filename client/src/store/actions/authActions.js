@@ -12,7 +12,7 @@ export const loginOkay = (userInfo, token) => ({
 });
 
 const loginFail = err => ({
-  type: Action.LOGIN_OKAY,
+  type: Action.LOGIN_FAIL,
   err
 });
 
@@ -53,6 +53,7 @@ export const login = userInfo => {
     try {
       dispatch(loginStart());
       let result = await axios.post(API.login, userInfo);
+
       const userDetail = result.data.userInfo;
       const token = result.data.token;
       dispatch(loginOkay(userDetail, token));

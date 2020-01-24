@@ -35,7 +35,7 @@ const useForm = () => {
   return [form, handleChange, resetFields];
 };
 
-const Login = ({ login }) => {
+const Login = ({ login, error }) => {
   const [form, handleChange, resetFields] = useForm();
   const handleSubmit = e => {
     e.preventDefault();
@@ -74,6 +74,7 @@ const Login = ({ login }) => {
         <NavLink href="/api/auth/google">Login with Google</NavLink>
 
         <Button>Submit</Button>
+        {error ? <div>{error}</div> : null}
       </Form>
     </Container>
   );
@@ -81,7 +82,10 @@ const Login = ({ login }) => {
 const mapDispatch = dispatch => ({
   login: userInfo => dispatch(login(userInfo))
 });
+const mapState = state => ({
+  error: state.auth.error
+});
 export default connect(
-  null,
+  mapState,
   mapDispatch
 )(Login);
