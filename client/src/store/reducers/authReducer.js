@@ -39,6 +39,13 @@ const reducer = (state = initialState, action) => {
         loading: false,
         error
       };
+    case Action.LOGIN_FAIL:
+      //console.log(action.err.response);
+      return {
+        ...state,
+        loading: false,
+        error: action.err.response.data.msg
+      };
     case Action.LOGIN_START:
       return {
         ...state,
@@ -46,9 +53,9 @@ const reducer = (state = initialState, action) => {
       };
     case Action.LOGIN_OKAY:
       // console.log(action.payload.userInfo);
-      console.log(action.payload.token);
+      //console.log(action.payload.token);
       localStorage.setItem("CMCFlow", action.payload.token);
-      console.log("local set!");
+      //console.log("local set!");
       return {
         ...state,
         isAuth: true,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { login } from "../store/actions/authActions";
 import { connect } from "react-redux";
+import { clearError } from "../store/actions/authActions";
 import {
   Button,
   Form,
@@ -35,8 +36,13 @@ const useForm = () => {
   return [form, handleChange, resetFields];
 };
 
-const Login = ({ login }) => {
+const Login = ({ login, error, clearError }) => {
   const [form, handleChange, resetFields] = useForm();
+  useEffect(() => {
+    return () => {
+      clearError();
+    };
+  }, [clearError]);
   const handleSubmit = e => {
     e.preventDefault();
     login(form);
@@ -74,14 +80,19 @@ const Login = ({ login }) => {
         <NavLink href="/api/auth/google">Login with Google</NavLink>
 
         <Button>Submit</Button>
+        {error ? <div>{error}</div> : null}
       </Form>
     </Container>
   );
 };
 const mapDispatch = dispatch => ({
-  login: userInfo => dispatch(login(userInfo))
+  login: userInfo => dispatch(login(userInfo)),
+  clearError: () => dispatch(clearError())
+});
+const mapState = state => ({
+  error: state.auth.error
 });
 export default connect(
-  null,
+  mapState,
   mapDispatch
 )(Login);

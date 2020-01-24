@@ -6,7 +6,6 @@ import { loginOkay } from "../store/actions/authActions";
 import { connect } from "react-redux";
 import Login from "../components/Login";
 import { Button } from "reactstrap";
-
 import Register from "../components/Register";
 
 const AuthPage = ({ isAuth, loginOkay, hasRegistered }) => {
@@ -33,9 +32,11 @@ const AuthPage = ({ isAuth, loginOkay, hasRegistered }) => {
     <Container>
       <h1>Auth page</h1>
       {login ? <Login /> : <Register />}
-      <Button onClick={toggleAuth} style={{ marginTop: "2rem" }}>
-        {login ? "or Register" : "Login"}
-      </Button>
+      <div style={{ width: "40%" }}>
+        <Button onClick={toggleAuth} style={{ marginTop: "2rem" }}>
+          {login ? "or Register" : "Login"}
+        </Button>
+      </div>
     </Container>
   );
 };
