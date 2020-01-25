@@ -35,7 +35,7 @@ const mapDispatch = dispatch => ({
   turnOffQuiz: async () => {
     // let the api knows that the user have close off the quiz and set default to 'beginner'
     const token = localStorage.getItem("CMCFlow");
-    let result = axios({
+    let result = await axios({
       url: API.setCourse,
       headers: { Authorization: `bearer ${token}` },
       method: "post",
