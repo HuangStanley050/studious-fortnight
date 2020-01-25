@@ -10,8 +10,7 @@ const userSchema = new mongoose.Schema(
       required: true
     },
     currentMeditation: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Meditation"
+      type: mongoose.Schema.Types.ObjectId
     },
     externalProvider: {
       type: String

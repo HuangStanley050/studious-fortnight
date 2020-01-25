@@ -52,15 +52,27 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
     //find the user based on id
     //push courseid into user courseId as an array;
     //push meditation array into meditationId;
-    User.findOne({ _id: id }).then(user => {
-      if (user.courseId !== null) {
-        user.courseId = [...user.courseId, newCourse];
-      } else {
-        user.courseId = [newCourse];
-      }
-      user.meditationId = [...user.meditationId, ...meditationArray];
-      user.save();
-    });
+    //
+    //console.log("user id: ", id);
+    let user = await User.findOne({ _id: id });
+    //console.log("user in createCourse: ", user);
+    if (user.courseId !== null) {
+      user.courseId = [...user.courseId, newCourse];
+    } else {
+      user.courseId.push(newCourse);
+    }
+    user.meditationId = [...user.meditationId, ...meditationArray];
+    await user.save();
+
+    // User.findOne({ _id: id }).then(user => {
+    //   if (user.courseId !== null) {
+    //     user.courseId = [...user.courseId, newCourse];
+    //   } else {
+    //     user.courseId = [newCourse];
+    //   }
+    //   user.meditationId = [...user.meditationId, ...meditationArray];
+    //   user.save();
+    // });
 
     console.log("=================================");
     console.log("success");
@@ -73,18 +85,28 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
   } catch (err) {
     console.log("=================================");
     console.log("in error hmm");
-    console.log(err);
-    res.status(402).json(err);
+    console.log(err.message);
+    res.status(400).json(err);
   }
 };
 
 const updateCurrentMeditation = async id => {
-  const user = await User.findById({ _id: id });
-  const meditation = await Meditation.findOne({ userId: id, completed: false });
-
-  user.currentMeditation = meditation.id;
-  await user.save();
-  console.log("Updating user meditation: ", meditation);
+  try {
+    const user = await User.findById({ _id: id });
+    const meditation = await Meditation.findOne({
+      userId: id,
+      completed: false
+    });
+    // console.log("inside update current mediation:");
+    // console.log("the meditation that was found was: ", meditation);
+    // console.log("meditation id is: ", typeof meditation._id);
+    user.currentMeditation = meditation._id;
+    // console.log("before updating user meditation: ", meditation.id);
+    // console.log("Updating user meditation: ", user.currentMeditation);
+    await user.save();
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
 exports.returnCourses = async (req, res) => {
@@ -151,7 +173,7 @@ exports.starterCourse = async (req, res) => {
   const unlockStarterBadge = async () => {
     const user = await User.findById({ _id: id });
     user.badges[0].unlocked = "true";
-    user.save();
+    await user.save();
   };
   unlockStarterBadge();
 };

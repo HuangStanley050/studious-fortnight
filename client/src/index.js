@@ -2,12 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./variables.scss";
+//import axios from "axios";
 import App from "./App";
 
 import store from "./setupStore";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
+
+// axios.defaults.headers.common["Authorization"] = `bearer ${localStorage.getItem(
+//   "CMCFlow"
+// )}`;
 
 const app = (
   <Provider store={store}>
