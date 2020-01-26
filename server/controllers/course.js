@@ -94,7 +94,7 @@ const updateCurrentMeditation = async id => {
   try {
     const user = await User.findById({ _id: id });
     const meditation = await Meditation.findOne({
-      userId: id,
+      userId: user._id,
       completed: false
     });
     // console.log("inside update current mediation:");
@@ -105,6 +105,7 @@ const updateCurrentMeditation = async id => {
     // console.log("Updating user meditation: ", user.currentMeditation);
     await user.save();
   } catch (err) {
+    console.log("this is in updateCurrentMeditation");
     console.log(err.message);
   }
 };
