@@ -18,8 +18,8 @@ test("Local login should fail with incorrect password", async done => {
 
 test("Local login should work with right password", async done => {
   const res = await request.post("/api/auth/local/login").send({
-    email: "test@test.com",
-    password: "password"
+    email: "doNotDelete@test.com",
+    password: "Password@1"
   });
   //console.log(res);
   //expect(res.text).toBe("Password is not correct");
