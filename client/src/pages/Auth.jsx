@@ -30,13 +30,11 @@ const AuthPage = ({ isAuth, loginOkay, hasRegistered }) => {
 
   return (
     <Container>
-      <h1>Auth page</h1>
-      {login ? <Login /> : <Register />}
-      <div style={{ width: "40%" }}>
-        <Button onClick={toggleAuth} style={{ marginTop: "2rem" }}>
-          {login ? "or Register" : "Login"}
-        </Button>
-      </div>
+      {login ? (
+        <Login loginOrRegister={login} toggle={toggleAuth} />
+      ) : (
+        <Register loginOrRegister={login} toggle={toggleAuth} />
+      )}
     </Container>
   );
 };
@@ -51,3 +49,7 @@ export default connect(
   mapState,
   mapDispatch
 )(AuthPage);
+
+// <Button onClick={toggleAuth} style={{ marginTop: "2rem" }}>
+//   {login ? "or Register" : "Login"}
+// </Button>

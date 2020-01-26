@@ -10,11 +10,11 @@ input {
   font-size: 17px;
   line-height: 20px;
   text-decoration: none;
+  background-color: blue;
   /* remove underline from anchors */
 }
 
-.btn:hover,
-input:hover {
+.btn:hover {
   opacity: 0.5;
   color: white;
 }
@@ -32,14 +32,4 @@ input:hover {
 .google {
   background-color: #dd4b39;
   color: white;
-}
-/* style the submit button */
-input[type=submit] {
-  background-color: #4CAF50;
-  color: white;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #45a049;
 }
