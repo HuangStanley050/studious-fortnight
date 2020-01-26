@@ -7,7 +7,7 @@ import {
   FormGroup,
   Label,
   Input,
-  NavLink,
+  Alert,
   Row,
   Col,
   Container
@@ -15,15 +15,23 @@ import {
 
 const PasswordRecovery = () => {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const handleChange = e => {
     setEmail(e.target.value);
   };
   const handleSubmit = async e => {
     e.preventDefault();
     //console.log(email);
-    let result = await axios.post(API.resetPassword, { email });
-    setEmail("");
-    console.log(result.data);
+    try {
+      let result = await axios.post(API.resetPassword, { email });
+      setEmail("");
+      setError("");
+      //console.log(result.data);
+    } catch (err) {
+      setEmail("");
+      setError(err.response.data.msg);
+      console.log(err.response.data.msg);
+    }
   };
   return (
     <Container style={{ marginTop: "1.5rem" }}>
@@ -40,6 +48,11 @@ const PasswordRecovery = () => {
                 Submit
               </Button>
             </FormGroup>
+            {error ? (
+              <FormGroup>
+                <Alert color="danger">{error}</Alert>
+              </FormGroup>
+            ) : null}
           </Form>
         </Col>
       </Row>
