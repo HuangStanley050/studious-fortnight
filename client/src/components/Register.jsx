@@ -38,6 +38,12 @@ const Register = ({ register, error, clearError, toggle, loginOrRegister }) => {
   const handleSubmit = e => {
     e.preventDefault();
     register({ email: userInfo.email, password: userInfo.password });
+    setUserInfo({
+      ...userInfo,
+      email: "",
+      password: "",
+      passwordConfirm: ""
+    });
   };
   const handleChange = e => {
     setUserInfo({
