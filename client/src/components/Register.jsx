@@ -15,12 +15,23 @@ import {
   Container
 } from "reactstrap";
 
-const Register = ({ register, error, clearError, toggle, loginOrRegister }) => {
+const Register = ({
+  register,
+  error,
+  clearError,
+  toggle,
+  loginOrRegister,
+  hasRegistered,
+  isAuth
+}) => {
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
     passwordConfirm: ""
   });
+  const [successMsg, setSuccessMsg] = useState(
+    "Registration Successful, Please Login."
+  );
   const buttonStyle = {
     width: "40%",
     margin: "0 auto"
@@ -28,7 +39,8 @@ const Register = ({ register, error, clearError, toggle, loginOrRegister }) => {
   // clear error message when component unmounts
   useEffect(() => {
     return () => {
-      console.log("component unmount");
+      console.log("component unmounts from register");
+
       clearError();
     };
   }, [clearError]);
@@ -36,6 +48,7 @@ const Register = ({ register, error, clearError, toggle, loginOrRegister }) => {
   const handleSubmit = e => {
     e.preventDefault();
     register({ email: userInfo.email, password: userInfo.password });
+
     setUserInfo({
       ...userInfo,
       email: "",
@@ -102,9 +115,16 @@ const Register = ({ register, error, clearError, toggle, loginOrRegister }) => {
               </Button>
             </FormGroup>
 
-            <div style={{ marginTop: "1rem" }}>
-              {error ? <Alert color="danger">{error}</Alert> : null}
-            </div>
+            {error ? (
+              <div style={{ marginTop: "1rem" }}>
+                <Alert color="danger">{error}</Alert>
+              </div>
+            ) : null}
+            {hasRegistered ? (
+              <div style={{ marginTop: "1rem" }}>
+                <Alert color="success">{successMsg}</Alert>
+              </div>
+            ) : null}
           </Form>
         </Col>
       </Row>
@@ -117,7 +137,9 @@ const mapDispatch = dispatch => ({
   clearError: () => dispatch(clearError())
 });
 const mapState = state => ({
-  error: state.auth.error
+  error: state.auth.error,
+  isAuth: state.auth.isAuth,
+  hasRegistered: state.auth.hasRegistered
 });
 export default connect(
   mapState,

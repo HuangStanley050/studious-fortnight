@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 import { loginOkay, registerOkay } from "../store/actions/authActions";
 import { connect } from "react-redux";
 import Login from "../components/Login";
-import { Button } from "reactstrap";
+
 import Register from "../components/Register";
 import Loader from "../components/Loader";
 
