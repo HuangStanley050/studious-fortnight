@@ -9,9 +9,7 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText,
-  NavItem,
-  NavLink,
+  Alert,
   Row,
   Col,
   Container
@@ -104,7 +102,9 @@ const Register = ({ register, error, clearError, toggle, loginOrRegister }) => {
               </Button>
             </FormGroup>
 
-            {error ? <div>{error}</div> : null}
+            <div style={{ marginTop: "1rem" }}>
+              {error ? <Alert color="danger">{error}</Alert> : null}
+            </div>
           </Form>
         </Col>
       </Row>

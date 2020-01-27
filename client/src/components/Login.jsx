@@ -13,7 +13,8 @@ import {
   NavLink,
   Row,
   Col,
-  Container
+  Container,
+  Alert
 } from "reactstrap";
 
 const useForm = () => {
@@ -120,7 +121,7 @@ const Login = ({ login, error, clearError, toggle, loginOrRegister }) => {
               </NavLink>
             </FormGroup>
 
-            {error ? <div>{error}</div> : null}
+            {error ? <Alert color="danger">{error}</Alert> : null}
           </Form>
         </Col>
       </Row>
