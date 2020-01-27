@@ -38,6 +38,7 @@ let PageOne = ({ nextPage, values }) => {
             >
               <div className="card-body">
                 <img
+                  alt="beginner meditation"
                   style={{ width: "278px", height: "259px" }}
                   className="card-image-top"
                   src={beginner}
@@ -62,6 +63,7 @@ let PageOne = ({ nextPage, values }) => {
             >
               <div className="card-body">
                 <img
+                  alt="intermediate meditation"
                   style={{ width: "278px", height: "259px" }}
                   className="card-image-top"
                   src={intermediate}
@@ -86,6 +88,7 @@ let PageOne = ({ nextPage, values }) => {
             >
               <div className="card-body">
                 <img
+                  alt="expert meditation"
                   style={{ width: "278px", height: "259px" }}
                   className="card-image-top"
                   src={expert}
