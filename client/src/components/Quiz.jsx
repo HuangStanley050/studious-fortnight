@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container } from "reactstrap";
+
 import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import PageOne from "./PageOne";
@@ -8,6 +8,7 @@ import PageThree from "./PageThree";
 import PageFour from "./PageFour";
 import { closeQuiz } from "../store/actions/quizActions";
 import API from "../api";
+import "./Quiz.css";
 import axios from "axios";
 
 let Quiz = ({ hasRegistered, turnOffQuiz }) => {
@@ -17,7 +18,7 @@ let Quiz = ({ hasRegistered, turnOffQuiz }) => {
   const prevPage = () => setPage(currentPage - 1);
 
   return (
-    <Container>
+    <div>
       <h1>starting quizz page</h1>
       <span>
         <button onClick={turnOffQuiz}>Close Quiz</button>
@@ -28,7 +29,7 @@ let Quiz = ({ hasRegistered, turnOffQuiz }) => {
         <PageThree prevPage={prevPage} nextPage={nextPage} />
       )}
       {currentPage === 4 && <PageFour prevPage={prevPage} />}
-    </Container>
+    </div>
   );
 };
 const mapDispatch = dispatch => ({
