@@ -7,8 +7,15 @@ import { connect } from "react-redux";
 import Login from "../components/Login";
 import { Button } from "reactstrap";
 import Register from "../components/Register";
+import Loader from "../components/Loader";
 
-const AuthPage = ({ isAuth, loginOkay, hasRegistered, registerOkay }) => {
+const AuthPage = ({
+  isAuth,
+  loginOkay,
+  hasRegistered,
+  registerOkay,
+  loading
+}) => {
   const [login, setLogin] = useState(true);
   const toggleAuth = () => {
     setLogin(!login);
@@ -34,6 +41,7 @@ const AuthPage = ({ isAuth, loginOkay, hasRegistered, registerOkay }) => {
 
   return (
     <Container>
+      {loading ? <Loader /> : null}
       {login ? (
         <Login loginOrRegister={login} toggle={toggleAuth} />
       ) : (
@@ -48,7 +56,8 @@ const mapDispatch = dispatch => ({
 });
 const mapState = state => ({
   isAuth: state.auth.isAuth,
-  hasRegistered: state.auth.hasRegistered
+  hasRegistered: state.auth.hasRegistered,
+  loading: state.auth.loading
 });
 export default connect(
   mapState,
