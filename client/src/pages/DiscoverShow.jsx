@@ -14,7 +14,7 @@ const DiscoverShow = (props) => {
   //course id from the URL:
   const {id} = props.match.params;
   //course data: 
-  const course = courses.find((course) => course.id == id);
+  const course = courses.find((course) => course.id == id); //needs to be only == not ===
 
   //api call to find users course if it exists
   useEffect(() => {
@@ -48,13 +48,12 @@ const DiscoverShow = (props) => {
   const updateTheCurrentMeditation = async (meditationId) => {
     //api call which updates users currentMeditation
     const token = localStorage.getItem("CMCFlow");
-    const response = await axios({
+    await axios({
       headers: { Authorization: `bearer ${token}` },
       data: { meditationId: meditationId },
       method: "post",
       url: API.updateCurrentMeditation
     }); 
-
   }
 
   const setCurrentMeditation = async (e) => {
@@ -109,7 +108,7 @@ const DiscoverShow = (props) => {
       </div>
 
       <div className="picture-content">
-        <img src={course.image_url}></img>
+        <img src={course.image_url} alt=""></img>
       </div>
     </div>
         
