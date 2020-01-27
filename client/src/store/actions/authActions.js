@@ -20,7 +20,7 @@ const registerStart = () => ({
   type: Action.REGISTER_START
 });
 
-const registerOkay = () => ({
+export const registerOkay = () => ({
   type: Action.REGISTER_OKAY
 });
 

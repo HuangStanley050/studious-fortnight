@@ -1,0 +1,18 @@
+.card-input-element {
+  display: none;
+}
+
+.card-input {
+  margin: 10px;
+  padding: 0;
+}
+
+.card-input:hover {
+  cursor: pointer;
+}
+/* .card-input-element:checked + .card-input {
+  box-shadow: 0 0 5px 5px #2ecc71;
+} */
+.special-label {
+  width: 100%;
+}

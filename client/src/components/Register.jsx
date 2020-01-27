@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 //import { withRouter } from "react-router-dom";
 import { register, clearError } from "../store/actions/authActions";
-
+import registerStyle from "./Register.module.css";
 import { connect } from "react-redux";
 import {
   Button,
@@ -9,29 +9,52 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText,
-  NavItem,
-  NavLink,
+  Alert,
+  Row,
+  Col,
   Container
 } from "reactstrap";
 
-const Register = ({ register, error, clearError }) => {
+const Register = ({
+  register,
+  error,
+  clearError,
+  toggle,
+  loginOrRegister,
+  hasRegistered,
+  isAuth
+}) => {
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
     passwordConfirm: ""
   });
+  const [successMsg, setSuccessMsg] = useState(
+    "Registration Successful, Please Login."
+  );
+  const buttonStyle = {
+    width: "40%",
+    margin: "0 auto"
+  };
   // clear error message when component unmounts
   useEffect(() => {
     return () => {
-      console.log("component unmount");
+      console.log("component unmounts from register");
+
       clearError();
     };
-  }, [clearError]);
+  }, [clearError, hasRegistered, isAuth]);
 
   const handleSubmit = e => {
     e.preventDefault();
     register({ email: userInfo.email, password: userInfo.password });
+
+    setUserInfo({
+      ...userInfo,
+      email: "",
+      password: "",
+      passwordConfirm: ""
+    });
   };
   const handleChange = e => {
     setUserInfo({
@@ -40,47 +63,71 @@ const Register = ({ register, error, clearError }) => {
     });
   };
   return (
-    <Container>
-      <h3>Register</h3>
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label for="exampleEmail">Email</Label>
-          <Input
-            type="email"
-            name="email"
-            id="email"
-            value={userInfo.email}
-            onChange={handleChange}
-            placeholder="your email"
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="examplePassword">Password</Label>
-          <Input
-            type="password"
-            name="password"
-            value={userInfo.password}
-            id="password"
-            onChange={handleChange}
-            placeholder="your password"
-          />
-        </FormGroup>
+    <Container style={{ marginTop: "1.5rem" }}>
+      <Row>
+        <Col sm="12" md={{ size: 8, offset: 2 }}>
+          <h3>Register</h3>
+          <Form onSubmit={handleSubmit}>
+            <FormGroup>
+              <Label for="exampleEmail">Email</Label>
+              <Input
+                type="email"
+                name="email"
+                id="email"
+                value={userInfo.email}
+                onChange={handleChange}
+                placeholder="your email"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="examplePassword">Password</Label>
+              <Input
+                type="password"
+                name="password"
+                value={userInfo.password}
+                id="password"
+                onChange={handleChange}
+                placeholder="your password"
+              />
+            </FormGroup>
 
-        <FormGroup>
-          <Label for="examplePassword">Password</Label>
-          <Input
-            type="password"
-            name="passwordConfirm"
-            value={userInfo.passwordConfirm}
-            id="passwordConfirm"
-            onChange={handleChange}
-            placeholder="confirm password"
-          />
-        </FormGroup>
+            <FormGroup>
+              <Label for="examplePassword">Password</Label>
+              <Input
+                type="password"
+                name="passwordConfirm"
+                value={userInfo.passwordConfirm}
+                id="passwordConfirm"
+                onChange={handleChange}
+                placeholder="confirm password"
+              />
+            </FormGroup>
+            <FormGroup style={buttonStyle}>
+              <Button className={registerStyle.btn}>Sign Up</Button>
+            </FormGroup>
+            <FormGroup style={buttonStyle}>
+              <Button
+                color="warning"
+                style={{ width: "100%", color: "white" }}
+                onClick={toggle}
+              >
+                {loginOrRegister ? "or Register" : "Login"}
+              </Button>
+            </FormGroup>
 
-        <Button>Submit</Button>
-        {error ? <div>{error}</div> : null}
-      </Form>
+            {error ? (
+              <div style={{ marginTop: "1rem" }}>
+                <Alert color="danger">{error}</Alert>
+              </div>
+            ) : null}
+            {hasRegistered ? (
+              <div style={{ marginTop: "1rem" }}>
+                <Alert color="success">{successMsg}</Alert>
+              </div>
+            ) : null}
+          </Form>
+        </Col>
+      </Row>
     </Container>
   );
 };
@@ -90,7 +137,9 @@ const mapDispatch = dispatch => ({
   clearError: () => dispatch(clearError())
 });
 const mapState = state => ({
-  error: state.auth.error
+  error: state.auth.error,
+  isAuth: state.auth.isAuth,
+  hasRegistered: state.auth.hasRegistered
 });
 export default connect(
   mapState,

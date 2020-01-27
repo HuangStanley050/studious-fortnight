@@ -10,5 +10,6 @@ export default {
   setCourse: "/api/course/start",
   addCourse: "/api/course/add",
   updateMeditationTime: "/api/course/meditation_update",
-  returnUserMeditation: "/api/course/return_meditation"
+  returnUserMeditation: "/api/course/return_meditation",
+  updateCurrentMeditation: "/api/course/update-meditation"
 };

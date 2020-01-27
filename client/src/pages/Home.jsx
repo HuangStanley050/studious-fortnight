@@ -10,23 +10,19 @@ const Home = ({ hasRegistered }) => {
 
   useEffect(() => {
     const fetchMeditationData = async () => {
+      console.log("has registered?: ", hasRegistered);
       const token = localStorage.getItem("CMCFlow");
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
         url: API.userMeditation
-      })
-      await setCurrentMeditation(response.data);
-    }
+      });
+      console.log("meditation data: ", response.data);
+      setCurrentMeditation(response.data);
+    };
     fetchMeditationData();
-
-    console.log(currentMeditation)
-  }, [])
-
-  // useEffect(() => {
-  //   console.log("from home page, register status: ", hasRegistered);
-  // }, [hasRegistered]);
-
+  }, [hasRegistered]);
+  //console.log("currnetMeditation data: ", currentMeditation);
   return (
     <>
       <h1>Home page</h1>

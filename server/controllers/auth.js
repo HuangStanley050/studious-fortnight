@@ -56,9 +56,10 @@ exports.oAuthLogin = (req, res, next) => {
   const payload = {
     ...req.user
   };
+  //console.log(payload);
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
-  console.log(req.user);
-  console.log(token);
+  //console.log(req.user);
+  //console.log(token);
   //res.send({ message: "Authenticated", token });
   res.redirect(`/auth?jwt=${token}`);
 };
@@ -112,7 +113,7 @@ exports.localRegister = async (req, res, next) => {
     const newUser = new User({ email, password: hash });
     //pre-load badges with unlocked: false as default setting
     newUser.badges = badges;
-    newUser.currentMeditation = "";
+
     let registerUser = await newUser.save();
     return res.send({ msg: "user registered", registerUser });
   } catch (err) {

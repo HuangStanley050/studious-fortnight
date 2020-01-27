@@ -26,14 +26,19 @@ passport.use(
           };
           return done(null, user);
         }
-
         let newUser = await new User({
           email,
           externalProvider,
           badges
         }).save();
-      } catch (err) {
+        newUser = {
+          email: newUser.email,
+          id: newUser.id,
+          externalProvider: newUser.externalProvider
+        };
         return done(null, newUser);
+      } catch (err) {
+        return done(err, null);
       }
     }
   )

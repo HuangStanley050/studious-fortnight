@@ -3,10 +3,15 @@ const Meditation = require("../models/Meditation");
 const User = require("../models/User");
 
 exports.returnUserMeditation = async (req, res) => {
-    const { id } = req.user;
-    // const {id} = req.body;
-    // console.log("id ==>", id);
+  const { id } = req.user;
+  // const {id} = req.body;
+  // console.log("id ==>", id);
+  //console.log("returning user meditation......from returnUserMeditation");
+  const result = await User.findOne({ _id: id });
+  //console.log("result of finding the meditation from user: ", result);
+  const meditationId = result.currentMeditation;
 
+<<<<<<< HEAD
     const result = await User.findOne({_id: id})
     const meditationId = result.currentMeditation
     const meditation = await Meditation.findOne({_id: meditationId});
@@ -25,3 +30,9 @@ exports.updateUserMeditation = async (req, res ) => {
     }
     await meditation.save()
 }
+=======
+  let meditation = await Meditation.findOne({ _id: meditationId });
+
+  return res.send(meditation);
+};
+>>>>>>> 7016c2092578c4edc16f5c7643ce793462fa58f4
