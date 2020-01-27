@@ -3,6 +3,9 @@ import renderField from "./renderField";
 import { Field, reduxForm, getFormValues } from "redux-form";
 import { Col, Container } from "reactstrap";
 import { connect } from "react-redux";
+import beginner from "../assets/noExperience.jpg";
+import intermediate from "../assets/someExperience.png";
+import expert from "../assets/expertExperience.jpg";
 
 let PageOne = ({ nextPage, values }) => {
   const selectionStyle = {
@@ -18,7 +21,7 @@ let PageOne = ({ nextPage, values }) => {
   //console.log(selection);
   return (
     <Container>
-      <h2 style={{ textAlign: "center" }}>how much exp do you have?</h2>
+      <h2 style={{ textAlign: "center" }}>How much experience do you have?</h2>
       <form className="row" onSubmit={nextPage}>
         <Col sm="4" md="4" lg="4">
           <label className="special-label">
@@ -34,8 +37,12 @@ let PageOne = ({ nextPage, values }) => {
               style={selection === noExperience ? selectionStyle : null}
             >
               <div className="card-body">
+                <img
+                  style={{ width: "278px", height: "259px" }}
+                  className="card-image-top"
+                  src={beginner}
+                />
                 <div className="card-title">No experience</div>
-                <div className="card-body">No experience</div>
               </div>
             </div>
           </label>
@@ -54,8 +61,12 @@ let PageOne = ({ nextPage, values }) => {
               style={selection === someExperience ? selectionStyle : null}
             >
               <div className="card-body">
+                <img
+                  style={{ width: "278px", height: "259px" }}
+                  className="card-image-top"
+                  src={intermediate}
+                />
                 <div className="card-title">Some experience</div>
-                <div className="card-body">Some experience</div>
               </div>
             </div>
           </label>
@@ -74,8 +85,12 @@ let PageOne = ({ nextPage, values }) => {
               style={selection === expertExperience ? selectionStyle : null}
             >
               <div className="card-body">
+                <img
+                  style={{ width: "278px", height: "259px" }}
+                  className="card-image-top"
+                  src={expert}
+                />
                 <div className="card-title">Expert experience</div>
-                <div className="card-body">Expoert experience</div>
               </div>
             </div>
           </label>
