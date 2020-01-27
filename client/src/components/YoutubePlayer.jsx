@@ -10,25 +10,26 @@ class YoutubePlayer extends React.Component {
     currentTime: 0,
     duration: 0,
     percentage: 0,
-    watchComplete: false
+    watchComplete: false,
+    videoId: ""
   };
 
   //adds a videoplayer when component is ready
-  // async componentDidMount() {
+  async componentDidMount() {
 
-  //   const response = await axios({
-  //     headers: { Authorization: `bearer ${token}` },
-  //     method: "get",
-  //     url: API.userMeditation
-  //   })
-  //   if(response.data){
-  //     console.log(...response.data)
-  //     // this.setState({
-  //     //   currentTime: currentTime
-  //     // })
-  //   }
-  // // this.state.player.seekTo(currentTime)
-  // }
+    const response = await axios({
+      headers: { Authorization: `bearer ${token}` },
+      method: "get",
+      url: API.userMeditation
+    })
+    if(response.data){
+      console.log(...response.data)
+      // this.setState({ 
+      //   currentTime: currentTime
+      // })
+    }
+  // this.state.player.seekTo(currentTime)
+  }
   videoOnReady = event => {
     // access to player in all event handlers via event.target
     const player = event.target;
