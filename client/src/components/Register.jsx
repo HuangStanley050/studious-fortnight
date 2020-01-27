@@ -43,7 +43,7 @@ const Register = ({
 
       clearError();
     };
-  }, [clearError]);
+  }, [clearError, hasRegistered, isAuth]);
 
   const handleSubmit = e => {
     e.preventDefault();
