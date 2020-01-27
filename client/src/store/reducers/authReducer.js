@@ -1,8 +1,8 @@
 import Action from "../actions";
 
 const initialState = {
-  isAuth: true,
-  hasRegistered: true,
+  isAuth: false,
+  hasRegistered: false,
   userInfo: {},
   loading: false,
   error: ""
