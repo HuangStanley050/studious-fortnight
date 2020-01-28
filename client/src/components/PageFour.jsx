@@ -8,7 +8,7 @@ import { Field, reduxForm, getFormValues } from "redux-form";
 import morningPic from "../assets/morning.jpeg";
 import noonPic from "../assets/noon.jpg";
 import nightPic from "../assets/night.jpeg";
-import { Container, Col } from "reactstrap";
+import { Container, Col, Button } from "reactstrap";
 
 let PageFour = ({ values, prevPage, dispatch }) => {
   let selection;
@@ -122,11 +122,24 @@ let PageFour = ({ values, prevPage, dispatch }) => {
             </div>
           </label>
         </Col>
-        <div>
-          <button type="button" className="previous" onClick={prevPage}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "100%"
+          }}
+        >
+          <Button
+            type="button"
+            color="info"
+            className="previous"
+            onClick={prevPage}
+          >
             Previous
-          </button>
-          <button>Submit</button>
+          </Button>
+          <Button type="submit" color="danger">
+            Submit
+          </Button>
         </div>
       </form>
     </Container>

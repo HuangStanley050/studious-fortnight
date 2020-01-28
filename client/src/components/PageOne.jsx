@@ -1,7 +1,7 @@
 import React from "react";
 import renderField from "./renderField";
 import { Field, reduxForm, getFormValues } from "redux-form";
-import { Col, Container } from "reactstrap";
+import { Col, Container, Button } from "reactstrap";
 import { connect } from "react-redux";
 import beginner from "../assets/noExperience.jpg";
 import intermediate from "../assets/someExperience.png";
@@ -98,10 +98,12 @@ let PageOne = ({ nextPage, values }) => {
             </div>
           </label>
         </Col>
-        <div>
-          <button type="submit" className="next">
+        <div
+          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+        >
+          <Button color="primary" type="submit" className="next">
             Next
-          </button>
+          </Button>
         </div>
       </form>
     </Container>

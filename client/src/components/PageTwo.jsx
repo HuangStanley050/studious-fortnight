@@ -1,7 +1,7 @@
 import React from "react";
 import renderField from "./renderField";
 import { Field, reduxForm, getFormValues } from "redux-form";
-import { Col, Container } from "reactstrap";
+import { Col, Container, Button } from "reactstrap";
 import { connect } from "react-redux";
 import friendsPic from "../assets/friends.jpeg";
 import internetPic from "../assets/internet.png";
@@ -98,13 +98,29 @@ let PageTwo = ({ prevPage, nextPage, values }) => {
             </div>
           </label>
         </Col>
-        <div>
-          <button type="button" className="previous" onClick={prevPage}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "100%"
+          }}
+        >
+          <Button
+            color="info"
+            type="button"
+            className="previous"
+            onClick={prevPage}
+          >
             Previous
-          </button>
-          <button type="button" className="next" onClick={nextPage}>
+          </Button>
+          <Button
+            color="primary"
+            type="button"
+            className="next"
+            onClick={nextPage}
+          >
             Next
-          </button>
+          </Button>
         </div>
       </form>
     </Container>
