@@ -52,4 +52,11 @@ router.post(
   courseController.setCurrentMeditation
 );
 
+//route to get users info
+router.get(
+  "/api/course/get-user",
+  passport.authenticate("jwt", { session: false }),
+  courseController.getUser 
+);
+
 module.exports = router;

@@ -28,7 +28,7 @@ const Home = ({ hasRegistered }) => {
     };
     fetchMeditationData();
   }, [hasRegistered]);
-  //console.log("currnetMeditation data: ", currentMeditation);
+
   return (
     <>
       {currentMeditation.sessionDetail != undefined ? (
@@ -40,7 +40,7 @@ const Home = ({ hasRegistered }) => {
           <p>level: {currentMeditation.sessionDetail.level}</p>
         </>
       ) : (
-        <p> hmm</p>
+        <p>Loading meditation session</p>
       )}
       {error ? errorMsg : null}
       {hasRegistered ? <Quiz /> : null}

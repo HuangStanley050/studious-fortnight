@@ -10,5 +10,6 @@ export default {
   setCourse: "/api/course/start",
   addCourse: "/api/course/add",
   updateCurrentMeditation: "/api/course/update-meditation",
+  getUser: "/api/course/get-user",
   donation: "/api/donation"
 };
