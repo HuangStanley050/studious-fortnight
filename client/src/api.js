@@ -11,5 +11,7 @@ export default {
   addCourse: "/api/course/add",
   updateMeditationTime: "/api/course/meditation_update",
   returnUserMeditation: "/api/course/return_meditation",
-  updateCurrentMeditation: "/api/course/update-meditation"
+  updateCurrentMeditation: "/api/course/update-meditation",
+  getVideo: "/api/meditation_getVideo"
+
 };

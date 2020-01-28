@@ -1,7 +1,7 @@
 import Action from "../actions";
 
 const initialState = {
-  isAuth: false,
+  isAuth: true,
   hasRegistered: false,
   userInfo: {},
   loading: false,
@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case Action.TURN_OFF_QUIZ:
-      return {
+      return { 
         ...state,
         hasRegistered: false
       };

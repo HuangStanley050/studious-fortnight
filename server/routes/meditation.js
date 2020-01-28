@@ -7,6 +7,13 @@ const passport = require("passport");
     -post request when pause or close the meditation ## update current time ##
     -
 */
+
+router.get(
+"/api/meditation_getVideo",
+passport.authenticate("jwt", { session: false }),
+meditationController.getVideo
+);
+
 //get the current meditation based off the User_Id
 router.get(
   "/api/meditation_user",
@@ -16,7 +23,7 @@ router.get(
 
 //  Update the Current Meditation Time
 router.post(
-  "/api/meditation_update",
+  "/api/course/meditation_update",
   passport.authenticate("jwt", { session: false }),
   meditationController.updateUserMeditation
 )

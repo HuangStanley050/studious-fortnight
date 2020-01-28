@@ -3,7 +3,7 @@ import Quiz from "../components/Quiz";
 import { connect } from "react-redux";
 import axios from "axios";
 import API from "../api";
-// import YoutubePlayer from "../components/YoutubePlayer.jsx"
+import YoutubePlayer from "../components/YoutubePlayer.jsx"
 
 const Home = ({ hasRegistered }) => {
   const [currentMeditation, setCurrentMeditation] = useState("");
@@ -17,7 +17,7 @@ const Home = ({ hasRegistered }) => {
         method: "get",
         url: API.userMeditation
       });
-      console.log("meditation data: ", response.data);
+      console.log("meditation data: ", {...response.data});
       setCurrentMeditation(response.data);
     };
     fetchMeditationData();
@@ -29,7 +29,6 @@ const Home = ({ hasRegistered }) => {
       <p>Current meditation: {currentMeditation._id}</p>
       {/* pass url={"url"} as props in YoutubePlayer */}
       <YoutubePlayer 
-      videoId="hHW1oY26kxQ"
       className="vidPlayer"
       />
       {hasRegistered ? <Quiz /> : null}
