@@ -31,8 +31,18 @@ const Home = ({ hasRegistered }) => {
   //console.log("currnetMeditation data: ", currentMeditation);
   return (
     <>
-      <h1>Home page</h1>
-      <p>Current meditation: {currentMeditation._id}</p>
+
+      {currentMeditation.sessionDetail != undefined ?   
+        <> 
+        <h1>Home page</h1>
+        <p>Current meditation: {currentMeditation._id}</p>
+        <p>Completed: {currentMeditation.completed ? "true" : "false" }</p>
+        <p>Time: {currentMeditation.sessionDetail.totalTime}</p>
+        <p>level: {currentMeditation.sessionDetail.level}</p>
+        </>
+      :
+        <p> hmm</p>
+      }
       <h4>{error ? errorMsg : null}</h4>
       {hasRegistered ? <Quiz /> : null}
     </>

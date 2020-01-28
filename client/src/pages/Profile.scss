@@ -15,7 +15,7 @@
     height: 100%;
     .selected-link {
       font-size: 14px;
-      color: rgba(84, 84, 84, 0.5);
+      color: var(--main-link-hover);
       width: 100%;
       text-align: center;
     }
@@ -24,23 +24,23 @@
     }
     .link {
       font-size: 14px;
-      color: rgb(84, 84, 84);
+      color: var(--main-link-color);
       width: 100%;
       text-align: center;
     }
     .link:hover {
-      color: rgba(84, 84, 84, 0.5);
+      color: var(--main-link-hover);
       cursor: pointer;
     }
     .normal-box {
       width: 100%;
       height: 5px;
-      background: rgb(84, 84, 84);
+      background: var(--main-link-color);
     }
     .hover-box {
       width: 100%;
       height: 5px;
-      background: rgba(84, 84, 84, 0.5);
+      background: var(--main-link-hover);
     }
   }
 }
