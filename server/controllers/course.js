@@ -42,7 +42,8 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
         sessionDetail: createSessionDetail(startingChoice, i),
         completed: false,
         userId: id,
-        courseId: newCourse
+        courseId: newCourse,
+        music: courseDetail.music
       });
       meditationArray.push(newMeditation);
     }
@@ -145,7 +146,7 @@ exports.starterCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "beginner",
       levels: 3,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
     createCourse(id, startingChoice, courseDetail, res);
@@ -155,7 +156,7 @@ exports.starterCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "intermediate",
       levels: 4,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
     createCourse(id, startingChoice, courseDetail, res);
@@ -165,7 +166,7 @@ exports.starterCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "expert",
       levels: 5,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     createCourse(id, startingChoice, courseDetail, res);
     updateCurrentMeditation(id);
@@ -197,7 +198,7 @@ exports.nextCourse = async (req, res) => {
             courseDetail = {
               difficulty: "intermediate",
               levels: 4,
-              music: "testmusic.mp3" //dummy data used for now.
+              music: "MkPlp1Vt8YY" //dummy data used for now.
             };
             createCourse(userId, "intermediate", courseDetail, res);
             res.send("added intermediate course, beginner finished");
@@ -208,7 +209,7 @@ exports.nextCourse = async (req, res) => {
             courseDetail = {
               difficulty: "expert",
               levels: 5,
-              music: "testmusic.mp3" //dummy data used for now.
+              music: "MkPlp1Vt8YY" //dummy data used for now.
             };
             createCourse(userId, "expert", courseDetail, res);
             res.send("added expert course, intermediate finished");
@@ -240,7 +241,7 @@ exports.addCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "beginner",
       levels: 3,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
     createCourse(id, courseName, courseDetail, res);
@@ -250,7 +251,7 @@ exports.addCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "intermediate",
       levels: 4,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
     createCourse(id, courseName, courseDetail, res);
@@ -260,7 +261,7 @@ exports.addCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "expert",
       levels: 5,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     createCourse(id, courseName, courseDetail, res);
     updateCurrentMeditation(id);

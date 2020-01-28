@@ -9,9 +9,23 @@ const passport = require("passport");
 */
 
 router.get(
+"/api/meditation_getVideo",
+passport.authenticate("jwt", { session: false }),
+meditationController.getVideo
+);
+
+//get the current meditation based off the User_Id
+router.get(
   "/api/meditation_user",
   passport.authenticate("jwt", { session: false }),
   meditationController.returnUserMeditation
 );
+
+//  Update the Current Meditation Time
+router.post(
+  "/api/course/meditation_update",
+  passport.authenticate("jwt", { session: false }),
+  meditationController.updateUserMeditation
+)
   
 module.exports = router;

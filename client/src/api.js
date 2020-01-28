@@ -9,7 +9,11 @@ export default {
   badgeData: "/api/badges",
   setCourse: "/api/course/start",
   addCourse: "/api/course/add",
+  updateMeditationTime: "/api/course/meditation_update",
+  returnUserMeditation: "/api/course/return_meditation",
   updateCurrentMeditation: "/api/course/update-meditation",
+  getVideo: "/api/meditation_getVideo",
+  donation: "/api/donation", 
   getUser: "/api/course/get-user",
   donation: "/api/donation"
 };
