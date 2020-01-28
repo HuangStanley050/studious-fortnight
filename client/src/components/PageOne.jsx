@@ -1,7 +1,7 @@
 import React from "react";
 import renderField from "./renderField";
 import { Field, reduxForm, getFormValues } from "redux-form";
-import { Col, Container } from "reactstrap";
+import { Col, Container, Button } from "reactstrap";
 import { connect } from "react-redux";
 import beginner from "../assets/noExperience.jpg";
 import intermediate from "../assets/someExperience.png";
@@ -38,6 +38,7 @@ let PageOne = ({ nextPage, values }) => {
             >
               <div className="card-body">
                 <img
+                  alt="beginner meditation"
                   style={{ width: "278px", height: "259px" }}
                   className="card-image-top"
                   src={beginner}
@@ -62,6 +63,7 @@ let PageOne = ({ nextPage, values }) => {
             >
               <div className="card-body">
                 <img
+                  alt="intermediate meditation"
                   style={{ width: "278px", height: "259px" }}
                   className="card-image-top"
                   src={intermediate}
@@ -86,6 +88,7 @@ let PageOne = ({ nextPage, values }) => {
             >
               <div className="card-body">
                 <img
+                  alt="expert meditation"
                   style={{ width: "278px", height: "259px" }}
                   className="card-image-top"
                   src={expert}
@@ -95,10 +98,12 @@ let PageOne = ({ nextPage, values }) => {
             </div>
           </label>
         </Col>
-        <div>
-          <button type="submit" className="next">
+        <div
+          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+        >
+          <Button color="primary" type="submit" className="next">
             Next
-          </button>
+          </Button>
         </div>
       </form>
     </Container>
