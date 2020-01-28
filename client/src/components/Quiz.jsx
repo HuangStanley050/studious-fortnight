@@ -14,7 +14,10 @@ import axios from "axios";
 let Quiz = ({ hasRegistered, turnOffQuiz }) => {
   const [currentPage, setPage] = useState(1);
   const [modal, setModal] = useState(true);
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    turnOffQuiz();
+    setModal(!modal);
+  };
   const externalCloseBtn = (
     <button
       className="close"
@@ -26,7 +29,7 @@ let Quiz = ({ hasRegistered, turnOffQuiz }) => {
   );
   const nextPage = () => setPage(currentPage + 1);
   const prevPage = () => setPage(currentPage - 1);
-  console.log("modal is open");
+
   return (
     <div>
       <Modal
@@ -38,9 +41,9 @@ let Quiz = ({ hasRegistered, turnOffQuiz }) => {
       >
         <ModalHeader>Start the Quiz</ModalHeader>
 
-        <span>
+        {/*<span>
           <button onClick={turnOffQuiz}>Close Quiz</button>
-        </span>
+        </span>*/}
         <ModalBody>
           {currentPage === 1 && <PageOne nextPage={nextPage} />}
           {currentPage === 2 && (

@@ -46,7 +46,7 @@ let PageFour = ({ values, prevPage, dispatch }) => {
   return (
     <Container>
       <h2 style={{ textAlign: "center" }}>Preferred Meditation Time</h2>
-      <form className="row">
+      <form className="row" onSubmit={submitHandler}>
         <Col sm="4" md="4" lg="4">
           <label className="special-label">
             <Field
