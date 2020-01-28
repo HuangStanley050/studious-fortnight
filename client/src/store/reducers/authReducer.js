@@ -11,6 +11,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case Action.LOGOUT:
+      localStorage.removeItem("CMCFlow");
       return {
         ...state,
         userInfo: {},

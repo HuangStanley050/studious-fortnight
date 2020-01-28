@@ -11,6 +11,7 @@ import Logout from "../components/Logout";
 import PaymentForm from "../components/PaymentForm";
 import axios from "axios";
 import API from "../api";
+import Account from "../components/Account.jsx"
 
 const Profile = () => {
   const [display, setDisplay] = useState("stats");
@@ -22,6 +23,7 @@ const Profile = () => {
   };
 
   //======================
+  //set required profile states:
 
   const [totalTimeMeditated, setTotalTimeMeditated] = useState(0);
   const [sessionsCompleted, setSessionsCompleted] = useState(0);
@@ -30,6 +32,7 @@ const Profile = () => {
   const [runStreak, setRunStreak] = useState(0);
   const [longestRunStreak, setLongestRunStreak] = useState(0);
   const [journeyItems, setJourneyItems] = useState(0);
+  const [user, setUser] = useState(0);
 
   useEffect(() => {
     //api call: API.meditationData
@@ -112,7 +115,21 @@ const Profile = () => {
       setJourneyItems(theJourneyItems);
     };
     getJourneyItems();
-  }, []);
+
+    const setTheUser = async () => {
+      const token = localStorage.getItem("CMCFlow");
+      const response = await axios({
+        headers: { Authorization: `bearer ${token}` },
+        method: "get",
+        url: API.getUser
+      })
+      setUser(response.data)
+    }
+    setTheUser()
+
+  }, [])
+
+
 
   return (
     <>
@@ -131,12 +148,18 @@ const Profile = () => {
         ) : null}
       </h1>
       <div>
-        {display === "journey" ? (
+        {display === "journey" ?
           <Journey
             totalTimeMeditated={totalTimeMeditated}
             journeyItems={journeyItems}
+          /> 
+          : null }
+      </div>
+      <div>{ (display === "account") ? 
+          <Account 
+            user={user}
           />
-        ) : null}
+          : null }
       </div>
       <div>{display === "account" ? "Account Component" : null}</div>
       <Logout />
