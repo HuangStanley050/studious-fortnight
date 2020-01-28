@@ -13,7 +13,6 @@ export default {
   returnUserMeditation: "/api/course/return_meditation",
   updateCurrentMeditation: "/api/course/update-meditation",
   getVideo: "/api/meditation_getVideo",
-  donation: "/api/donation", 
-  getUser: "/api/course/get-user",
-  donation: "/api/donation"
+  donation: "/api/donation",
+  getUser: "/api/course/get-user"
 };

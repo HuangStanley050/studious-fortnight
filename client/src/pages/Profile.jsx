@@ -11,7 +11,7 @@ import Logout from "../components/Logout";
 import PaymentForm from "../components/PaymentForm";
 import axios from "axios";
 import API from "../api";
-import Account from "../components/Account.jsx"
+import Account from "../components/Account.jsx";
 
 const Profile = () => {
   const [display, setDisplay] = useState("stats");
@@ -48,7 +48,7 @@ const Profile = () => {
       //logic to work out total time meditated and set it
       let totalTime = 0;
       response.data.forEach(meditation => {
-        if (meditation.completed == true) {
+        if (meditation.completed === true) {
           totalTime += meditation.sessionDetail.totalTime;
         }
       });
@@ -59,7 +59,7 @@ const Profile = () => {
       //logic to work out sessions completed and set it
       let completedSessions = 0;
       response.data.forEach(meditation => {
-        if (meditation.completed == true) {
+        if (meditation.completed === true) {
           completedSessions++;
         }
       });
@@ -91,7 +91,7 @@ const Profile = () => {
       });
       let unlockedBadges = 0;
       response.data.forEach(badge => {
-        if (badge.unlocked == true) {
+        if (badge.unlocked === true) {
           unlockedBadges++;
         }
       });
@@ -122,14 +122,11 @@ const Profile = () => {
         headers: { Authorization: `bearer ${token}` },
         method: "get",
         url: API.getUser
-      })
-      setUser(response.data)
-    }
-    setTheUser()
-
-  }, [])
-
-
+      });
+      setUser(response.data);
+    };
+    setTheUser();
+  }, []);
 
   return (
     <>
@@ -148,19 +145,14 @@ const Profile = () => {
         ) : null}
       </h1>
       <div>
-        {display === "journey" ?
+        {display === "journey" ? (
           <Journey
             totalTimeMeditated={totalTimeMeditated}
             journeyItems={journeyItems}
-          /> 
-          : null }
-      </div>
-      <div>{ (display === "account") ? 
-          <Account 
-            user={user}
           />
-          : null }
+        ) : null}
       </div>
+      <div>{display === "account" ? <Account user={user} /> : null}</div>
       <div>{display === "account" ? "Account Component" : null}</div>
       <Logout />
       <PaymentForm />

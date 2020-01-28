@@ -42,7 +42,7 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
         sessionDetail: createSessionDetail(startingChoice, i),
         completed: false,
         userId: id,
-        courseId: newCourse,
+        courseId: newCourse._id,
         music: courseDetail.music
       });
       meditationArray.push(newMeditation);
@@ -99,16 +99,24 @@ const updateCurrentMeditation = async id => {
       userId: user._id,
       completed: false
     });
-    // console.log("inside update current mediation:");
-    // console.log("the meditation that was found was: ", meditation);
-    // console.log("meditation id is: ", typeof meditation._id);
+    if (!meditation) {
+      throw new Error("unable to find meditation based on conditions");
+    }
+    /*
+          for some reason sometimes it can't find the meditation that we are looking for. I can't always re produce the error but it does happen
+
+          meditation._id =====> sometimes is null
+
+     */
     user.currentMeditation = meditation._id;
-    console.log(meditation._id);
+    console.log("before hitting the error block: ", meditation._id);
     // console.log("before updating user meditation: ", meditation.id);
     // console.log("Updating user meditation: ", user.currentMeditation);
     await user.save();
   } catch (err) {
-    console.log("this is in updateCurrentMeditation");
+    console.log(
+      "==============this is in updateCurrentMeditation catch block====>"
+    );
     console.log(err.message);
   }
 };
