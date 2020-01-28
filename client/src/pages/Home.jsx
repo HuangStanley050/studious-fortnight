@@ -31,18 +31,18 @@ const Home = ({ hasRegistered }) => {
 
   return (
     <>
-      {currentMeditation.sessionDetail != undefined ?   
-        <> 
-        <h1>Home page</h1>
-        <p>Current meditation: {currentMeditation._id}</p>
-        <p>Completed: {currentMeditation.completed ? "true" : "false" }</p>
-        <p>Time: {currentMeditation.sessionDetail.totalTime}</p>
-        <p>level: {currentMeditation.sessionDetail.level}</p>
+      {currentMeditation.sessionDetail != undefined ? (
+        <>
+          <h1>Home page</h1>
+          <p>Current meditation: {currentMeditation._id}</p>
+          <p>Completed: {currentMeditation.completed ? "true" : "false"}</p>
+          <p>Time: {currentMeditation.sessionDetail.totalTime}</p>
+          <p>level: {currentMeditation.sessionDetail.level}</p>
         </>
-      :
-        <p> hmm</p>
-      }
-      <h4>{error ? errorMsg : null}</h4>
+      ) : (
+        <p>Loading meditation session</p>
+      )}
+      {error ? errorMsg : null}
       {hasRegistered ? <Quiz /> : null}
     </>
   );
