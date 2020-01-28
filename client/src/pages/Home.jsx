@@ -20,6 +20,7 @@ const Home = ({ hasRegistered }) => {
         });
         console.log("meditation data: ", response.data);
         setCurrentMeditation(response.data);
+        setError("");
       } catch (err) {
         console.log(err.response.data.msg);
         setError(err.response.data.msg);
