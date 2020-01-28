@@ -32,7 +32,11 @@ router.post(
 );
 
 //route to begin next course
-router.post("/api/course/begin_next", courseController.nextCourse);
+router.post(
+  "/api/course/begin_next",
+  passport.authenticate("jwt", { session: false }),
+  courseController.nextCourse
+);
 
 //route to add new course from discover page
 router.post(

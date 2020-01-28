@@ -61,11 +61,24 @@ exports.returnUserMeditation = async (req, res) => {
     //console.log("result of finding the meditation from user: ", result);
     
   const { id } = req.user;
-  const result = await User.findOne({_id: id})
-  const meditationId = await result.currentMeditation;
-  const meditation = await Meditation.findOne({_id: meditationId});
+  // const {id} = req.body;
+  // console.log("id ==>", id);
+  //console.log("returning user meditation......from returnUserMeditation");
+  try {
+    const result = await User.findOne({ _id: id });
+    //console.log("result of finding the meditation from user: ", result);
+    if (!result.currentMeditation) {
+      throw new Error("user has no existing meditation");
+    }
+    const meditationId = result.currentMeditation;
 
-   return res.send(meditation); 
+    let meditation = await Meditation.findOne({ _id: meditationId });
+    //console.log(meditation);
+    return res.send(meditation);
+  } catch (err) {
+    console.log("no current Meditation");
+    return res.status(500).send({ msg: "Unable to find current meditation" });
+  }
 };
 
 exports.updateUserMeditation = async (req, res ) => {
