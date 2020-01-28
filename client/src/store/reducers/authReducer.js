@@ -1,7 +1,7 @@
 import Action from "../actions";
 
 const initialState = {
-  isAuth: true,
+  isAuth: false,
   hasRegistered: false,
   userInfo: {},
   loading: false,
@@ -10,6 +10,12 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case Action.LOGOUT:
+      return {
+        ...state,
+        userInfo: {},
+        isAuth: false
+      };
     case Action.CLEAR_AUTH_ERROR:
       return {
         ...state,
