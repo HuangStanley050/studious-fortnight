@@ -42,7 +42,8 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
         sessionDetail: createSessionDetail(startingChoice, i),
         completed: false,
         userId: id,
-        courseId: newCourse
+        courseId: newCourse._id,
+        music: courseDetail.music
       });
       meditationArray.push(newMeditation);
     }
@@ -98,15 +99,24 @@ const updateCurrentMeditation = async id => {
       userId: user._id,
       completed: false
     });
-    // console.log("inside update current mediation:");
-    // console.log("the meditation that was found was: ", meditation);
-    // console.log("meditation id is: ", typeof meditation._id);
+    if (!meditation) {
+      throw new Error("unable to find meditation based on conditions");
+    }
+    /*
+          for some reason sometimes it can't find the meditation that we are looking for. I can't always re produce the error but it does happen
+
+          meditation._id =====> sometimes is null
+
+     */
     user.currentMeditation = meditation._id;
+    console.log("before hitting the error block: ", meditation._id);
     // console.log("before updating user meditation: ", meditation.id);
     // console.log("Updating user meditation: ", user.currentMeditation);
     await user.save();
   } catch (err) {
-    console.log("this is in updateCurrentMeditation");
+    console.log(
+      "==============this is in updateCurrentMeditation catch block====>"
+    );
     console.log(err.message);
   }
 };
@@ -145,7 +155,7 @@ exports.starterCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "beginner",
       levels: 3,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
     await createCourse(id, startingChoice, courseDetail, res);
@@ -155,7 +165,7 @@ exports.starterCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "intermediate",
       levels: 4,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
     await createCourse(id, startingChoice, courseDetail, res);
@@ -165,7 +175,7 @@ exports.starterCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "expert",
       levels: 5,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     await createCourse(id, startingChoice, courseDetail, res);
     updateCurrentMeditation(id);
@@ -197,7 +207,7 @@ exports.nextCourse = async (req, res) => {
             courseDetail = {
               difficulty: "intermediate",
               levels: 4,
-              music: "testmusic.mp3" //dummy data used for now.
+              music: "MkPlp1Vt8YY" //dummy data used for now.
             };
             createCourse(userId, "intermediate", courseDetail, res);
             res.send("added intermediate course, beginner finished");
@@ -208,7 +218,7 @@ exports.nextCourse = async (req, res) => {
             courseDetail = {
               difficulty: "expert",
               levels: 5,
-              music: "testmusic.mp3" //dummy data used for now.
+              music: "MkPlp1Vt8YY" //dummy data used for now.
             };
             createCourse(userId, "expert", courseDetail, res);
             res.send("added expert course, intermediate finished");
@@ -240,7 +250,7 @@ exports.addCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "beginner",
       levels: 3,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
     createCourse(id, courseName, courseDetail, res);
@@ -250,7 +260,7 @@ exports.addCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "intermediate",
       levels: 4,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
     createCourse(id, courseName, courseDetail, res);
@@ -260,7 +270,7 @@ exports.addCourse = async (req, res) => {
     const courseDetail = {
       difficulty: "expert",
       levels: 5,
-      music: "testmusic.mp3" //dummy data used for now.
+      music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     createCourse(id, courseName, courseDetail, res);
     updateCurrentMeditation(id);
@@ -289,16 +299,16 @@ exports.getTheJourneyItems = async (req, res) => {
   const { id } = req.user;
   try {
     let meditations = await Meditation.find({ userId: id });
-    res.send(meditations)
+    res.send(meditations);
     // console.log(meditations);
   } catch (err) {
     res.status(500).send(err);
   }
-}
+};
 
 exports.getUser = async (req, res) => {
   const { id } = req.user;
-  console.log("====================")
+  console.log("====================");
   console.log("in get user");
   try {
     let user = await User.findById({ _id: id });
@@ -306,4 +316,4 @@ exports.getUser = async (req, res) => {
   } catch (err) {
     res.status(500).send(err);
   }
-}
+};
