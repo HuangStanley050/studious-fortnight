@@ -19,7 +19,7 @@ import PasswordRecovery from "./pages/PasswordRecovery";
 
 function App() {
   return (
-    <>
+    <div className="meta">
       <NavBar />
       <div className="container">
         <Switch>
@@ -45,7 +45,7 @@ function App() {
         </Switch>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

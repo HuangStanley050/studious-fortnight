@@ -1,0 +1,62 @@
+.account-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  height: 100%;
+  width: 100%;
+  // background: rgb(138, 138, 138);
+
+  .account-update-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 75%;
+    height: 50px;
+    background: var(--main-background);
+    color: black;
+    margin-bottom: 10px;
+    &:hover {
+      cursor: pointer;
+      border-bottom: 1px solid black;
+    }
+
+    .link {
+      text-decoration: none;
+      color: black;
+    }
+  }
+  form {
+    background: white;
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+
+    .account-update-section {
+      width: 78%;
+      height: 50px;
+      background: white;
+      border-bottom: 1px solid black;
+      border-radius: 0px;
+      &:focus-within{
+        background: var(--main-background);
+      }
+      &:hover {
+        cursor: text;
+      }
+    }
+    .update-email-button {
+      width: 20%;
+      height: 50px;
+      background: white;
+      color: black;
+      background: var(--main-background);
+      border-radius: 0px;
+      &:hover {
+        border: 1px solid black;
+      }
+    }
+  }
+}

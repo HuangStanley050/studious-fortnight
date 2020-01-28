@@ -287,11 +287,22 @@ exports.setCurrentMeditation = async (req, res) => {
 
 exports.getTheJourneyItems = async (req, res) => {
   const { id } = req.user;
-
   try {
     let meditations = await Meditation.find({ userId: id });
-    console.log(meditations);
+    res.send(meditations)
+    // console.log(meditations);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}
 
+exports.getUser = async (req, res) => {
+  const { id } = req.user;
+  console.log("====================")
+  console.log("in get user");
+  try {
+    let user = await User.findById({ _id: id });
+    res.send(user);
   } catch (err) {
     res.status(500).send(err);
   }

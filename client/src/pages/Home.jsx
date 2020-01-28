@@ -28,10 +28,9 @@ const Home = ({ hasRegistered }) => {
     };
     fetchMeditationData();
   }, [hasRegistered]);
-  //console.log("currnetMeditation data: ", currentMeditation);
+
   return (
     <>
-
       {currentMeditation.sessionDetail != undefined ?   
         <> 
         <h1>Home page</h1>

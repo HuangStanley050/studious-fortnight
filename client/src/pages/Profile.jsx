@@ -6,6 +6,7 @@ import './Profile.scss';
 import {currentRunStreakCalc, longestRunStreakCalc} from '../components/statsLogic.js';
 import axios from 'axios';
 import API from "../api";
+import Account from "../components/Account.jsx"
 
 const Profile = () => {
   const [display, setDisplay] = useState("stats");
@@ -25,6 +26,7 @@ const Profile = () => {
   const [runStreak, setRunStreak] = useState(0);
   const [longestRunStreak, setLongestRunStreak] = useState(0);
   const [journeyItems, setJourneyItems] = useState(0);
+  const [user, setUser] = useState(0);
 
   useEffect(() => {
    //api call: API.meditationData
@@ -108,6 +110,17 @@ const Profile = () => {
     }
     getJourneyItems();
 
+    const setTheUser = async () => {
+      const token = localStorage.getItem("CMCFlow");
+      const response = await axios({
+        headers: { Authorization: `bearer ${token}` },
+        method: "get",
+        url: API.getUser
+      })
+      setUser(response.data)
+    }
+    setTheUser()
+
   }, [])
 
 
@@ -124,15 +137,21 @@ const Profile = () => {
             badgesUnlocked={badgesUnlocked}
             longestRunStreak={longestRunStreak}
             lastTimeMeditated={lastTimeMeditated}
-          /> : null }
+          /> 
+          : null }
       </h1>
       <div>{ (display === "journey") ? 
           <Journey 
             totalTimeMeditated={totalTimeMeditated}
             journeyItems={journeyItems}
-          /> : null }
+          /> 
+          : null }
       </div>
-      <div>{ (display === "account") ? "Account Component" : null }
+      <div>{ (display === "account") ? 
+          <Account 
+            user={user}
+          />
+          : null }
       </div>
     </>
   )
