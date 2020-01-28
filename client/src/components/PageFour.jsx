@@ -11,6 +11,13 @@ import nightPic from "../assets/night.jpeg";
 import { Container, Col } from "reactstrap";
 
 let PageFour = ({ values, prevPage, dispatch }) => {
+  let selection;
+  const morning = "morning";
+  const afternoon = "afternoon";
+  const night = "night";
+  const selectionStyle = {
+    boxShadow: "0 0 5px 5px #2ecc71"
+  };
   const submitHandler = async e => {
     e.preventDefault();
     const { experience } = values;
@@ -32,20 +39,14 @@ let PageFour = ({ values, prevPage, dispatch }) => {
     console.log(result.data);
     dispatch(closeQuiz());
   };
-  let selection;
-  const morning = "morning";
-  const afternoon = "afternoon";
-  const night = "night";
-  const selectionStyle = {
-    boxShadow: "0 0 5px 5px #2ecc71"
-  };
+
   if (values) {
     selection = values.time;
   }
   return (
     <Container>
       <h2 style={{ textAlign: "center" }}>Preferred Meditation Time</h2>
-      <form className="row">
+      <form className="row" onSubmit={submitHandler}>
         <Col sm="4" md="4" lg="4">
           <label className="special-label">
             <Field
