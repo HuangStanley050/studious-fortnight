@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import API from "../api";
 
 export const fetchSessionData = async (course, setSessions) => {
@@ -7,7 +7,7 @@ export const fetchSessionData = async (course, setSessions) => {
     headers: { Authorization: `bearer ${token}` },
     method: "get",
     url: API.meditationData
-  }); 
+  });
   // console.log(responseMeditation.data, "<== list of all meditations");
   //only push relevant sessions
   //first get courseData
@@ -20,8 +20,11 @@ export const fetchSessionData = async (course, setSessions) => {
 
   let usersCourseId = "";
 
-  responseCourse.data.forEach((theCourse) => {
-    if(theCourse.courseDetail.difficulty.toLowerCase() === course.name.toLowerCase()) {
+  responseCourse.data.forEach(theCourse => {
+    if (
+      theCourse.courseDetail.difficulty.toLowerCase() ===
+      course.name.toLowerCase()
+    ) {
       usersCourseId = theCourse._id;
       // console.log(theCourse._id, "<== course Id")
     } else {
@@ -30,25 +33,27 @@ export const fetchSessionData = async (course, setSessions) => {
     }
   });
 
-  if(usersCourseId != "") {
-    const usersSessions = responseMeditation.data.filter((session) => session.courseId === usersCourseId);
+  if (usersCourseId !== "") {
+    const usersSessions = responseMeditation.data.filter(
+      session => session.courseId === usersCourseId
+    );
     setSessions(usersSessions);
   }
-}
+};
 export const fetchUsersCourseData = async (course, setIsStarted) => {
   const token = localStorage.getItem("CMCFlow");
   const response = await axios({
     headers: { Authorization: `bearer ${token}` },
     method: "get",
     url: API.courseData
-  }); 
+  });
 
-  response.data.map((userCourse) => {
+  response.data.map(userCourse => {
     const usersCourse = userCourse.courseDetail.difficulty;
-    if( usersCourse.toLowerCase() == course.name.toLowerCase()) {
+    if (usersCourse.toLowerCase() === course.name.toLowerCase()) {
       // console.log(usersCourse, "match!")
       setIsStarted(true);
     }
+    return null;
   });
-}
-
+};

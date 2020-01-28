@@ -8,7 +8,7 @@ import PageFour from "./PageFour";
 import { closeQuiz } from "../store/actions/quizActions";
 import API from "../api";
 import "./Quiz.css";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import axios from "axios";
 
 let Quiz = ({ hasRegistered, turnOffQuiz }) => {
