@@ -284,14 +284,14 @@ exports.setCurrentMeditation = async (req, res) => {
   }
 };
 
-// User.findById({ _id: id })
-//   .then(user => {
-//     user.currentMeditation = meditationId;
-//     user.save();
-//     res.send(user);
-//     console.log("successfully set new current meditation");
-//   })
-//   .catch(err => {
-//     res.send(err);
-//     console.log(err);
-//   });
+exports.getTheJourneyItems = async (req, res) => {
+  const { id } = req.user;
+
+  try {
+    let meditations = await Meditation.find({ userId: id });
+    console.log(meditations);
+
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}
