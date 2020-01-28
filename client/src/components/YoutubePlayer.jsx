@@ -3,7 +3,7 @@ import YouTube from "react-youtube";
 import ProgressBar from "./ProgressBar.jsx";
 import API from "../api";
 import axios from "axios";
-import "./YoutubePlayer.scss"
+import "./YoutubePlayer.scss";
 
 const token = localStorage.getItem("CMCFlow");
 
@@ -17,27 +17,23 @@ class YoutubePlayer extends React.Component {
     videoId: "Qma7wnicDnk",
     prettyDuration: 0
   };
-
+  myInterval = null;
   videoOnReady = event => {
     // access to player in all event handlers via event.target
     const player = event.target;
     console.log("Youtube player object: ", player);
 
     this.setState({
-      player: player,
+      player: player
     });
 
     this.getDuration();
     this.prettyDuration();
-    
+
     //choose if auto play or auto pause on load.
     this.videoPlay();
     // this.videoPause()
-
-  };  
-
-
-
+  };
 
   // check if % complete, and is used for the progress bar
   //
@@ -48,19 +44,17 @@ class YoutubePlayer extends React.Component {
       this.setState(() => {
         return { currentTime: this.currentTime(), percentage: newPercent };
       });
-      console.log("running")
+      console.log("running");
       this.setComplete();
-    }, 500 );
+    }, 500);
   };
 
   setComplete = async () => {
     if (this.state.percentage >= 90 && this.state.watchComplete === false) {
       this.setState(() => {
         return { watchComplete: true };
-
-        
       });
-      
+
       const player = this.state.player;
       const currentTime = player.getCurrentTime();
       await axios({
@@ -77,36 +71,32 @@ class YoutubePlayer extends React.Component {
     }
   };
 
-
-
   getDuration = () => {
-    const current = this.state.player.getDuration()      
-   
-    this.setState(() => { 
+    const current = this.state.player.getDuration();
+
+    this.setState(() => {
       return { duration: current };
-    });     
+    });
   };
 
-
   prettyDuration = () => {
-    const current = this.state.player.getDuration()      
-    
+    const current = this.state.player.getDuration();
+
     function timeConvert(num) {
-      let minutes = (num / 60);
+      let minutes = num / 60;
       let rminutes = Math.floor(minutes);
       let seconds = (minutes - rminutes) * 60;
       let rseconds = Math.round(seconds);
       return rminutes + " : " + rseconds;
-      }
+    }
 
-      // let calculatedTime = parseFloat(timeConvert(current))
-      let calculatedTime = timeConvert(current)
+    // let calculatedTime = parseFloat(timeConvert(current))
+    let calculatedTime = timeConvert(current);
 
-      this.setState(() => { 
-        return { prettyDuration: calculatedTime };
-      });     
-  }
-
+    this.setState(() => {
+      return { prettyDuration: calculatedTime };
+    });
+  };
 
   currentTime = () => {
     return this.state.player.getCurrentTime();
@@ -119,14 +109,13 @@ class YoutubePlayer extends React.Component {
 
   videoPause = () => {
     this.state.player.pauseVideo();
-    clearInterval(this.myInterval) 
+    clearInterval(this.myInterval);
     let newPercent = (100 / this.state.duration) * this.state.currentTime;
     this.setState(prevState => {
       return { percentage: newPercent };
     });
     //maybe put a POST request in here.
   };
-
 
   //   videoStateChange (event) {
   //     const player = event.target
@@ -142,53 +131,47 @@ class YoutubePlayer extends React.Component {
     this.state.player.seekTo(newTime);
   };
 
-
-
   componentDidMount() {
     // this grabs the video url and sets it into state and then instantiates a player instance
     const APIcalls = async () => {
-
       const onLoad = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
         // url: API.returnUserMeditation
-        url: API.getVideo 
-      })
+        url: API.getVideo
+      });
       // console.log(onLoad.data)
-      if(onLoad.data){
-        const video = onLoad.data
-      
+      if (onLoad.data) {
+        const video = onLoad.data;
+
         this.setState({
           videoId: video
         });
       }
-      
+
       //this gets the current meditation from User and sets time to the video
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
         url: API.userMeditation
-      })
-      if(response.data){
-        const savedCurrentTime = response.data.sessionDetail.currentTime
-        
-        this.setState({ 
-          currentTime: savedCurrentTime,
-        })
+      });
+      if (response.data) {
+        const savedCurrentTime = response.data.sessionDetail.currentTime;
+
+        this.setState({
+          currentTime: savedCurrentTime
+        });
         // this.state.player.seekTo(this.state.currentTime)
       }
+    };
 
-    }
-    
-    APIcalls()
-// console.log(this.state.player)
+    APIcalls();
+    // console.log(this.state.player)
 
-
-
-// //choose if auto play or auto pause on load.
-// this.videoPlay();
-// this.videoPause()
-    }
+    // //choose if auto play or auto pause on load.
+    // this.videoPlay();
+    // this.videoPause()
+  }
 
   componentWillUnmount() {
     clearInterval(this.myInterval);
@@ -205,11 +188,10 @@ class YoutubePlayer extends React.Component {
         method: "post",
         url: API.updateMeditationTime
       });
-      console.log({...endOfSession});
+      console.log({ ...endOfSession });
+    };
 
-    }
-
-    APIunmount()
+    APIunmount();
   }
 
   render() {
@@ -229,7 +211,7 @@ class YoutubePlayer extends React.Component {
     };
     //     this.getDuration();
     // this.prettyDuration();
-    
+
     return (
       <div>
         <YouTube
@@ -250,12 +232,13 @@ class YoutubePlayer extends React.Component {
         <button className={"playerButton"} onClick={this.videoPause}>
           Pause
         </button>
-        <button className={"playerButton"} onClick={this.videoForward}> 
+        <button className={"playerButton"} onClick={this.videoForward}>
           {" "}
           +5sec{" "}
         </button>
         <h1>
-          {Math.floor(this.state.currentTime)} out of {this.state.prettyDuration}
+          {Math.floor(this.state.currentTime)} out of{" "}
+          {this.state.prettyDuration}
         </h1>
         <ProgressBar percentage={this.state.percentage} />
       </div>

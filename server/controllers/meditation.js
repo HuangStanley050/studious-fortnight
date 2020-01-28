@@ -3,63 +3,63 @@ const Meditation = require("../models/Meditation");
 const User = require("../models/User");
 
 exports.getVideo = async (req, res) => {
-        const { id } = req.user;
-        const result = await User.findOne({_id: id})
-        const meditation = await Meditation.findOne({userId: result._id})
-        const userLevel = meditation.sessionDetail.level
+  const { id } = req.user;
+  const result = await User.findOne({ _id: id });
+  const meditation = await Meditation.findOne({ userId: result._id });
+  const userLevel = meditation.sessionDetail.level;
 
-        let videoURL = ""
+  let videoURL = "";
 
-        switch ( userLevel ){
-        // 3minutes below
-        case "1":
-                videoURL =  "iHdviZkM7S4";
-                break;
-        case "2":
-                videoURL =  "4Lm0o3XGKIY";
-                break;
-        case "3":
-                videoURL =  "UIrLyE7iz50";
-                break;
-                //5minutes below
-        case "4":
-                videoURL =  "W0bSen8Qjg";
-                break;
-        case "5":
-                videoURL =  "xTczn5RUgnk";
-                break;
-        case "6":
-                videoURL =  "6_akBtKZdE";
-                break;
-        case "7":
-                videoURL =  "nkqnuxKj8Dk";
-                break;
-                //10 minutes below
-        case  "8":
-                videoURL =  "KAHKP313P2I";
-                break;
-        case  "9":
-                videoURL =  "4ASKMcdCc3g";
-                break;
-        case  "10":
-                videoURL =  "OvxwaacXTUA";
-                break;
-        case  "11":
-                videoURL =  "smZbpBsny9c";
-                break;
-        case  "12":
-                videoURL =  "Ihq64W33cyo";
-            }
-                
-        return res.send(videoURL);              
-}
+  switch (userLevel) {
+    // 3minutes below
+    case "1":
+      videoURL = "iHdviZkM7S4";
+      break;
+    case "2":
+      videoURL = "4Lm0o3XGKIY";
+      break;
+    case "3":
+      videoURL = "UIrLyE7iz50";
+      break;
+    //5minutes below
+    case "4":
+      videoURL = "W0bSen8Qjg";
+      break;
+    case "5":
+      videoURL = "xTczn5RUgnk";
+      break;
+    case "6":
+      videoURL = "6_akBtKZdE";
+      break;
+    case "7":
+      videoURL = "nkqnuxKj8Dk";
+      break;
+    //10 minutes below
+    case "8":
+      videoURL = "KAHKP313P2I";
+      break;
+    case "9":
+      videoURL = "4ASKMcdCc3g";
+      break;
+    case "10":
+      videoURL = "OvxwaacXTUA";
+      break;
+    case "11":
+      videoURL = "smZbpBsny9c";
+      break;
+    case "12":
+      videoURL = "Ihq64W33cyo";
+  }
+
+  return res.send(videoURL);
+};
 
 exports.returnUserMeditation = async (req, res) => {
-    // const {id} = req.body;
-    // console.log("id ==>", id);
-    //console.log("returning user meditation......from returnUserMeditation");
-    //console.log("result of finding the meditation from user: ", result);
-    
+  // const {id} = req.body;
+  // console.log("id ==>", id);
+  //console.log("returning user meditation......from returnUserMeditation");
+  //console.log("result of finding the meditation from user: ", result);
+
   const { id } = req.user;
   // const {id} = req.body;
   // console.log("id ==>", id);
@@ -81,19 +81,21 @@ exports.returnUserMeditation = async (req, res) => {
   }
 };
 
-exports.updateUserMeditation = async (req, res ) => {
-        const { id } = req.user;
-    const {currentTime, completed} = req.body
+exports.updateUserMeditation = async (req, res) => {
+  const { id } = req.user;
+  const { currentTime, completed } = req.body;
 
-    const user = await User.findById({ _id: id })
-    const meditation = await Meditation.findOne({_id: user.currentMeditation})
-    
-    meditation.sessionDetail.currentTime = currentTime
-    if (completed){
-        meditation.completed = true
-    }
-    await meditation.save()
-}
+  const user = await User.findById({ _id: id });
+  const meditation = await Meditation.findOne({ _id: user.currentMeditation });
+
+  meditation.sessionDetail.currentTime = currentTime;
+  if (completed) {
+    meditation.completed = true;
+  }
+  await meditation.save();
+
+  //need to return something here, otherwise client might timeout....
+};
 //   let meditation = await Meditation.findOne({ _id: meditationId });
 
 //   return res.send(meditation);
