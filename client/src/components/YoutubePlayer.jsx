@@ -150,6 +150,14 @@ class YoutubePlayer extends React.Component {
       }
 
       //this gets the current meditation from User and sets time to the video
+
+      /****
+
+      this parts here we already have the parent component Home getting the information, we can pass it down to Youtube component, looks like all we need is the current time for the meditation session 
+
+
+
+      ****/
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",

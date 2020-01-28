@@ -7,14 +7,17 @@ import API from "../api";
 import YoutubePlayer from "../components/YoutubePlayer.jsx";
 
 const Home = ({ hasRegistered }) => {
-  const [currentMeditation, setCurrentMeditation] = useState("");
+  const [currentMeditation, setCurrentMeditation] = useState(null);
   const [error, setError] = useState("");
+
   const errorMsg = <h4>Pleaes go to discover page and pick a meditation</h4>;
+
   useEffect(() => {
     const fetchMeditationData = async () => {
       try {
-        console.log("has registered?: ", hasRegistered);
+        //console.log("has registered?: ", hasRegistered);
         const token = localStorage.getItem("CMCFlow");
+
         const response = await axios({
           headers: { Authorization: `bearer ${token}` },
           method: "get",
@@ -22,24 +25,27 @@ const Home = ({ hasRegistered }) => {
         });
         console.log("meditation data: ", response.data);
         setCurrentMeditation(response.data);
+
         setError("");
       } catch (err) {
         console.log(err.response.data.msg);
+
         setError(err.response.data.msg);
       }
     };
+
     fetchMeditationData();
   }, [hasRegistered]);
 
   return (
     <>
-      {currentMeditation.sessionDetail !== undefined ? (
+      {currentMeditation !== null ? (
         <>
           <h1>Home page</h1>
-          <p>Current meditation: {currentMeditation._id}</p>
+          {/*<p>Current meditation: {currentMeditation._id}</p>
           <p>Completed: {currentMeditation.completed ? "true" : "false"}</p>
           <p>Time: {currentMeditation.sessionDetail.totalTime}</p>
-          <p>level: {currentMeditation.sessionDetail.level}</p>
+          <p>level: {currentMeditation.sessionDetail.level}</p>*/}
           <YoutubePlayer className="vidPlayer" />
         </>
       ) : (
