@@ -148,7 +148,7 @@ exports.starterCourse = async (req, res) => {
       music: "testmusic.mp3" //dummy data used for now.
     };
     //create new course:
-    createCourse(id, startingChoice, courseDetail, res);
+    await createCourse(id, startingChoice, courseDetail, res);
     updateCurrentMeditation(id);
   } else if (startingChoice === "intermediate") {
     //intermediate session: 5 minutes each, 4 sessions
@@ -158,7 +158,7 @@ exports.starterCourse = async (req, res) => {
       music: "testmusic.mp3" //dummy data used for now.
     };
     //create new course:
-    createCourse(id, startingChoice, courseDetail, res);
+    await createCourse(id, startingChoice, courseDetail, res);
     updateCurrentMeditation(id);
   } else if (startingChoice === "expert") {
     //intermediate session: 5 minutes each, 5 sessions
@@ -167,7 +167,7 @@ exports.starterCourse = async (req, res) => {
       levels: 5,
       music: "testmusic.mp3" //dummy data used for now.
     };
-    createCourse(id, startingChoice, courseDetail, res);
+    await createCourse(id, startingChoice, courseDetail, res);
     updateCurrentMeditation(id);
   }
 
