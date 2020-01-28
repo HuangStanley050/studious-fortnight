@@ -154,39 +154,3 @@ export default reduxForm({
   destroyOnUnmount: false, // <------ preserve form data
   forceUnregisterOnUnmount: true // <------ unregister fields on unmount
 })(PageFour);
-
-/*
-<form onSubmit={submitHandler}>
-  <h1>Page Four</h1>
-  <h2>Preferred Meditation Time</h2>
-  <div>
-    <div>
-      <label>
-        <Field name="time" component="input" type="radio" value="morning" />
-        Morning
-      </label>
-    </div>
-    <div>
-      <label>
-        <Field
-          name="time"
-          component="input"
-          type="radio"
-          value="afternoon"
-        />
-        Afternoon
-      </label>
-    </div>
-    <div>
-      <label>
-        <Field name="time" component="input" type="radio" value="night" />
-        Night
-      </label>
-    </div>
-  </div>
-  <button type="button" className="previous" onClick={prevPage}>
-    Previous
-  </button>
-  <button>Submit</button>
-</form>
- */
