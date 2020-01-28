@@ -2,7 +2,7 @@ import React from "react";
 import renderField from "./renderField";
 import { Field, reduxForm, getFormValues } from "redux-form";
 import { connect } from "react-redux";
-import { Col, Container } from "reactstrap";
+import { Col, Container, Button } from "reactstrap";
 
 let PageThree = ({ prevPage, nextPage, values }) => {
   //const { prevPage, nextPage } = props;
@@ -77,13 +77,29 @@ let PageThree = ({ prevPage, nextPage, values }) => {
             </div>
           </label>
         </Col>
-        <div>
-          <button type="button" className="previous" onClick={prevPage}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "100%"
+          }}
+        >
+          <Button
+            type="button"
+            color="info"
+            className="previous"
+            onClick={prevPage}
+          >
             Previous
-          </button>
-          <button type="button" className="next" onClick={nextPage}>
+          </Button>
+          <Button
+            type="button"
+            color="primary"
+            className="next"
+            onClick={nextPage}
+          >
             Next
-          </button>
+          </Button>
         </div>
       </form>
     </Container>
