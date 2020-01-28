@@ -1,24 +1,25 @@
 import React from "react";
 import StripeCheckout from "react-stripe-checkout";
+import API from "../api";
+import { Button } from "reactstrap";
 import axios from "axios";
 
 // this jwt is only temporariy for testing, will need to fetch it from localstorage in the future
 
-const jwt =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdDMuY29tIiwiaWQiOiI1ZTIxMjliN2Q4YTYxYjE5MmI4Y2MxZDIiLCJpYXQiOjE1Nzk0ODcyNjAsImV4cCI6MTU3OTQ5MDg2MH0.JGbmELtrGMyl4pu47BaSmytnhWI8CDCnC41W_w0bRp0";
-
 const Payment = () => {
+  const jwtToken = localStorage.getItem("CMCFlow");
   const onToken = async token => {
     await axios({
-      headers: { Authorization: `bearer ${jwt}` },
+      headers: { Authorization: `bearer ${jwtToken}` },
       method: "post",
-      url: "/api/donation",
+      url: API.donation,
       data: token
     });
   };
 
   return (
     <StripeCheckout
+      ComponentClass="div"
       name="Meditation App"
       amount={500}
       panelLabel="Make Payment"
@@ -26,7 +27,11 @@ const Payment = () => {
       currency="AUD"
       token={onToken}
       stripeKey={"pk_test_rOnIUC7hbo7ElO2ZOTW2mbDZ"}
-    />
+    >
+      <Button variant="contained" color="secondary">
+        Donate $5
+      </Button>
+    </StripeCheckout>
   );
 };
 

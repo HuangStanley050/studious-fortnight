@@ -9,5 +9,6 @@ export default {
   badgeData: "/api/badges",
   setCourse: "/api/course/start",
   addCourse: "/api/course/add",
-  updateCurrentMeditation: "/api/course/update-meditation"
+  updateCurrentMeditation: "/api/course/update-meditation",
+  donation: "/api/donation"
 };

@@ -8,6 +8,7 @@ import {
   longestRunStreakCalc
 } from "../components/statsLogic.js";
 import Logout from "../components/Logout";
+import PaymentForm from "../components/PaymentForm";
 import axios from "axios";
 import API from "../api";
 
@@ -139,6 +140,7 @@ const Profile = () => {
       </div>
       <div>{display === "account" ? "Account Component" : null}</div>
       <Logout />
+      <PaymentForm />
     </>
   );
 };
