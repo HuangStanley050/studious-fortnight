@@ -23,6 +23,7 @@ const Profile = () => {
   };
 
   //======================
+  //set required profile states:
 
   const [totalTimeMeditated, setTotalTimeMeditated] = useState(0);
   const [sessionsCompleted, setSessionsCompleted] = useState(0);
