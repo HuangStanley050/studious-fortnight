@@ -77,12 +77,12 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
 
     console.log("=================================");
     console.log("success");
-    res.status(200).json({
-      title: "New course",
-      newCourse,
-      title2: "Meditations:",
-      newMeditations: meditationArray
-    });
+    // res.status(200).json({
+    //   title: "New course",
+    //   newCourse,
+    //   title2: "Meditations:",
+    //   newMeditations: meditationArray
+    // });
   } catch (err) {
     console.log("=================================");
     console.log("in error hmm");
@@ -91,7 +91,7 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
   }
 };
 
-const updateCurrentMeditation = async id => {
+const updateCurrentMeditation = async (id, res) => {
   try {
     const user = await User.findById({ _id: id });
     console.log("userId in updateCurrentMeditation: ", user._id);
@@ -114,6 +114,10 @@ const updateCurrentMeditation = async id => {
     // console.log("before updating user meditation: ", meditation.id);
     // console.log("Updating user meditation: ", user.currentMeditation);
     await user.save();
+    let currentMeditation = await Meditation.findOne({
+      _id: user.currentMeditation
+    });
+    return res.send(currentMeditation);
   } catch (err) {
     console.log(
       "==============this is in updateCurrentMeditation catch block====>"
@@ -159,8 +163,8 @@ exports.starterCourse = async (req, res) => {
       music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
-    createCourse(id, startingChoice, courseDetail, res);
-    updateCurrentMeditation(id);
+    await createCourse(id, startingChoice, courseDetail, res);
+    updateCurrentMeditation(id, res);
   } else if (startingChoice === "intermediate") {
     //intermediate session: 5 minutes each, 4 sessions
     const courseDetail = {
@@ -169,8 +173,8 @@ exports.starterCourse = async (req, res) => {
       music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
-    createCourse(id, startingChoice, courseDetail, res);
-    updateCurrentMeditation(id);
+    await createCourse(id, startingChoice, courseDetail, res);
+    updateCurrentMeditation(id, res);
   } else if (startingChoice === "expert") {
     //intermediate session: 5 minutes each, 5 sessions
     const courseDetail = {
@@ -178,8 +182,8 @@ exports.starterCourse = async (req, res) => {
       levels: 5,
       music: "MkPlp1Vt8YY" //dummy data used for now.
     };
-    createCourse(id, startingChoice, courseDetail, res);
-    updateCurrentMeditation(id);
+    await createCourse(id, startingChoice, courseDetail, res);
+    updateCurrentMeditation(id, res);
   }
 
   //unlocks badge for starting
@@ -189,6 +193,7 @@ exports.starterCourse = async (req, res) => {
     await user.save();
   };
   unlockStarterBadge();
+  // we need to return the currnet meditation data here
 };
 
 exports.nextCourse = async (req, res) => {
