@@ -153,24 +153,24 @@ class YoutubePlayer extends React.Component {
 
       /****
 
-      this parts here we already have the parent component Home getting the information, we can pass it down to Youtube component, looks like all we need is the current time for the meditation session 
+      this parts here we already have the parent component Home getting the information, we can pass it down to Youtube component, looks like all we need is the current time for the meditation session
 
 
 
       ****/
-      const response = await axios({
-        headers: { Authorization: `bearer ${token}` },
-        method: "get",
-        url: API.userMeditation
-      });
-      if (response.data) {
-        const savedCurrentTime = response.data.sessionDetail.currentTime;
-
-        this.setState({
-          currentTime: savedCurrentTime
-        });
-        // this.state.player.seekTo(this.state.currentTime)
-      }
+      // const response = await axios({
+      //   headers: { Authorization: `bearer ${token}` },
+      //   method: "get",
+      //   url: API.userMeditation
+      // });
+      // if (response.data) {
+      //   const savedCurrentTime = response.data.sessionDetail.currentTime;
+      //
+      //   this.setState({
+      //     currentTime: savedCurrentTime
+      //   });
+      //   // this.state.player.seekTo(this.state.currentTime)
+      // }
     };
 
     APIcalls();
@@ -203,6 +203,10 @@ class YoutubePlayer extends React.Component {
   }
 
   render() {
+    console.log(
+      "This is from youtube component: ",
+      this.props.meditationSession
+    );
     const opts = {
       height: "200",
       width: "400",

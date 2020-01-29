@@ -37,7 +37,7 @@ let PageFour = ({ values, prevPage, dispatch }) => {
       data: { startingChoice }
     });
     console.log(result.data);
-    dispatch(closeQuiz());
+    dispatch(closeQuiz(result.data));
   };
 
   if (values) {

@@ -69,9 +69,7 @@ const mapDispatch = dispatch => ({
       data: { startingChoice: "beginner" }
     });
     console.log(result.data);
-    dispatch(closeQuiz());
-    
-    asyncData();
+    dispatch(closeQuiz(result.data));
   }
 });
 Quiz = connect(

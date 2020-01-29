@@ -77,12 +77,12 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
 
     console.log("=================================");
     console.log("success");
-    res.status(200).json({
-      title: "New course",
-      newCourse,
-      title2: "Meditations:",
-      newMeditations: meditationArray
-    });
+    // res.status(200).json({
+    //   title: "New course",
+    //   newCourse,
+    //   title2: "Meditations:",
+    //   newMeditations: meditationArray
+    // });
   } catch (err) {
     console.log("=================================");
     console.log("in error hmm");
@@ -91,7 +91,7 @@ const createCourse = async (id, startingChoice, courseDetail, res) => {
   }
 };
 
-const updateCurrentMeditation = async id => {
+const updateCurrentMeditation = async (id, res) => {
   try {
     const user = await User.findById({ _id: id });
     console.log("userId in updateCurrentMeditation: ", user._id);
@@ -113,6 +113,10 @@ const updateCurrentMeditation = async id => {
     // console.log("before updating user meditation: ", meditation.id);
     // console.log("Updating user meditation: ", user.currentMeditation);
     await user.save();
+    let currentMeditation = await Meditation.findOne({
+      _id: user.currentMeditation
+    });
+    return res.send(currentMeditation);
   } catch (err) {
     console.log(
       "==============this is in updateCurrentMeditation catch block====>"
@@ -159,7 +163,7 @@ exports.starterCourse = async (req, res) => {
     };
     //create new course:
     await createCourse(id, startingChoice, courseDetail, res);
-    updateCurrentMeditation(id);
+    updateCurrentMeditation(id, res);
   } else if (startingChoice === "intermediate") {
     //intermediate session: 5 minutes each, 4 sessions
     const courseDetail = {
@@ -169,7 +173,7 @@ exports.starterCourse = async (req, res) => {
     };
     //create new course:
     await createCourse(id, startingChoice, courseDetail, res);
-    updateCurrentMeditation(id);
+    updateCurrentMeditation(id, res);
   } else if (startingChoice === "expert") {
     //intermediate session: 5 minutes each, 5 sessions
     const courseDetail = {
@@ -178,7 +182,7 @@ exports.starterCourse = async (req, res) => {
       music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     await createCourse(id, startingChoice, courseDetail, res);
-    updateCurrentMeditation(id);
+    updateCurrentMeditation(id, res);
   }
 
   //unlocks badge for starting
@@ -188,6 +192,7 @@ exports.starterCourse = async (req, res) => {
     await user.save();
   };
   unlockStarterBadge();
+  // we need to return the currnet meditation data here
 };
 
 exports.nextCourse = async (req, res) => {
@@ -295,34 +300,67 @@ exports.setCurrentMeditation = async (req, res) => {
   }
 };
 
-// exports.getTheJourneyItems = async (req, res) => {
-//   const { id } = req.user;
-//   try {
-//     let meditations = await Meditation.find({ userId: id });
-//     res.send(meditations);
-//     // console.log(meditations);
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// };
+exports.getTheJourneyItems = async (req, res) => {
+  const { id } = req.user;
+  try {
+    let meditations = await Meditation.find({ userId: id });
+    res.send(meditations);
+    // console.log(meditations);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
 
-//route to get users info
-router.get(
-  "/api/account/get-user",
-  passport.authenticate("jwt", { session: false }),
-  profileController.getUser 
-);
+exports.getUser = async (req, res) => {
+  const { id } = req.user;
+  console.log("====================");
+  console.log("in get user");
+  try {
+    let user = await User.findById({ _id: id });
+    res.send(user);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
 
-//route to update users email
-router.post(
-  "/api/account/update-email",
-  passport.authenticate("jwt", { session: false }),
-  profileController.updateEmail
-);
+exports.updateEmail = async (req, res) => {
+  const { id } = req.user;
+  const { email } = req.body;
+  console.log(req.body);
+  try {
+    let user = await User.findById({ _id: id });
 
-//route to deactivate account
-router.post(
-  "/api/account/deactivate-account",
-  passport.authenticate("jwt", { session: false }),
-  profileController.deactivateAccount
-);
+    let allUsers = await User.find({});
+    let isDuplicate = false;
+    allUsers.forEach((allUser) => {
+      if(allUser.email === email) {
+        isDuplicate = true;
+      }
+    })
+
+    if (user.email === email) {
+      res.send("no change")
+    } else if (isDuplicate === false) {
+      user.email = email;
+      user.save();
+      res.send("success");
+    } else if (isDuplicate === true) {
+      res.send("failure");
+    }
+
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+exports.deactivateAccount = async (req, res) => {
+  const { id } = req.user;
+  try {
+    let user = await User.findById({ _id: id });
+    user.activeUser = false;
+    user.save();
+    res.send(user);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
