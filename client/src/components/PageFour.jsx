@@ -36,7 +36,7 @@ let PageFour = ({ values, prevPage, dispatch }) => {
       url: API.setCourse,
       data: { startingChoice }
     });
-    console.log(result.data);
+    //console.log(result.data);
     dispatch(closeQuiz(result.data));
   };
 

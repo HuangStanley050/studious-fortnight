@@ -5,47 +5,25 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import API from "../api";
 import YoutubePlayer from "../components/YoutubePlayer.jsx";
+import { getCurrentMeditation } from "../store/actions/meditationActions";
 
-const Home = ({ hasRegistered, meditationSession }) => {
-  const [currentMeditation, setCurrentMeditation] = useState(null);
+const Home = ({ hasRegistered, meditationSession, dispatch }) => {
+  //const [currentMeditation, setCurrentMeditation] = useState({});
   const [error, setError] = useState("");
 
   const errorMsg = <h4>Pleaes go to discover page and pick a meditation</h4>;
 
-  // useEffect(() => {
-  //   const fetchMeditationData = async () => {
-  //     try {
-  //       //console.log("has registered?: ", hasRegistered);
-  //       const token = localStorage.getItem("CMCFlow");
-  //
-  //       const response = await axios({
-  //         headers: { Authorization: `bearer ${token}` },
-  //         method: "get",
-  //         url: API.userMeditation
-  //       });
-  //       console.log("meditation data: ", response.data);
-  //       setCurrentMeditation(response.data);
-  //
-  //       setError("");
-  //     } catch (err) {
-  //       console.log(err.response.data.msg);
-  //
-  //       setError(err.response.data.msg);
-  //     }
-  //   };
-  //
-  //   fetchMeditationData();
-  // }, [hasRegistered]);
+  useEffect(() => {
+    if (!meditationSession) {
+      //console.log("this is from Home component");
+      dispatch(getCurrentMeditation());
+      //console.log("meditation session: ", meditationSession);
+    }
+  }, [dispatch, hasRegistered, meditationSession]);
 
   return (
     <>
-      {meditationSession ? (
-        <>
-          <YoutubePlayer meditationSession={meditationSession} />
-        </>
-      ) : (
-        <h1>No data from meditation</h1>
-      )}
+      <YoutubePlayer meditationSession={meditationSession} />
 
       {hasRegistered ? <Quiz /> : null}
     </>
