@@ -21,8 +21,11 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
     }
   }, [dispatch, hasRegistered, meditationSession]);
 
+  
+
   return (
     <>
+
       <YoutubePlayer meditationSession={meditationSession} />
 
       {hasRegistered ? <Quiz /> : null}
