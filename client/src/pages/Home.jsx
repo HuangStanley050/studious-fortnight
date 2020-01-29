@@ -37,40 +37,11 @@ const Home = ({ hasRegistered, meditationSession }) => {
   //   fetchMeditationData();
   // }, [hasRegistered]);
 
-  const asyncData = async () => {
-    try {
-      setTimeout( async () => {
-
-        const token = localStorage.getItem("CMCFlow");
-
-        const response = await axios({
-          headers: { Authorization: `bearer ${token}` },
-          method: "get",
-          url: API.userMeditation
-        });
-        console.log("meditation data: ", response.data);
-        await setCurrentMeditation(response.data);
   
-        setError("");
-
-      }, 2000)
-
-    } catch (err) {
-      console.log(err.response.data.msg);
-      setError(err.response.data.msg);
-    }
-  };
 
   return (
     <>
-      {meditationSession ? (
-        <>
-          <YoutubePlayer meditationSession={meditationSession} />
-        </>
-      ) : (
-        <h1>No data from meditation</h1>
-      )}
-
+     <YoutubePlayer meditationSession={meditationSession} />
       {hasRegistered ? <Quiz /> : null}
     </>
   );
