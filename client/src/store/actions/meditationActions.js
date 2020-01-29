@@ -14,7 +14,7 @@ export const getCurrentMeditation = () => {
       method: "get",
       url: API.userMeditation
     });
-    console.log(result.data);
+    //console.log(result.data);
     dispatch(getCurrentMeditationOkay(result.data));
   };
 };
