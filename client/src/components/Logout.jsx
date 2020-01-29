@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "reactstrap";
 import { logout } from "../store/actions/authActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -13,9 +12,9 @@ const Logout = ({ logOut, history }) => {
     return;
   };
   return (
-    <Button color="warning" onClick={handleLogout}>
-      Log out
-    </Button>
+    <div className="account-update-section" onClick={handleLogout}>
+      LOGOUT
+    </div>
   );
 };
 

@@ -14,5 +14,7 @@ export default {
   updateCurrentMeditation: "/api/course/update-meditation",
   getVideo: "/api/meditation_getVideo",
   donation: "/api/donation",
-  getUser: "/api/course/get-user"
+  getUser: "/api/account/get-user",
+  updateEmail:  "/api/account/update-email",
+  deactivateAccount: "/api/account/deactivate-account"
 };

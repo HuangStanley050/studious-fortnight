@@ -6,6 +6,7 @@ const authRouter = require("./routes/auth");
 const courseRouter = require("./routes/course");
 const paymentRouter = require("./routes/payment");
 const meditationRouter = require("./routes/meditation");
+const profileRouter = require("./routes/profile");
 
 const app = express();
 

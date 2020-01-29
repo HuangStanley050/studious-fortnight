@@ -295,25 +295,34 @@ exports.setCurrentMeditation = async (req, res) => {
   }
 };
 
-exports.getTheJourneyItems = async (req, res) => {
-  const { id } = req.user;
-  try {
-    let meditations = await Meditation.find({ userId: id });
-    res.send(meditations);
-    // console.log(meditations);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
+// exports.getTheJourneyItems = async (req, res) => {
+//   const { id } = req.user;
+//   try {
+//     let meditations = await Meditation.find({ userId: id });
+//     res.send(meditations);
+//     // console.log(meditations);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// };
 
-exports.getUser = async (req, res) => {
-  const { id } = req.user;
-  console.log("====================");
-  console.log("in get user");
-  try {
-    let user = await User.findById({ _id: id });
-    res.send(user);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
+//route to get users info
+router.get(
+  "/api/account/get-user",
+  passport.authenticate("jwt", { session: false }),
+  profileController.getUser 
+);
+
+//route to update users email
+router.post(
+  "/api/account/update-email",
+  passport.authenticate("jwt", { session: false }),
+  profileController.updateEmail
+);
+
+//route to deactivate account
+router.post(
+  "/api/account/deactivate-account",
+  passport.authenticate("jwt", { session: false }),
+  profileController.deactivateAccount
+);

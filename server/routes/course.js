@@ -54,9 +54,24 @@ router.post(
 
 //route to get users info
 router.get(
-  "/api/course/get-user",
+  "/api/account/get-user",
   passport.authenticate("jwt", { session: false }),
   courseController.getUser 
 );
+
+//route to update users email
+router.post(
+  "/api/account/update-email",
+  passport.authenticate("jwt", { session: false }),
+  courseController.updateEmail
+);
+
+//route to deactivate account
+router.post(
+  "/api/account/deactivate-account",
+  passport.authenticate("jwt", { session: false }),
+  courseController.deactivateAccount
+);
+
 
 module.exports = router;
