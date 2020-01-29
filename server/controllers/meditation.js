@@ -103,18 +103,18 @@ exports.updateUserMeditation = async (req, res) => {
   const { id } = req.user;
   let { currentTime, completed } = req.body;
 
-  console.log(id)
-  currentTime = Math.round(currentTime);
-  console.log(currentTime)
-  console.log(completed)
+  // console.log(id)
+  // currentTime = Math.round(currentTime);
+  // console.log(currentTime)
+  // console.log(completed)
 
   const user = await User.findById({ _id: id });
   const meditation = await Meditation.findOne({ _id: user.currentMeditation });
 
-  console.log(user.currentMeditation, "<==user current med")
+  // console.log(user.currentMeditation, "<==user current med")
 
-  console.log(meditation.sessionDetail.level,"<== meditation level");
-  console.log(meditation.sessionDetail.quote,"<== meditation quote");
+  // console.log(meditation.sessionDetail.level,"<== meditation level");
+  // console.log(meditation.sessionDetail.quote,"<== meditation quote");
 
   meditation.sessionDetail.currentTime = currentTime;
   if (completed) {
@@ -128,12 +128,15 @@ exports.updateUserMeditation = async (req, res) => {
         newCurrentMeditation = theMeditation;
       } else if (theMeditation.completed === false){
         newCurrentMeditation = theMeditation;
+      } else {
+        //do nothing
+        //at the end of the sessions all complete
       }
     });
 
-    console.log(user.currentMeditation, "<==user current med")
+    // console.log(user.currentMeditation, "<==user current med")
 
-    console.log(meditation,"<== meditation");
+    // console.log(meditation,"<== meditation");
 
     user.currentMeditation = newCurrentMeditation;
     user.save();
