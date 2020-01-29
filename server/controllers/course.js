@@ -100,6 +100,7 @@ const updateCurrentMeditation = async id => {
       completed: false
     });
     if (!meditation) {
+      
       throw new Error("unable to find meditation based on conditions");
     }
     /*
