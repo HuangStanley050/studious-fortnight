@@ -1,0 +1,39 @@
+.landing-page {
+  margin-left: 20px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+
+  .buttons {
+    display: flex;
+
+    .begin-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+  
+      background: var(--popup-background2);
+      border-radius: 25px;
+      width: 150px;
+      height: 40px;
+      &:hover{
+        cursor: pointer;
+      }
+    }
+    .time-button {
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--popup-background2);
+      border: 1px solid var(--popup-background2);
+      border-radius: 25px;
+      width: 150px;
+      height: 40px;
+    }
+    .time-button:hover {
+      cursor: pointer;
+    }
+  }
+}

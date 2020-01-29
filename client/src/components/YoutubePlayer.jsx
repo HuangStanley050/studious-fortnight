@@ -232,12 +232,22 @@ class YoutubePlayer extends React.Component {
     //   console.log("Youtube component got data: ", this.props.meditationSession);
     // }
     return (
-      <div>
+      <div className="meditation-player">
+        <div 
+          onClick={this.props.updatePage}
+          className="close-button"
+        >X</div>
+
         {this.props.meditationSession ? (
-          <h1>Got meditation session data</h1>
+          <>
+            <h1>Got meditation session data</h1>
+            <h1>PLAY VIDEO HERE</h1>
+          </>
         ) : (
           <h1>Got no data</h1>
         )}
+
+
         {/*<YouTube
           videoId={this.state.videoId}
           opts={opts}
