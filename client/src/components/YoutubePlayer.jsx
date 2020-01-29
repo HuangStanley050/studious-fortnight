@@ -44,7 +44,7 @@ class YoutubePlayer extends React.Component {
       this.setState(() => {
         return { currentTime: this.currentTime(), percentage: newPercent };
       });
-      console.log("running");
+      //console.log("running");
       this.setComplete();
     }, 500);
   };
@@ -133,80 +133,76 @@ class YoutubePlayer extends React.Component {
 
   componentDidMount() {
     // this grabs the video url and sets it into state and then instantiates a player instance
-    const APIcalls = async () => {
-      const onLoad = await axios({
-        headers: { Authorization: `bearer ${token}` },
-        method: "get",
-        // url: API.returnUserMeditation
-        url: API.getVideo
-      });
-      // console.log(onLoad.data)
-      if (onLoad.data) {
-        const video = onLoad.data;
-
-        this.setState({
-          videoId: video
-        });
-      }
-
-      //this gets the current meditation from User and sets time to the video
-
-      /****
+    // const APIcalls = async () => {
+    //   const onLoad = await axios({
+    //     headers: { Authorization: `bearer ${token}` },
+    //     method: "get",
+    //     // url: API.returnUserMeditation
+    //     url: API.getVideo
+    //   });
+    //   // console.log(onLoad.data)
+    //   if (onLoad.data) {
+    //     const video = onLoad.data;
+    //
+    //     this.setState({
+    //       videoId: video
+    //     });
+    //   }
+    //this gets the current meditation from User and sets time to the video
+    /****
 
       this parts here we already have the parent component Home getting the information, we can pass it down to Youtube component, looks like all we need is the current time for the meditation session
 
 
 
       ****/
-      // const response = await axios({
-      //   headers: { Authorization: `bearer ${token}` },
-      //   method: "get",
-      //   url: API.userMeditation
-      // });
-      // if (response.data) {
-      //   const savedCurrentTime = response.data.sessionDetail.currentTime;
-      //
-      //   this.setState({
-      //     currentTime: savedCurrentTime
-      //   });
-      //   // this.state.player.seekTo(this.state.currentTime)
-      // }
-    };
-
-    APIcalls();
+    // const response = await axios({
+    //   headers: { Authorization: `bearer ${token}` },
+    //   method: "get",
+    //   url: API.userMeditation
+    // });
+    // if (response.data) {
+    //   const savedCurrentTime = response.data.sessionDetail.currentTime;
+    //
+    //   this.setState({
+    //     currentTime: savedCurrentTime
+    //   });
+    //   // this.state.player.seekTo(this.state.currentTime)
+    // }
+    //};
+    //APIcalls();
     // console.log(this.state.player)
-
     // //choose if auto play or auto pause on load.
     // this.videoPlay();
     // this.videoPause()
   }
 
-  componentWillUnmount() {
-    clearInterval(this.myInterval);
-
-    const player = this.state.player;
-    const currentTime = player.getCurrentTime();
-    const APIunmount = async () => {
-      const endOfSession = await axios({
-        headers: { Authorization: `bearer ${token}` },
-        data: {
-          currentTime: currentTime,
-          completed: this.state.watchComplete
-        },
-        method: "post",
-        url: API.updateMeditationTime
-      });
-      console.log({ ...endOfSession });
-    };
-
-    APIunmount();
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.myInterval);
+  //
+  //   const player = this.state.player;
+  //   const currentTime = player.getCurrentTime();
+  //   const APIunmount = async () => {
+  //     const endOfSession = await axios({
+  //       headers: { Authorization: `bearer ${token}` },
+  //       data: {
+  //         currentTime: currentTime,
+  //         completed: this.state.watchComplete
+  //       },
+  //       method: "post",
+  //       url: API.updateMeditationTime
+  //     });
+  //     console.log({ ...endOfSession });
+  //   };
+  //
+  //   APIunmount();
+  // }
 
   render() {
-    console.log(
-      "This is from youtube component: ",
-      this.props.meditationSession
-    );
+    // console.log(
+    //   "This is from youtube component: ",
+    //   this.props.meditationSession
+    // );
     const opts = {
       height: "200",
       width: "400",
@@ -223,10 +219,17 @@ class YoutubePlayer extends React.Component {
     };
     //     this.getDuration();
     // this.prettyDuration();
-
+    if (this.props.meditationSession) {
+      console.log("Youtube component got data: ", this.props.meditationSession);
+    }
     return (
       <div>
-        <YouTube
+        {this.props.meditationSession ? (
+          <h1>Got meditation session data</h1>
+        ) : (
+          <h1>Got no data</h1>
+        )}
+        {/*<YouTube
           videoId={this.state.videoId}
           opts={opts}
           onReady={this.videoOnReady}
@@ -253,6 +256,7 @@ class YoutubePlayer extends React.Component {
           {this.state.prettyDuration}
         </h1>
         <ProgressBar percentage={this.state.percentage} />
+        */}
       </div>
     );
   }

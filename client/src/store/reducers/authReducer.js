@@ -5,7 +5,7 @@ const initialState = {
   hasRegistered: false,
   userInfo: {},
   loading: false,
-  meditationSession: {},
+  meditationSession: null,
   error: ""
 };
 
@@ -24,6 +24,7 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case Action.TURN_OFF_QUIZ:
+    case Action.GET_CURRENT_MEDITATION:
       return {
         ...state,
         hasRegistered: false,
