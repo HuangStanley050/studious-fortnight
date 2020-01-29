@@ -2,6 +2,7 @@ const Course = require("../models/Courses");
 const Meditation = require("../models/Meditation");
 const User = require("../models/User");
 
+// might not need this anymore, we are getting the current meditation details to the front end so the front end can provide dummy data for now
 exports.getVideo = async (req, res) => {
   const { id } = req.user;
   const result = await User.findOne({ _id: id });
