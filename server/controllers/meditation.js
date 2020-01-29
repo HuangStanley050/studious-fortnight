@@ -82,21 +82,61 @@ exports.returnUserMeditation = async (req, res) => {
   }
 };
 
+// exports.updateUserMeditation = async (req, res) => {
+//   const { id } = req.user;
+//   const { currentTime, completed } = req.body;
+
+//   const user = await User.findById({ _id: id });
+//   const meditation = await Meditation.findOne({ _id: user.currentMeditation });
+
+//   meditation.sessionDetail.currentTime = currentTime;
+//   if (completed) {
+//     meditation.completed = true;
+//   }
+//   await meditation.save();
+
+//   //need to return something here, otherwise client might timeout....
+// };
+
 exports.updateUserMeditation = async (req, res) => {
+  console.log("in update user medittion")
   const { id } = req.user;
-  const { currentTime, completed } = req.body;
+  let { currentTime, completed } = req.body;
+
+  console.log(id)
+  currentTime = Math.round(currentTime);
+  console.log(currentTime)
+  console.log(completed)
 
   const user = await User.findById({ _id: id });
   const meditation = await Meditation.findOne({ _id: user.currentMeditation });
 
+  console.log(user.currentMeditation, "<==user current med")
+
+  console.log(meditation.sessionDetail.level,"<== meditation level");
+  console.log(meditation.sessionDetail.quote,"<== meditation quote");
+
   meditation.sessionDetail.currentTime = currentTime;
   if (completed) {
     meditation.completed = true;
+
+    //update currentMeditation
+    let newCurrentMeditation = "";
+    const usersMeditations = await Meditation.find({userId: id})
+    usersMeditations.forEach((theMeditation) => {
+      if(meditation.sessionDetail.totalTime === theMeditation.sessionDetail.totalTime && theMeditation.completed === false) {
+        newCurrentMeditation = theMeditation;
+      } else if (theMeditation.completed === false){
+        newCurrentMeditation = theMeditation;
+      }
+    });
+
+    console.log(user.currentMeditation, "<==user current med")
+
+    console.log(meditation,"<== meditation");
+
+    user.currentMeditation = newCurrentMeditation;
+    user.save();
   }
   await meditation.save();
-
-  //need to return something here, otherwise client might timeout....
 };
-//   let meditation = await Meditation.findOne({ _id: meditationId });
-
-//   return res.send(meditation);
