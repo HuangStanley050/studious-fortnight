@@ -11,11 +11,11 @@ import "./Quiz.css";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import axios from "axios";
 
-let Quiz = ({ asyncData, hasRegistered, turnOffQuiz }) => {
+let Quiz = ({ hasRegistered, turnOffQuiz }) => {
   const [currentPage, setPage] = useState(1);
   const [modal, setModal] = useState(true);
   const toggle = () => {
-    turnOffQuiz(asyncData);
+    turnOffQuiz();
     setModal(!modal);
   };
   const externalCloseBtn = (
@@ -59,7 +59,7 @@ let Quiz = ({ asyncData, hasRegistered, turnOffQuiz }) => {
   );
 };
 const mapDispatch = dispatch => ({
-  turnOffQuiz: async (asyncData) => {
+  turnOffQuiz: async () => {
     // let the api knows that the user have close off the quiz and set default to 'beginner'
     const token = localStorage.getItem("CMCFlow");
     let result = await axios({
