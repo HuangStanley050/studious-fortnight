@@ -106,7 +106,7 @@ const Profile = () => {
       });
       let theJourneyItems = [];
       response.data.forEach(meditation => {
-        if (meditation.completed === false) {
+        if (meditation.completed === true) {
           theJourneyItems.push(meditation);
         }
       });
