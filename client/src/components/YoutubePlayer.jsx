@@ -130,8 +130,17 @@ class YoutubePlayer extends React.Component {
     const newTime = this.state.currentTime + 5;
     this.state.player.seekTo(newTime);
   };
-
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props.meditationSession) {
+      console.log("from component did update=====");
+      console.log("meditation data have been updated!!");
+    }
+  }
   componentDidMount() {
+    if (!this.props.meditationSession) {
+      console.log("from componentDidmount====");
+      console.log("meditation data not ready yet");
+    }
     // this grabs the video url and sets it into state and then instantiates a player instance
     // const APIcalls = async () => {
     //   const onLoad = await axios({
@@ -219,9 +228,9 @@ class YoutubePlayer extends React.Component {
     };
     //     this.getDuration();
     // this.prettyDuration();
-    if (this.props.meditationSession) {
-      console.log("Youtube component got data: ", this.props.meditationSession);
-    }
+    // if (this.props.meditationSession) {
+    //   console.log("Youtube component got data: ", this.props.meditationSession);
+    // }
     return (
       <div>
         {this.props.meditationSession ? (
