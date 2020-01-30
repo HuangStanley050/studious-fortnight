@@ -57,7 +57,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.err.response.data.msg
+        error: action.error
       };
     case Action.LOGIN_START:
       return {
