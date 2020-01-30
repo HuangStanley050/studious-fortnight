@@ -75,6 +75,9 @@ exports.localLogin = async (req, res, next) => {
     if (user.externalProvider) {
       throw new Error("User has an account already");
     }
+    if (!user.activeUser) {
+      throw new Error("User account is deactivated");
+    }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       throw new Error("Password is not correct");

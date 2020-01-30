@@ -17,6 +17,9 @@ passport.use(
       const externalProvider = profile.provider;
       try {
         const existingUser = await User.findOne({ email });
+        if (!existingUser.activeUser) {
+          throw new Error("User account deactivated");
+        }
         if (existingUser) {
           const { email, id } = existingUser;
           const user = {
