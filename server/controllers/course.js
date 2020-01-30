@@ -1,27 +1,28 @@
 const Course = require("../models/Courses");
 const Meditation = require("../models/Meditation");
 const User = require("../models/User");
+const quotes = require("../hardcoded_data/quotes.js");
 
 const createSessionDetail = (startingChoice, level) => {
   switch (startingChoice) {
     case "beginner":
       return {
         level: level + 1,
-        quote: "A wise man says things here to a beginner meditator",
+        quote: quotes.beginner[level],
         currentTime: 0,
         totalTime: 180 // in seconds, 3 minutes
       };
     case "intermediate":
       return {
         level: level + 1,
-        quote: "A wise man says things here to an intermediate meditator",
+        quote: quotes.intermediate[level],
         currentTime: 0,
         totalTime: 300 // in seconds, 5 minutes
       };
     case "expert":
       return {
         level: level + 1,
-        quote: "A wise man says things here to an expert meditator",
+        quote: quotes.expert[level],
         currentTime: 0,
         totalTime: 600 // in seconds, 10 minutes
       };
