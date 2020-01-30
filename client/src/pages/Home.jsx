@@ -31,7 +31,7 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
 
   const updatePage = () => {
     setPlaySession(!playSession);
-    console.log(meditationSession);
+    //console.log(meditationSession);
   };
 
   return (

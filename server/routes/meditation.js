@@ -8,11 +8,11 @@ const passport = require("passport");
     -
 */
 
-router.get(
-  "/api/meditation_getVideo",
-  passport.authenticate("jwt", { session: false }),
-  meditationController.getVideo
-);
+// router.get(
+//   "/api/meditation_getVideo",
+//   passport.authenticate("jwt", { session: false }),
+//   meditationController.getVideo
+// );
 
 //get the current meditation based off the User_Id
 router.get(
