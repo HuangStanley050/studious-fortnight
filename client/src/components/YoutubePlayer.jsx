@@ -25,6 +25,7 @@ class YoutubePlayer extends React.Component {
     });
     console.log(result.data);
     this.props.updatePage();
+    //this.props.setFetchApi(!this.props.fetchApi);
   }
   componentDidMount() {
     if (!this.props.meditationSession) {
