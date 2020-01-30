@@ -77,16 +77,6 @@ class YoutubePlayer extends React.Component {
     );
 
     this.props.getCurrentMeditation();
-    // console.log("component unmounted");
-    // const token = localStorage.getItem("CMCFlow");
-    // let result = await axios({
-    //   headers: { Authorization: `Bearer ${token}` },
-    //   url: API.updateMeditationTime,
-    //   method: "post",
-    //   data: { currentTime: 180 }
-    // });
-    // console.log(result.data);
-    // this.props.updatePage();
   }
 
   componentDidMount() {
@@ -97,7 +87,7 @@ class YoutubePlayer extends React.Component {
   }
   _onReady = event => {
     // access to player in all event handlers via event.target
-    event.target.pauseVideo();
+    event.target.playVideo();
   };
   onPause = async event => {
     // console.log("current time: ", event.target.getCurrentTime());
