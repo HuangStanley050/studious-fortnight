@@ -16,19 +16,19 @@ test("Local login should fail with incorrect password", async done => {
   done();
 });
 
-test("Local login should work with right password", async done => {
-  const email = "doNotDelete@test.com";
-  const password = "Password@1";
-  const res = await request.post("/api/auth/local/login").send({
-    email,
-    password
-  });
-  //console.log(res);
-  //expect(res.text).toBe("Password is not correct");
-  expect(res.statusCode).toBe(200);
-  //mongoose.connection.close();
-  done();
-});
+// test("Local login should work with right password", async done => {
+//   const email = "doNotDelete@test.com";
+//   const password = "Password@1";
+//   const res = await request.post("/api/auth/local/login").send({
+//     email,
+//     password
+//   });
+//   //console.log(res);
+//   //expect(res.text).toBe("Password is not correct");
+//   expect(res.statusCode).toBe(200);
+//   //mongoose.connection.close();
+//   done();
+// });
 
 test("Local register should fail with invalid email", async done => {
   const res = await request.post("/api/auth/local/register").send({

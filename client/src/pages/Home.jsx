@@ -12,7 +12,7 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
   //const [currentMeditation, setCurrentMeditation] = useState({});
   const [error, setError] = useState("");
   const [playSession, setPlaySession] = useState(false);
-
+  const [fetchApi, setFetchApi] = useState(true);
   const errorMsg = <h4>Pleaes go to discover page and pick a meditation</h4>;
 
   useEffect(() => {
@@ -23,9 +23,15 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
     }
   }, [dispatch, hasRegistered, meditationSession]);
 
+  // useEffect(() => {
+  //   setFetchApi(false);
+  //   console.log("fetch api rendering.....");
+  //   dispatch(getCurrentMeditation());
+  // }, [fetchApi, dispatch]);
+
   const updatePage = () => {
     setPlaySession(!playSession);
-    console.log(meditationSession);
+    //console.log(meditationSession);
   };
 
   return (
@@ -37,6 +43,8 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
             <YoutubePlayer
               meditationSession={meditationSession}
               updatePage={updatePage}
+              // setFetchApi={setFetchApi}
+              // fetchApi={fetchApi}
             />
           ) : (
             <div className="landing-page">
