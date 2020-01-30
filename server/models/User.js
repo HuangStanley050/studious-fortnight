@@ -43,7 +43,8 @@ const userSchema = new mongoose.Schema(
       type: String
     },
     activeUser: {
-      type: Boolean
+      type: Boolean,
+      default: true
     },
     courseId: [
       {

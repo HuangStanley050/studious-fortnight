@@ -56,12 +56,15 @@ exports.oAuthLogin = (req, res, next) => {
   const payload = {
     ...req.user
   };
+  if (payload.deactivated) {
+    return res.redirect(`/auth?jwt=false`);
+  }
   //console.log(payload);
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
   //console.log(req.user);
   //console.log(token);
   //res.send({ message: "Authenticated", token });
-  res.redirect(`/auth?jwt=${token}`);
+  return res.redirect(`/auth?jwt=${token}`);
 };
 exports.localLogin = async (req, res, next) => {
   const { email, password } = req.body;
@@ -74,6 +77,9 @@ exports.localLogin = async (req, res, next) => {
     }
     if (user.externalProvider) {
       throw new Error("User has an account already");
+    }
+    if (!user.activeUser) {
+      throw new Error("User account is deactivated");
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
