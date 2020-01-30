@@ -2,59 +2,6 @@ const Course = require("../models/Courses");
 const Meditation = require("../models/Meditation");
 const User = require("../models/User");
 
-// might not need this anymore, we are getting the current meditation details to the front end so the front end can provide dummy data for now
-// exports.getVideo = async (req, res) => {
-//   const { id } = req.user;
-//   const result = await User.findOne({ _id: id });
-//   const meditation = await Meditation.findOne({ userId: result._id });
-//   const userLevel = meditation.sessionDetail.level;
-//
-//   let videoURL = "";
-//
-//   switch (userLevel) {
-//     // 3minutes below
-//     case "1":
-//       videoURL = "iHdviZkM7S4";
-//       break;
-//     case "2":
-//       videoURL = "4Lm0o3XGKIY";
-//       break;
-//     case "3":
-//       videoURL = "UIrLyE7iz50";
-//       break;
-//     //5minutes below
-//     case "4":
-//       videoURL = "W0bSen8Qjg";
-//       break;
-//     case "5":
-//       videoURL = "xTczn5RUgnk";
-//       break;
-//     case "6":
-//       videoURL = "6_akBtKZdE";
-//       break;
-//     case "7":
-//       videoURL = "nkqnuxKj8Dk";
-//       break;
-//     //10 minutes below
-//     case "8":
-//       videoURL = "KAHKP313P2I";
-//       break;
-//     case "9":
-//       videoURL = "4ASKMcdCc3g";
-//       break;
-//     case "10":
-//       videoURL = "OvxwaacXTUA";
-//       break;
-//     case "11":
-//       videoURL = "smZbpBsny9c";
-//       break;
-//     case "12":
-//       videoURL = "Ihq64W33cyo";
-//   }
-//
-//   return res.send(videoURL);
-// };
-
 exports.returnUserMeditation = async (req, res) => {
   // const {id} = req.body;
   // console.log("id ==>", id);

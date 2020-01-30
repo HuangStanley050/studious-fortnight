@@ -26,10 +26,8 @@ let PageFour = ({ values, prevPage, dispatch }) => {
       startingChoice = "beginner";
     } else if (experience === "Some experience") {
       startingChoice = "intermediate";
-    } else if (experience === "Expert experience") {
-      startingChoice = "expert";
     } else {
-      startingChoice = "beginner";
+      startingChoice = "expert";
     }
     const token = localStorage.getItem("CMCFlow");
     let result = await axios({
