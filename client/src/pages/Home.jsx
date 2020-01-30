@@ -21,14 +21,11 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
       dispatch(getCurrentMeditation());
       //console.log("meditation session: ", meditationSession);
     }
+    // if (meditationSession && !playSession) {
+    //   dispatch(getCurrentMeditation());
+    // }
     //component unmount do another api call to get updated data
   }, [dispatch, hasRegistered, meditationSession]);
-
-  // useEffect(() => {
-  //   setFetchApi(false);
-  //   console.log("fetch api rendering.....");
-  //   dispatch(getCurrentMeditation());
-  // }, [fetchApi, dispatch]);
 
   const updatePage = () => {
     setPlaySession(!playSession);

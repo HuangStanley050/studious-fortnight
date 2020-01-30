@@ -9,6 +9,7 @@ const getCurrentMeditationOkay = data => ({
 export const getCurrentMeditation = () => {
   return async dispatch => {
     const token = localStorage.getItem("CMCFlow");
+    console.log(" I am in getcurrent meditatin async action creator");
     let result = await axios({
       headers: { Authorization: `bearer ${token}` },
       method: "get",
