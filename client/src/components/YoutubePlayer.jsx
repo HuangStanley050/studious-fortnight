@@ -68,19 +68,20 @@ class YoutubePlayer extends React.Component {
       console.log("meditation data have been updated!!");
     }
   }
-  // async componentWillUnmount() {
-  //   console.log("component unmounted");
-  //   const token = localStorage.getItem("CMCFlow");
-  //   let result = await axios({
-  //     headers: { Authorization: `Bearer ${token}` },
-  //     url: API.updateMeditationTime,
-  //     method: "post",
-  //     data: { currentTime:  }
-  //   });
-  //   console.log(result.data);
-  //   this.props.updatePage();
-  //   //this.props.setFetchApi(!this.props.fetchApi);
-  // }
+
+//   async componentWillUnmount() {
+//     console.log("component unmounted");
+//     const token = localStorage.getItem("CMCFlow");
+//     let result = await axios({
+//       headers: { Authorization: `Bearer ${token}` },
+//       url: API.updateMeditationTime,
+//       method: "post",
+//       data: { currentTime: 180 }
+//     });
+//     console.log(result.data);
+//     this.props.updatePage();
+//   }
+
   componentDidMount() {
     if (!this.props.meditationSession) {
       console.log("from componentDidmount====");

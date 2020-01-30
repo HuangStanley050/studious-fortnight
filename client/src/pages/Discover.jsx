@@ -5,6 +5,7 @@ import DiscoverBadgesList from "../components/DiscoverBadgesList.jsx";
 import DiscoverDisplay from "../components/DiscoverDisplay.jsx";
 import { connect } from "react-redux";
 import axios from "axios";
+import Loader from "../components/Loader";
 
 //discover all available courses, hard coded:
 import courses from "../dummyData/courses";
@@ -22,6 +23,7 @@ const Discover = ({ user }) => {
   const [activeCourse, setCourse] = useState(courses[0]);
   //set activeBadge hardcoded to "Journey starter"
   const [activeBadge, setBadge] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   //fetch users info from API:
   useEffect(() => {
@@ -29,6 +31,7 @@ const Discover = ({ user }) => {
     const fetchUsersCoursesData = async () => {
       const token = localStorage.getItem("CMCFlow");
       // console.log(token);
+      setIsLoading(true);
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
@@ -36,11 +39,13 @@ const Discover = ({ user }) => {
       });
       // console.log(response.data, "<== course data")
       setUsersCourses(response.data);
+      setIsLoading(false);
     }
     fetchUsersCoursesData();
     //get users meditation data
     const fetchUsersMeditationData = async () => {
       const token = localStorage.getItem("CMCFlow");
+      setIsLoading(true);
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
@@ -49,11 +54,13 @@ const Discover = ({ user }) => {
       // console.log(response.data, "<== meditation data");
       // set the state here
       setUsersMeditations(response.data);
+      setIsLoading(false);
     };
     fetchUsersMeditationData();
     //fetch users badge data
     const fetchUsersBadgeData = async () => {
       const token = localStorage.getItem("CMCFlow");
+      setIsLoading(true);
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
@@ -61,6 +68,7 @@ const Discover = ({ user }) => {
       });
       // console.log(response.data, "<=== badge data"); 
       setUsersBadges(response.data);
+      setIsLoading(false);
     }
     fetchUsersBadgeData();
   }, []);
@@ -117,36 +125,43 @@ const Discover = ({ user }) => {
 
   return (
     <div className="discover-content">
-      <div className="left-select-content">
-        <h2>Courses</h2>
-        {/* <p>Active course id: {activeCourse.courseId} </p>  */}
-        <DiscoverCoursesList
-          courses={courses}
-          usersMeditations={usersMeditations}
-          setTheCourseDisplay={setTheCourseDisplay}
-        />
+      {isLoading ? 
+        <Loader /> 
+      : 
+      <>
+        <div className="left-select-content">
+          <h2>Courses</h2>
+          {/* <p>Active course id: {activeCourse.courseId} </p>  */}
+          <DiscoverCoursesList
+            courses={courses}
+            usersMeditations={usersMeditations}
+            setTheCourseDisplay={setTheCourseDisplay}
+          />
 
-        <br />
-        <h2>Badges</h2>
-        <p>Unlocked: {unlocked} / {usersBadges.length} </p>
-        {usersBadges.length > unlocked ? 
-          <p>Keep meditating to unlock more badges!</p> : 
-          <p>You unlocked all the badges, congrats!</p>
-        }
-        <DiscoverBadgesList
-          badges={usersBadges}
-          setTheBadgeDisplay={setTheBadgeDisplay}
-        />
-      </div>
+          <br />
+          <h2>Badges</h2>
+          <p>Unlocked: {unlocked} / {usersBadges.length} </p>
+          {usersBadges.length > unlocked ? 
+            <p>Keep meditating to unlock more badges!</p> : 
+            <p>You unlocked all the badges, congrats!</p>
+          }
+          <DiscoverBadgesList
+            badges={usersBadges}
+            setTheBadgeDisplay={setTheBadgeDisplay}
+          />
+        </div>
 
-      <div className="right-display-content">
-        <DiscoverDisplay
-          usersMeditations={usersMeditations}
-          activeCourse={activeCourse}
-          activeBadge={activeBadge}
-          currentlyShowing={currentlyShowing}
-        />
-      </div>
+        <div className="right-display-content">
+          <DiscoverDisplay
+            usersMeditations={usersMeditations}
+            activeCourse={activeCourse}
+            activeBadge={activeBadge}
+            currentlyShowing={currentlyShowing}
+          />
+        </div>
+      </>
+      
+      }
     </div>
   );
 };
