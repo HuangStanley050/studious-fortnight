@@ -21,7 +21,7 @@ class YoutubePlayer extends React.Component {
       headers: { Authorization: `Bearer ${token}` },
       url: API.updateMeditationTime,
       method: "post",
-      data: { currentTime: 600 }
+      data: { currentTime: 180 }
     });
     console.log(result.data);
     this.props.updatePage();

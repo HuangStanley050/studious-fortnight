@@ -40,7 +40,7 @@ export const fetchSessionData = async (course, setSessions) => {
     setSessions(usersSessions);
   }
 };
-export const fetchUsersCourseData = async (course, setIsStarted) => {
+export const fetchUsersCourseData = async (course, setIsStarted, setIsDisabled) => {
   const token = localStorage.getItem("CMCFlow");
   const response = await axios({
     headers: { Authorization: `bearer ${token}` },
@@ -48,12 +48,22 @@ export const fetchUsersCourseData = async (course, setIsStarted) => {
     url: API.courseData
   });
 
+  const coursesStarted = response.data.length;
+  let coursesCompleted = 0;
   response.data.map(userCourse => {
     const usersCourse = userCourse.courseDetail.difficulty;
     if (usersCourse.toLowerCase() === course.name.toLowerCase()) {
       // console.log(usersCourse, "match!")
       setIsStarted(true);
     }
+    //logic for working out if courses are completed: 
+    if (userCourse.courseDetail.completed === true) {
+      coursesCompleted++;
+    }
     return null;
   });
+
+  if (coursesCompleted === coursesStarted) {
+    setIsDisabled(false);
+  }
 };
