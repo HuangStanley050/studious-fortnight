@@ -7,35 +7,13 @@ import PaymentForm from "../components/PaymentForm";
 import axios from "axios";
 import API from "../api";
 import Loader from "../components/Loader";
+import DeactivateAccount from "../components/DeactivateAccount";
 import { withRouter } from "react-router-dom";
 import { logout } from "../store/actions/authActions";
 import { connect } from "react-redux";
 
 const Account = ({ user, history, logOut }) => {
   const [loading, setLoading] = useState(false);
-
-  const deactivateAccountFunc = async () => {
-    if (window.confirm("Are you sure about deactivation?")) {
-      const token = localStorage.getItem("CMCFlow");
-      //turn loading screen on
-      setLoading(true);
-      const response = await axios({
-        headers: { Authorization: `bearer ${token}` },
-        method: "post",
-        url: API.deactivateAccount
-      });
-      setLoading(false);
-      if (response.data.activeUser === false) {
-        window.alert("Successfully deactivated account.");
-      }
-
-      logOut();
-      history.push("/");
-
-      //popup window to say account was deactivated and to log back in to reactivate
-      //log out and redirect to landing
-    }
-  };
 
   return (
     <div className="account-body">
@@ -51,12 +29,13 @@ const Account = ({ user, history, logOut }) => {
             </Link>
           </div>
           <Logout />
-          <div
+          {/*<div
             className="account-update-section"
             onClick={deactivateAccountFunc}
           >
             DELETE ACCOUNT
-          </div>
+          </div>*/}
+          <DeactivateAccount setLoading={setLoading} />
           <PaymentForm />
         </>
       )}
