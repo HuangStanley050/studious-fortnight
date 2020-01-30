@@ -99,35 +99,74 @@ exports.returnUserMeditation = async (req, res) => {
 // };
 
 exports.updateUserMeditation = async (req, res) => {
-  console.log("in update user medittion")
+  console.log("in update user medittion");
   const { id } = req.user;
-  let { currentTime, completed } = req.body;
+  let { currentTime } = req.body;
 
   // console.log(id)
-  // currentTime = Math.round(currentTime);
+  currentTime = Math.round(currentTime);
   // console.log(currentTime)
   // console.log(completed)
 
   const user = await User.findById({ _id: id });
   const meditation = await Meditation.findOne({ _id: user.currentMeditation });
-
+  const course = await Course.findOne({ _id: meditation.courseId });
   // console.log(user.currentMeditation, "<==user current med")
 
   // console.log(meditation.sessionDetail.level,"<== meditation level");
   // console.log(meditation.sessionDetail.quote,"<== meditation quote");
 
   meditation.sessionDetail.currentTime = currentTime;
-  if (completed) {
+  if (currentTime >= meditation.sessionDetail.totalTime) {
     meditation.completed = true;
-
+    if (
+      meditation.sessionDetail.totalTime == 180 &&
+      meditation.sessionDetail.level == 3
+    ) {
+      course.courseDetail.completed = true;
+      await course.save();
+      console.log("beginner course finish");
+    } else if (
+      meditation.sessionDetail.totalTime == 300 &&
+      meditation.sessionDetail.level == 4
+    ) {
+      course.courseDetail.completed = true;
+      await course.save();
+      console.log("intermediate course finish");
+    } else if (
+      meditation.sessionDetail.totalTime == 600 &&
+      meditation.sessionDetail.level == 5
+    ) {
+      course.courseDetail.completed = true;
+      await course.save();
+      console.log("expert course finish");
+    }
     //update currentMeditation
-    let newCurrentMeditation = "";
-    const usersMeditations = await Meditation.find({userId: id})
-    usersMeditations.forEach((theMeditation) => {
-      if(meditation.sessionDetail.totalTime === theMeditation.sessionDetail.totalTime && theMeditation.completed === false) {
+    let newCurrentMeditation = meditation;
+    const usersMeditations = await Meditation.find({ userId: id });
+    usersMeditations.map((theMeditation, index) => {
+      // console.log("Order in the meditation:  ");
+      // console.log(index);
+      // console.log("the id is: ", theMeditation._id);
+      // console.log("we're here: ", theMeditation.sessionDetail.level);
+      // console.log(
+      //   "session detail: ",
+      //   parseInt(meditation.sessionDetail.level) + 1
+      // );
+      if (
+        theMeditation.completed == false &&
+        parseInt(meditation.sessionDetail.level) + 1 ==
+          theMeditation.sessionDetail.level
+      ) {
         newCurrentMeditation = theMeditation;
-      } else if (theMeditation.completed === false){
-        newCurrentMeditation = theMeditation;
+        // console.log("we are in the if block");
+        // console.log("meditation: ", theMeditation);
+      } else if (
+        theMeditation.completed == false &&
+        course.courseDetail.completed
+      ) {
+        // newCurrentMeditation = theMeditation;
+        console.log(" the course is completed");
       } else {
         //do nothing
         //at the end of the sessions all complete
@@ -139,7 +178,7 @@ exports.updateUserMeditation = async (req, res) => {
     // console.log(meditation,"<== meditation");
 
     user.currentMeditation = newCurrentMeditation;
-    user.save();
+    await user.save();
   }
   await meditation.save();
 };
