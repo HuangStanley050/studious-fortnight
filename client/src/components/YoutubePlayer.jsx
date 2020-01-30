@@ -3,6 +3,8 @@ import YouTube from "react-youtube";
 import ProgressBar from "./ProgressBar.jsx";
 import API from "../api";
 import axios from "axios";
+import { connect } from "react-redux";
+import { getCurrentMeditation } from "../store/actions/meditationActions";
 import "./YoutubePlayer.scss";
 
 const youtubeSession = meditationTime => {
@@ -69,18 +71,13 @@ class YoutubePlayer extends React.Component {
     }
   }
 
-//   async componentWillUnmount() {
-//     console.log("component unmounted");
-//     const token = localStorage.getItem("CMCFlow");
-//     let result = await axios({
-//       headers: { Authorization: `Bearer ${token}` },
-//       url: API.updateMeditationTime,
-//       method: "post",
-//       data: { currentTime: 180 }
-//     });
-//     console.log(result.data);
-//     this.props.updatePage();
-//   }
+  componentWillUnmount() {
+    console.log(
+      "I have unmounted and i will get the updated version of meditation"
+    );
+
+    this.props.getCurrentMeditation();
+  }
 
   componentDidMount() {
     if (!this.props.meditationSession) {
@@ -90,24 +87,32 @@ class YoutubePlayer extends React.Component {
   }
   _onReady = event => {
     // access to player in all event handlers via event.target
-    event.target.pauseVideo();
+    event.target.playVideo();
   };
   onPause = async event => {
     // console.log("current time: ", event.target.getCurrentTime());
     // console.log("duration: ", event.target.getDuration());
-    //console.log(event.target.getDuration());
+    // console.log(event.target.getDuration());
     const token = localStorage.getItem("CMCFlow");
-    let result = await axios({
+    await axios({
       headers: { Authorization: `bearer ${token}` },
       url: API.updateMeditationTime,
       method: "post",
       data: { currentTime: event.target.getCurrentTime() }
     });
-    console.log(result.data);
+    //console.log(result.data);
   };
-  onEnd = event => {
+  onEnd = async event => {
     //console.log(event);
     console.log("video has ended");
+    const token = localStorage.getItem("CMCFlow");
+    await axios({
+      headers: { Authorization: `bearer ${token}` },
+      url: API.updateMeditationTime,
+      method: "post",
+      data: { currentTime: event.target.getCurrentTime() }
+    });
+    console.log("meditation ended");
   };
   render() {
     const { meditationSession } = this.props;
@@ -142,19 +147,16 @@ class YoutubePlayer extends React.Component {
           opts={opts}
           onReady={this._onReady}
           onPause={this.onPause} // defaults -> noop
-          onEnd={this.onEnd}
+          onEnd={this.onEnd.bind(this)}
         />
       </div>
     );
   }
-
-  /****
-
-      this parts here we already have the parent component Home getting the information, we can pass it down to Youtube component, looks like all we need is the current time for the meditation session
-
-
-
-      ****/
 }
-
-export default YoutubePlayer;
+const mapDispatch = dispatch => ({
+  getCurrentMeditation: () => dispatch(getCurrentMeditation())
+});
+export default connect(
+  null,
+  mapDispatch
+)(YoutubePlayer);
