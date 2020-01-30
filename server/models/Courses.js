@@ -5,7 +5,8 @@ const courseSchema = new mongoose.Schema(
     courseDetail: {
       difficulty: String,
       levels: Number,
-      music: String
+      music: String,
+      completed: { type: Boolean, default: false }
     },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     meditationId: [

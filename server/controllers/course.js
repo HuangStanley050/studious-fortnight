@@ -332,14 +332,14 @@ exports.updateEmail = async (req, res) => {
 
     let allUsers = await User.find({});
     let isDuplicate = false;
-    allUsers.forEach((allUser) => {
-      if(allUser.email === email) {
+    allUsers.forEach(allUser => {
+      if (allUser.email === email) {
         isDuplicate = true;
       }
-    })
+    });
 
     if (user.email === email) {
-      res.send("no change")
+      res.send("no change");
     } else if (isDuplicate === false) {
       user.email = email;
       user.save();
@@ -347,7 +347,6 @@ exports.updateEmail = async (req, res) => {
     } else if (isDuplicate === true) {
       res.send("failure");
     }
-
   } catch (err) {
     res.status(500).send(err);
   }

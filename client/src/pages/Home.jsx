@@ -6,7 +6,7 @@ import Loader from "../components/Loader";
 import API from "../api";
 import YoutubePlayer from "../components/YoutubePlayer.jsx";
 import { getCurrentMeditation } from "../store/actions/meditationActions";
-import './Home.scss';
+import "./Home.scss";
 
 const Home = ({ hasRegistered, meditationSession, dispatch }) => {
   //const [currentMeditation, setCurrentMeditation] = useState({});
@@ -26,41 +26,52 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
   const updatePage = () => {
     setPlaySession(!playSession);
     console.log(meditationSession);
-  }
+  };
 
   return (
     <>
-    {meditationSession ? 
-    <>
-      {playSession ? 
-        <YoutubePlayer 
-          meditationSession={meditationSession} 
-          updatePage={updatePage}
-        />
-        :
-        <div className="landing-page">
-          <p>Level {meditationSession.sessionDetail.level}</p>
-          
-          {meditationSession.sessionDetail.totalTime === 180 ? <h1>Beginner</h1> : ""}
-          {meditationSession.sessionDetail.totalTime === 300 ? <h1>Intermediate</h1> : ""}
-          {meditationSession.sessionDetail.totalTime === 600 ? <h1>Expert</h1> : ""}
-          {/* <p onClick={updatePage}>Click to play</p> */}
-          <div className="buttons">
-            <div 
-              className="begin-button" 
-              onClick={updatePage}>
-                BEGIN
-            </div>
-            <div className="time-button" onClick={updatePage}>
-              {meditationSession.sessionDetail.totalTime / 60 } MIN
-            </div>
-          </div>
-        </div>
-      }
       {hasRegistered ? <Quiz /> : null}
-    </>
-    : 
-    <Loader />}
+      {meditationSession ? (
+        <>
+          {playSession ? (
+            <YoutubePlayer
+              meditationSession={meditationSession}
+              updatePage={updatePage}
+            />
+          ) : (
+            <div className="landing-page">
+              <p>Level {meditationSession.sessionDetail.level}</p>
+
+              {meditationSession.sessionDetail.totalTime === 180 ? (
+                <h1>Beginner</h1>
+              ) : (
+                ""
+              )}
+              {meditationSession.sessionDetail.totalTime === 300 ? (
+                <h1>Intermediate</h1>
+              ) : (
+                ""
+              )}
+              {meditationSession.sessionDetail.totalTime === 600 ? (
+                <h1>Expert</h1>
+              ) : (
+                ""
+              )}
+              {/* <p onClick={updatePage}>Click to play</p> */}
+              <div className="buttons">
+                <div className="begin-button" onClick={updatePage}>
+                  BEGIN
+                </div>
+                <div className="time-button" onClick={updatePage}>
+                  {meditationSession.sessionDetail.totalTime / 60} MIN
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        <Loader />
+      )}
     </>
   );
 };
