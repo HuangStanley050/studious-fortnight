@@ -33,7 +33,7 @@ export const currentRunStreakCalc = (response, setRunStreak) => {
     }
 
   }
-  console.log(longestRunStreakArray);
+
   const highestRunStreak = Math.max.apply(null, longestRunStreakArray);
   setRunStreak(highestRunStreak);
 }
@@ -68,8 +68,6 @@ export const longestRunStreakCalc = (response, setLongestRunStreak) => {
       oneRunStreak = 0;
     }
   }
-
   const highestRunStreak = Math.max.apply(null, longestRunStreakArray);
-
   setLongestRunStreak(highestRunStreak);
 }

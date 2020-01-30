@@ -56,7 +56,7 @@ const Journey = ({totalTimeMeditated, journeyItems}) => {
           <h4>Level {currentPopupInfo.level} of {currentPopupInfo.totalLevels}</h4>
         </div>
         <div className="right-side">
-          <div>"{currentPopupInfo.quote}"</div>
+          <div>{currentPopupInfo.quote}</div>
         </div>
       </div>
     :
