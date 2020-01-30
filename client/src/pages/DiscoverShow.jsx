@@ -104,10 +104,10 @@ const DiscoverShow = props => {
             <h1>{course.name}</h1>
 
             <p>{course.totalLessons} lessons</p>
-            <p>
+            <div>
               {course.description}
-              {isDisabled && <p className="unlock-message">Complete your current course to unlock.</p>}
-            </p>
+              {isDisabled && <div className="unlock-message">Complete your current course to unlock.</div>}
+            </div>
 
             {/* if course has been started, render continue button. if it hasn't, render add button */}
             {isStarted ? (
