@@ -5,8 +5,6 @@ import API from "../api";
 import axios from "axios";
 import "./YoutubePlayer.scss";
 
-const token = localStorage.getItem("CMCFlow");
-
 const youtubeSession = meditationTime => {
   let videoURL;
   switch (meditationTime) {
@@ -70,19 +68,19 @@ class YoutubePlayer extends React.Component {
       console.log("meditation data have been updated!!");
     }
   }
-  async componentWillUnmount() {
-    console.log("component unmounted");
-    const token = localStorage.getItem("CMCFlow");
-    let result = await axios({
-      headers: { Authorization: `Bearer ${token}` },
-      url: API.updateMeditationTime,
-      method: "post",
-      data: { currentTime: 600 }
-    });
-    console.log(result.data);
-    this.props.updatePage();
-    //this.props.setFetchApi(!this.props.fetchApi);
-  }
+  // async componentWillUnmount() {
+  //   console.log("component unmounted");
+  //   const token = localStorage.getItem("CMCFlow");
+  //   let result = await axios({
+  //     headers: { Authorization: `Bearer ${token}` },
+  //     url: API.updateMeditationTime,
+  //     method: "post",
+  //     data: { currentTime:  }
+  //   });
+  //   console.log(result.data);
+  //   this.props.updatePage();
+  //   //this.props.setFetchApi(!this.props.fetchApi);
+  // }
   componentDidMount() {
     if (!this.props.meditationSession) {
       console.log("from componentDidmount====");
@@ -93,10 +91,18 @@ class YoutubePlayer extends React.Component {
     // access to player in all event handlers via event.target
     event.target.pauseVideo();
   };
-  onPause = event => {
-    console.log("current time: ", event.target.getCurrentTime());
-    console.log("duration: ", event.target.getDuration());
+  onPause = async event => {
+    // console.log("current time: ", event.target.getCurrentTime());
+    // console.log("duration: ", event.target.getDuration());
     //console.log(event.target.getDuration());
+    const token = localStorage.getItem("CMCFlow");
+    let result = await axios({
+      headers: { Authorization: `bearer ${token}` },
+      url: API.updateMeditationTime,
+      method: "post",
+      data: { currentTime: event.target.getCurrentTime() }
+    });
+    console.log(result.data);
   };
   onEnd = event => {
     //console.log(event);

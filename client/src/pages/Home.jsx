@@ -23,11 +23,11 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
     }
   }, [dispatch, hasRegistered, meditationSession]);
 
-  useEffect(() => {
-    setFetchApi(false);
-    console.log("fetch api rendering.....");
-    dispatch(getCurrentMeditation());
-  }, [fetchApi, dispatch]);
+  // useEffect(() => {
+  //   setFetchApi(false);
+  //   console.log("fetch api rendering.....");
+  //   dispatch(getCurrentMeditation());
+  // }, [fetchApi, dispatch]);
 
   const updatePage = () => {
     setPlaySession(!playSession);
