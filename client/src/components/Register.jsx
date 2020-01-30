@@ -47,6 +47,10 @@ const Register = ({
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (!userInfo.email || !userInfo.password || !userInfo.passwordConfirm) {
+      alert("Unable to register due to missing fields");
+      return;
+    }
     register({ email: userInfo.email, password: userInfo.password });
 
     setUserInfo({
