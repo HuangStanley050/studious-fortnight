@@ -21,6 +21,7 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
       dispatch(getCurrentMeditation());
       //console.log("meditation session: ", meditationSession);
     }
+    //component unmount do another api call to get updated data
   }, [dispatch, hasRegistered, meditationSession]);
 
   // useEffect(() => {
