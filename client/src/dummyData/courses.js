@@ -37,7 +37,7 @@ const courses = [
     id: "2",
     name: "Intermediate",
     duration: "5 minutes",
-    totalLessons: "5",
+    totalLessons: "4",
     image_url:
       "https://cdn.mindful.org/focus3.png?q=80&fm=jpg&fit=crop&w=500&h=375",
     description:
@@ -48,7 +48,7 @@ const courses = [
     id: "3",
     name: "Expert",
     duration: "10 minutes",
-    totalLessons: "10",
+    totalLessons: "5",
     image_url:
       "https://cdn.mindful.org/meditate-12.png?q=80&fm=jpg&fit=crop&w=1400&h=875",
     description:

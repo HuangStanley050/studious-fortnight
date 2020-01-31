@@ -58,7 +58,8 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
               ) : (
                 ""
               )}
-              {meditationSession.sessionDetail.totalTime === 600 ? (
+              
+            {meditationSession.sessionDetail.totalTime === 600 ? (
                 <h1>Expert</h1>
               ) : (
                 ""

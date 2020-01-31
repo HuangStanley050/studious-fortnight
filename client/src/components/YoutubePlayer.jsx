@@ -63,6 +63,7 @@ const youtubeSession = meditationTime => {
   }
 };
 
+
 class YoutubePlayer extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props.meditationSession) {
