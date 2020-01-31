@@ -44,12 +44,12 @@ const DeactivateAccount = ({ logOut, history, setLoading }) => {
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={handleDeactivate}>
+          <div className="confirm-button" onClick={handleDeactivate}>
             Yes
-          </Button>{" "}
-          <Button color="primary" onClick={toggle}>
+          </div>{" "}
+          <div className="cancel-button" onClick={toggle}>
             Cancel
-          </Button>
+          </div>
         </ModalFooter>
       </Modal>
     </div>
