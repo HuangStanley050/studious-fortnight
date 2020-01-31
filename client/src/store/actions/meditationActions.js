@@ -23,6 +23,7 @@ export const getCurrentMeditation = () => {
       dispatch(getCurrentMeditationOkay(result.data));
     } catch (err) {
       console.log(err.response.data.msg);
+      dispatch(getCurrentMeditationError());
     }
   };
 };

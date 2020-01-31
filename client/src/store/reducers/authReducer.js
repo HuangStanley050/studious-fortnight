@@ -12,7 +12,6 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case Action.GET_CURRENT_MEDITATION_ERROR:
-      //const errorMeditation = action.err.response.data.msg;
       const errorMeditation = "No current meditation";
       console.log(errorMeditation);
       return {
@@ -24,7 +23,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         userInfo: {},
-        isAuth: false
+        isAuth: false,
+        meditationSession: null
       };
     case Action.CLEAR_AUTH_ERROR:
       return {
