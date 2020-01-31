@@ -1,6 +1,6 @@
 const app = require("../app"); // Link to your server file
 const supertest = require("supertest");
-const mongoose = require("mongoose");
+
 const request = supertest(app);
 const makeEmail = require("../utils/makeEmail");
 

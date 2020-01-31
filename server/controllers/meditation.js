@@ -21,16 +21,16 @@ exports.returnUserMeditation = async (req, res) => {
     const result = await User.findOne({ _id: id });
     //console.log("result of finding the meditation from user: ", result);
     if (!result.currentMeditation) {
-      //throw new Error("user has no existing meditation");
-      const startingChoice = "beginner";
-      const courseDetail = {
-        difficulty: "beginner",
-        levels: 3,
-        music: "MkPlp1Vt8YY" //dummy data used for now.
-      };
-      await createCourse(id, startingChoice, courseDetail, res);
-      updateCurrentMeditation(id, res);
-      return;
+      throw new Error("user has no existing meditation");
+      // const startingChoice = "beginner";
+      // const courseDetail = {
+      //   difficulty: "beginner",
+      //   levels: 3,
+      //   music: "MkPlp1Vt8YY" //dummy data used for now.
+      // };
+      // await createCourse(id, startingChoice, courseDetail, res);
+      // updateCurrentMeditation(id, res);
+      // return;
     }
     const meditationId = result.currentMeditation;
 
@@ -40,7 +40,7 @@ exports.returnUserMeditation = async (req, res) => {
   } catch (err) {
     console.log("no current Meditation");
 
-    //return res.status(500).send({ msg: "Unable to find current meditation" });
+    return res.status(500).send({ msg: "Unable to find current meditation" });
   }
 };
 
