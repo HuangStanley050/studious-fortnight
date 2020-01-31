@@ -87,7 +87,7 @@ let PageThree = ({ prevPage, nextPage, values }) => {
           <Button
             type="button"
             color="info"
-            className="previous"
+            className="cancel-button"
             onClick={prevPage}
           >
             Previous
@@ -95,7 +95,7 @@ let PageThree = ({ prevPage, nextPage, values }) => {
           <Button
             type="button"
             color="primary"
-            className="next"
+            className="confirm-button"
             onClick={nextPage}
           >
             Next
