@@ -16,5 +16,6 @@ export default {
   donation: "/api/donation",
   getUser: "/api/account/get-user",
   updateEmail: "/api/account/update-email",
-  deactivateAccount: "/api/account/deactivate-account"
+  deactivateAccount: "/api/account/deactivate-account",
+  checkBadges: "/api/account/check-badges"
 };

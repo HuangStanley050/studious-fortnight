@@ -27,17 +27,27 @@ const Discover = ({ user }) => {
 
   //fetch users info from API:
   useEffect(() => {
+    //check / update badges: 
+    const checkBadges = async () => {
+      const token = localStorage.getItem("CMCFlow");
+      setIsLoading(true);
+      await axios({
+        headers: { Authorization: `bearer ${token}` },
+        method: "get",
+        url: API.checkBadges
+      });
+      setIsLoading(false);
+    }
+    checkBadges();
     //get users course data
     const fetchUsersCoursesData = async () => {
       const token = localStorage.getItem("CMCFlow");
-      // console.log(token);
       setIsLoading(true);
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
         url: API.courseData
       });
-      // console.log(response.data, "<== course data")
       setUsersCourses(response.data);
       setIsLoading(false);
     }
@@ -51,7 +61,6 @@ const Discover = ({ user }) => {
         method: "get",
         url: API.meditationData
       });
-      // console.log(response.data, "<== meditation data");
       // set the state here
       setUsersMeditations(response.data);
       setIsLoading(false);
@@ -65,8 +74,7 @@ const Discover = ({ user }) => {
         headers: { Authorization: `bearer ${token}` },
         method: "get",
         url: API.badgeData
-      });
-      // console.log(response.data, "<=== badge data"); 
+      }); 
       setUsersBadges(response.data);
       setIsLoading(false);
     }

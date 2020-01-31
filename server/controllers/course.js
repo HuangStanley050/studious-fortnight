@@ -464,3 +464,67 @@ exports.deactivateAccount = async (req, res) => {
     res.status(500).send(err);
   }
 };
+
+exports.checkBadges = async (req, res) => {
+  const { id } = req.user;
+  // const { id } = req.body;
+
+  try {
+
+    const user = await User.findOne({_id: id})
+    const meditations = await Meditation.find({userId: id})
+    //badge 3, 4, 5
+    const courses = await Course.find({userId: id})
+    courses.forEach((course) => {
+      const completed = course.courseDetail.completed
+      if (completed === true ) {
+        switch(course.courseDetail.difficulty) {
+          case "beginner":
+            //unlock badge 3
+            user.badges[2].unlocked = true;
+            break;
+          case "intermediate":
+            //unlock badge 4
+            user.badges[3].unlocked = true;
+            break;
+          case "expert":
+            //unlock badge 5
+            user.badges[4].unlocked = true;
+            break;
+          default: 
+            break;
+        }
+      }
+    });
+    //badge 2, 6, 7 (runStreak logic here)
+
+    //badge 8, 9, 10
+    let totalTime = 0;
+    meditations.forEach(meditation => {
+      if (meditation.completed === true) {
+        totalTime += meditation.sessionDetail.totalTime;
+      }
+    });
+
+    if( (totalTime / 60) > 30 ) {
+      //unlock badge 8
+      user.badges[7].unlocked = true;
+    }
+    if( (totalTime / 60) > 60 ) {
+      //unlock badge 9
+      user.badges[8].unlocked = true;
+    }
+    if ( (totalTime / 60) > 6000) {
+      //unlock badge 10
+      user.badges[9].unlocked = true;
+    }
+
+    user.save();
+    res.send(user.badges)
+
+
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}
+
