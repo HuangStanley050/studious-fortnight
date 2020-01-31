@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 //import Logout from "../components/Logout";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-const Landing = () => {
+const Landing = ({ isAuth }) => {
+  if (isAuth) {
+    return <Redirect to="/my" />;
+  }
   return (
     <>
       <h1>Landing page</h1>
@@ -12,5 +17,7 @@ const Landing = () => {
     </>
   );
 };
-
-export default Landing;
+const mapState = state => ({
+  isAuth: state.auth.isAuth
+});
+export default connect(mapState)(Landing);

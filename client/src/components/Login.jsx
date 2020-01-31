@@ -52,6 +52,10 @@ const Login = ({ login, error, clearError, toggle, loginOrRegister }) => {
   }, [clearError]);
   const handleSubmit = e => {
     e.preventDefault();
+    if (!form.email || !form.password) {
+      alert("Must provide email and password to login");
+      return;
+    }
     login(form);
     resetFields();
   };
