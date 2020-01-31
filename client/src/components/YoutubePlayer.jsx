@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import YouTube from "react-youtube";
 import ProgressBar from "./ProgressBar.jsx";
 import API from "../api";
@@ -63,34 +63,25 @@ const youtubeSession = meditationTime => {
   }
 };
 
+//refactoring youtube player into fucntion
 
-class YoutubePlayer extends React.Component {
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props.meditationSession) {
-      console.log("from component did update=====");
-      console.log("meditation data have been updated!!");
+const YoutubePlayer = (props) => {
+console.log(props);
+  useEffect(() => {
+    return () => {
+      //runs when component unmounts!
+      console.log(
+        "I have unmounted and i will get the updated version of meditation"
+      );
+      props.getCurrentMeditation();
     }
-  }
+  }, []);
 
-  componentWillUnmount() {
-    console.log(
-      "I have unmounted and i will get the updated version of meditation"
-    );
-
-    this.props.getCurrentMeditation();
-  }
-
-  componentDidMount() {
-    if (!this.props.meditationSession) {
-      console.log("from componentDidmount====");
-      console.log("meditation data not ready yet");
-    }
-  }
-  _onReady = event => {
+  const _onReady = event => {
     // access to player in all event handlers via event.target
     event.target.playVideo();
   };
-  onEnd = async event => {
+  const onEnd = async event => {
     //console.log(event);
     console.log("video has ended");
     const token = localStorage.getItem("CMCFlow");
@@ -100,10 +91,11 @@ class YoutubePlayer extends React.Component {
       method: "post",
       data: { currentTime: event.target.getCurrentTime() }
     });
+  }
+
     console.log("meditation ended");
-  };
-  render() {
-    const { meditationSession } = this.props;
+
+    const { meditationSession } = props;
     const videoId = youtubeSession(meditationSession.sessionDetail.totalTime);
     console.log(videoId);
     const opts = {
@@ -115,14 +107,14 @@ class YoutubePlayer extends React.Component {
       }
     };
 
-    //console.log(meditationSession.sessionDetail);
     return (
+      // <>hmm</>
       <div className="meditation-player">
-        <div onClick={this.props.updatePage} className="close-button">
+        <div onClick={props.updatePage} className="close-button">
           X
         </div>
 
-        {this.props.meditationSession ? (
+        {/* {props.meditationSession ? (
           <>
             <h1>Got meditation session data</h1>
             <h1>PLAY VIDEO HERE</h1>
@@ -133,13 +125,91 @@ class YoutubePlayer extends React.Component {
         <YouTube
           videoId={videoId}
           opts={opts}
-          onReady={this._onReady}
-          onEnd={this.onEnd.bind(this)}
-        />
+          onReady={_onReady}
+          onEnd={onEnd}
+        /> */}
       </div>
-    );
-  }
+    )
 }
+
+// class YoutubePlayer extends React.Component {
+//   // componentDidUpdate(prevProps) {
+//   //   if (prevProps !== this.props.meditationSession) {
+//   //     console.log("from component did update=====");
+//   //     console.log("meditation data have been updated!!");
+//   //   }
+//   // }
+
+//   // componentWillUnmount() {
+//   //   console.log(
+//   //     "I have unmounted and i will get the updated version of meditation"
+//   //   );
+
+//   //   this.props.getCurrentMeditation();
+//   // }
+
+//   // componentDidMount() {
+//   //   if (!this.props.meditationSession) {
+//   //     console.log("from componentDidmount====");
+//   //     console.log("meditation data not ready yet");
+//   //   }
+//   // }
+//   _onReady = event => {
+//     // access to player in all event handlers via event.target
+//     event.target.playVideo();
+//   };
+//   onEnd = async event => {
+//     //console.log(event);
+//     console.log("video has ended");
+//     const token = localStorage.getItem("CMCFlow");
+//     await axios({
+//       headers: { Authorization: `bearer ${token}` },
+//       url: API.updateMeditationTime,
+//       method: "post",
+//       data: { currentTime: event.target.getCurrentTime() }
+//     });
+//     console.log("meditation ended");
+//   };
+//   render() {
+//     const { meditationSession } = this.props;
+//     const videoId = youtubeSession(meditationSession.sessionDetail.totalTime);
+//     console.log(videoId);
+//     const opts = {
+//       height: "390",
+//       width: "640",
+//       playerVars: {
+//         // https://developers.google.com/youtube/player_parameters
+//         autoplay: 1
+//       }
+//     };
+
+//     //console.log(meditationSession.sessionDetail);
+//     return (
+//       <div className="meditation-player">
+//         <div onClick={this.props.updatePage} className="close-button">
+//           X
+//         </div>
+
+//         {this.props.meditationSession ? (
+//           <>
+//             <h1>Got meditation session data</h1>
+//             <h1>PLAY VIDEO HERE</h1>
+//           </>
+//         ) : (
+//           <h1>Got no data</h1>
+//         )}
+//         <YouTube
+//           videoId={videoId}
+//           opts={opts}
+//           onReady={this._onReady}
+//           onEnd={this.onEnd.bind(this)}
+//         />
+//       </div>
+//     );
+//   }
+// }
+
+
 const mapDispatch = dispatch => ({
   getCurrentMeditation: () => dispatch(getCurrentMeditation())
 });
