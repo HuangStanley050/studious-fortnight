@@ -12,7 +12,9 @@ export default {
   updateMeditationTime: "/api/course/meditation_update",
   returnUserMeditation: "/api/course/return_meditation",
   updateCurrentMeditation: "/api/course/update-meditation",
-  getVideo: "/api/meditation_getVideo",
+  //getVideo: "/api/meditation_getVideo",
   donation: "/api/donation",
-  getUser: "/api/course/get-user"
+  getUser: "/api/account/get-user",
+  updateEmail: "/api/account/update-email",
+  deactivateAccount: "/api/account/deactivate-account"
 };

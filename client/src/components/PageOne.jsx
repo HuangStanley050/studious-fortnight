@@ -11,6 +11,7 @@ let PageOne = ({ nextPage, values }) => {
   const selectionStyle = {
     boxShadow: "0 0 5px 5px #2ecc71"
   };
+  const required = value => (value ? undefined : "Required");
   let selection;
   const noExperience = "No experience";
   const someExperience = "Some experience";
@@ -31,6 +32,7 @@ let PageOne = ({ nextPage, values }) => {
               type="radio"
               component={renderField}
               value="No experience"
+              validate={required}
             />{" "}
             <div
               className="card card-input"
@@ -56,6 +58,7 @@ let PageOne = ({ nextPage, values }) => {
               type="radio"
               component={renderField}
               value="Some experience"
+              validate={required}
             />{" "}
             <div
               className="card card-input"
@@ -81,6 +84,7 @@ let PageOne = ({ nextPage, values }) => {
               type="radio"
               component={renderField}
               value="Expert experience"
+              validate={required}
             />{" "}
             <div
               className="card card-input "

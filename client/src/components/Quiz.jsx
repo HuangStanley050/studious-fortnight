@@ -68,7 +68,7 @@ const mapDispatch = dispatch => ({
       method: "post",
       data: { startingChoice: "beginner" }
     });
-    console.log(result.data);
+    //console.log(result.data);
     dispatch(closeQuiz(result.data));
   }
 });

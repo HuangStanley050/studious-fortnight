@@ -18,7 +18,14 @@ passport.use(
       const externalProvider = profile.provider;
       try {
         const existingUser = await User.findOne({ email });
+
         if (existingUser) {
+          if (!existingUser.activeUser) {
+            const user = {
+              deactivated: true
+            };
+            return done(null, user);
+          }
           const { email, id } = existingUser;
           const user = {
             email,
@@ -38,7 +45,7 @@ passport.use(
         };
         return done(null, newUser);
       } catch (err) {
-        return done(err, null);
+        return done(err.message, null);
       }
     }
   )

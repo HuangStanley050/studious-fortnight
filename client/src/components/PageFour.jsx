@@ -20,7 +20,13 @@ let PageFour = ({ values, prevPage, dispatch }) => {
   };
   const submitHandler = async e => {
     e.preventDefault();
-    const { experience } = values;
+    let experience;
+    if (!values) {
+      experience = "No experience";
+    } else {
+      experience = values.experience;
+    }
+
     let startingChoice;
     if (experience === "No experience") {
       startingChoice = "beginner";
@@ -36,7 +42,7 @@ let PageFour = ({ values, prevPage, dispatch }) => {
       url: API.setCourse,
       data: { startingChoice }
     });
-    console.log(result.data);
+    //console.log(result.data);
     dispatch(closeQuiz(result.data));
   };
 

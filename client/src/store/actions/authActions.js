@@ -11,9 +11,9 @@ export const loginOkay = (userInfo, token) => ({
   payload: { userInfo, token }
 });
 
-const loginFail = err => ({
+export const loginFail = error => ({
   type: Action.LOGIN_FAIL,
-  err
+  error
 });
 
 const registerStart = () => ({
@@ -61,7 +61,8 @@ export const login = userInfo => {
       dispatch(loginOkay(userDetail, token));
     } catch (err) {
       console.log(err);
-      dispatch(loginFail(err));
+      const error = err.response.data.msg;
+      dispatch(loginFail(error));
     }
 
     //console.log(result.data);

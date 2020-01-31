@@ -5,49 +5,79 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import API from "../api";
 import YoutubePlayer from "../components/YoutubePlayer.jsx";
+import { getCurrentMeditation } from "../store/actions/meditationActions";
+import "./Home.scss";
 
-const Home = ({ hasRegistered, meditationSession }) => {
-  const [currentMeditation, setCurrentMeditation] = useState(null);
+const Home = ({ hasRegistered, meditationSession, dispatch }) => {
+  //const [currentMeditation, setCurrentMeditation] = useState({});
   const [error, setError] = useState("");
-
+  const [playSession, setPlaySession] = useState(false);
+  const [fetchApi, setFetchApi] = useState(true);
   const errorMsg = <h4>Pleaes go to discover page and pick a meditation</h4>;
 
-  // useEffect(() => {
-  //   const fetchMeditationData = async () => {
-  //     try {
-  //       //console.log("has registered?: ", hasRegistered);
-  //       const token = localStorage.getItem("CMCFlow");
-  //
-  //       const response = await axios({
-  //         headers: { Authorization: `bearer ${token}` },
-  //         method: "get",
-  //         url: API.userMeditation
-  //       });
-  //       console.log("meditation data: ", response.data);
-  //       setCurrentMeditation(response.data);
-  //
-  //       setError("");
-  //     } catch (err) {
-  //       console.log(err.response.data.msg);
-  //
-  //       setError(err.response.data.msg);
-  //     }
-  //   };
-  //
-  //   fetchMeditationData();
-  // }, [hasRegistered]);
+  useEffect(() => {
+    if (!meditationSession) {
+      //console.log("this is from Home component");
+      dispatch(getCurrentMeditation());
+      //console.log("meditation session: ", meditationSession);
+    }
+    // if (meditationSession && !playSession) {
+    //   dispatch(getCurrentMeditation());
+    // }
+    //component unmount do another api call to get updated data
+  }, [dispatch, hasRegistered, meditationSession]);
+
+  const updatePage = () => {
+    setPlaySession(!playSession);
+    //console.log(meditationSession);
+  };
 
   return (
     <>
+      {hasRegistered ? <Quiz /> : null}
       {meditationSession ? (
         <>
-          <YoutubePlayer meditationSession={meditationSession} />
+          {playSession ? (
+            <YoutubePlayer
+              meditationSession={meditationSession}
+              updatePage={updatePage}
+              // setFetchApi={setFetchApi}
+              // fetchApi={fetchApi}
+            />
+          ) : (
+            <div className="landing-page">
+              <p>Level {meditationSession.sessionDetail.level}</p>
+
+              {meditationSession.sessionDetail.totalTime === 180 ? (
+                <h1>Beginner</h1>
+              ) : (
+                ""
+              )}
+              {meditationSession.sessionDetail.totalTime === 300 ? (
+                <h1>Intermediate</h1>
+              ) : (
+                ""
+              )}
+              {meditationSession.sessionDetail.totalTime === 600 ? (
+                <h1>Expert</h1>
+              ) : (
+                ""
+              )}
+              {/* <p onClick={updatePage}>Click to play</p> */}
+              <div className="buttons">
+                <div className="begin-button" onClick={updatePage}>
+                  BEGIN
+                </div>
+                <div className="time-button" onClick={updatePage}>
+                  {meditationSession.sessionDetail.totalTime / 60} MIN
+                </div>
+              </div>
+            </div>
+          )}
         </>
       ) : (
-        <h1>No data from meditation</h1>
+        <Loader />
       )}
-
-      {hasRegistered ? <Quiz /> : null}
     </>
   );
 };

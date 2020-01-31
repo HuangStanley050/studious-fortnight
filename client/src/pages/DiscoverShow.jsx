@@ -8,11 +8,14 @@ import {
   fetchSessionData,
   fetchUsersCourseData
 } from "../components/fetchForDiscoverShow.js";
+import Loader from "../components/Loader";
 
 const DiscoverShow = props => {
   const [viewSessions, setViewSessions] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [sessions, setSessions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   //course id from the URL:
   const { id } = props.match.params;
@@ -21,8 +24,14 @@ const DiscoverShow = props => {
 
   //api call to find users course if it exists
   useEffect(() => {
-    fetchUsersCourseData(course, setIsStarted);
+    setIsLoading(true);
+    fetchUsersCourseData(course, setIsStarted, setIsDisabled);
     fetchSessionData(course, setSessions);
+    setIsLoading(false);
+
+    if(isStarted) {
+      setIsDisabled(false);
+    }
   }, [course, isStarted]);
 
   const showSessions = () => {
@@ -32,6 +41,7 @@ const DiscoverShow = props => {
   const addToMyCourses = async () => {
     //logic to add to course here. API call post!
     const token = localStorage.getItem("CMCFlow");
+    setIsLoading(true);
     const response = await axios({
       headers: { Authorization: `bearer ${token}` },
       data: { courseName: course.name.toLowerCase() },
@@ -40,8 +50,9 @@ const DiscoverShow = props => {
     });
 
     if (response.data) {
-      await setIsStarted(true);
+      setIsStarted(true);
     }
+    setIsLoading(false);
   };
 
   const goHomeToPlay = () => {
@@ -51,12 +62,14 @@ const DiscoverShow = props => {
   const updateTheCurrentMeditation = async meditationId => {
     //api call which updates users currentMeditation
     const token = localStorage.getItem("CMCFlow");
+    setIsLoading(true);
     await axios({
       headers: { Authorization: `bearer ${token}` },
       data: { meditationId: meditationId },
       method: "post",
       url: API.updateCurrentMeditation
     });
+    setIsLoading(false);
   };
 
   const setCurrentMeditation = async e => {
@@ -82,105 +95,140 @@ const DiscoverShow = props => {
 
   return (
     <>
-      <div className="discover-show-content">
-        <div className="info-content">
-          <h1>{course.name}</h1>
-          {/* <p>{isStarted ? "started" : "not started"}</p> */}
-          <p>{course.totalLessons} lessons</p>
-          <p>{course.description}</p>
+      {isLoading ? 
+        <Loader /> 
+      : 
+      <>
+        <div className="discover-show-content">
+          <div className="info-content">
+            <h1>{course.name}</h1>
 
-          {/* if course has been started, render continue button. if it hasn't, render add button */}
-          {isStarted ? (
-            <div className="add-button">
-              <i
-                className="far fa-plus-square fa-3x"
-                value={course.name}
-                onClick={playCourse}
-              ></i>
-              &nbsp; CONTINUE
+            <p>{course.totalLessons} lessons</p>
+            <div>
+              {course.description}
+              {isDisabled && <div className="unlock-message">Complete your current course to unlock.</div>}
             </div>
-          ) : (
-            <div className="add-button">
-              <i
-                className="far fa-plus-square fa-3x"
-                onClick={addToMyCourses}
-              ></i>
-              &nbsp; ADD TO MY COURSES
-            </div>
-          )}
-        </div>
 
-        <div className="picture-content">
-          <img src={course.image_url} alt=""></img>
-        </div>
-      </div>
+            {/* if course has been started, render continue button. if it hasn't, render add button */}
+            {isStarted ? (
+              <div className="add-button">
+                <i
+                  className="far fa-plus-square fa-3x"
+                  value={course.name}
+                  onClick={playCourse}
+                ></i>
+                &nbsp; CONTINUE
+              </div>
+            ) : (
+              <div className="add-button">
+                {isDisabled ? 
+                <>
+                  <i
+                  className="far fa-plus-square fa-3x"
+                  ></i>
+                  &nbsp; LOCKED
+                </>
+                : 
+                <>
+                  <i
+                  className="far fa-plus-square fa-3x"
+                  onClick={addToMyCourses}
+                  ></i>
+                  &nbsp; ADD TO MY COURSES
+                </>
+                }
 
-      {/* if user has started this course and has sessions, show view sessions drop down. if they don't, dont show it */}
-      {sessions.length !== 0 ? (
-        // "got sessions"
-        <div className="display-sessions">
-          <div className="session-button">
-            <i
-              className="far fa-caret-square-down fa-3x"
-              onClick={showSessions}
-            ></i>
-            &nbsp; VIEW SESSIONS
+              </div>
+            )}
           </div>
-          {viewSessions
-            ? sessions.map((session, index) => {
-                return (
-                  <div className="session" key={index + 1}>
-                    <span>
-                      {session.completed === true ? (
-                        <i className="far fa-check-square"></i>
-                      ) : (
-                        <i
-                          className="far fa-caret-square-right"
-                          value={index}
-                          onClick={setCurrentMeditation}
-                        ></i>
-                      )}
-                      Session {index + 1}
-                    </span>
-                    <div>
-                      <span>
-                        Duration: {session.sessionDetail.currentTime} /{" "}
-                        {session.sessionDetail.totalTime}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })
-            : ""}
-        </div>
-      ) : (
-        // "no sesh"
-        ""
-      )}
 
-      <div className="discover-show-footer">
-        {isStarted ? (
-          <>
-            <div className="begin-button" onClick={playCourse}>
-              CONTINUE
+          <div className="picture-content">
+            <img src={course.image_url} alt=""></img>
+          </div>
+        </div>
+
+        {/* if user has started this course and has sessions, show view sessions drop down. if they don't, dont show it */}
+        {sessions.length !== 0 ? (
+          // "got sessions"
+          <div className="display-sessions">
+            <div className="session-button">
+              <i
+                className="far fa-caret-square-down fa-3x"
+                onClick={showSessions}
+              ></i>
+              &nbsp; VIEW SESSIONS
             </div>
-            <div className="time-button" onClick={playCourse}>
-              {course.duration.toUpperCase()}
-            </div>
-          </>
+            {viewSessions
+              ? sessions.map((session, index) => {
+                  return (
+                    <div className="session" key={index + 1}>
+                      <span>
+                        {session.completed === true ? (
+                          <i className="far fa-check-square"></i>
+                        ) : (
+                          <i
+                            className="far fa-caret-square-right"
+                            value={index}
+                            onClick={setCurrentMeditation}
+                          ></i>
+                        )}
+                        Session {index + 1}
+                      </span>
+                      <div>
+                        <span>
+                          Duration: {session.sessionDetail.currentTime} /{" "}
+                          {session.sessionDetail.totalTime}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })
+              : ""}
+          </div>
         ) : (
-          <>
-            <div className="begin-button" onClick={addToMyCourses}>
-              BEGIN
-            </div>
-            <div className="time-button" onClick={addToMyCourses}>
-              {course.duration.toUpperCase()}
-            </div>
-          </>
+          // "no sesh"
+          ""
         )}
 
-        <div className="title">DAY 1 OF {course.name.toUpperCase()}</div>
-      </div>
+        <div className="discover-show-footer">
+          {isStarted ? 
+            <>
+              <div className="begin-button" onClick={playCourse}>
+                CONTINUE
+              </div>
+              <div className="time-button" onClick={playCourse}>
+                {course.duration.toUpperCase()}
+              </div>
+            </>
+           : 
+            <>
+              {isDisabled ? 
+              <>
+                <div className="begin-button">
+                  LOCKED
+                </div>
+                <div className="time-button">
+                  {course.duration.toUpperCase()}
+                </div>
+              </>
+              : 
+              <>
+                <div className="begin-button" onClick={addToMyCourses}>
+                BEGIN
+                </div>
+                <div className="time-button" onClick={addToMyCourses}>
+                  {course.duration.toUpperCase()}
+                </div>
+              </>
+              }
+            </>
+          }
+
+          <div className="title">DAY 1 OF {course.name.toUpperCase()}</div>
+        </div>
+      </>
+      
+      }
     </>
   );
 };

@@ -5,12 +5,20 @@ const initialState = {
   hasRegistered: false,
   userInfo: {},
   loading: false,
-  meditationSession: {},
+  meditationSession: null,
   error: ""
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case Action.GET_CURRENT_MEDITATION_ERROR:
+      //const errorMeditation = action.err.response.data.msg;
+      const errorMeditation = "No current meditation";
+      console.log(errorMeditation);
+      return {
+        ...state,
+        error: errorMeditation
+      };
     case Action.LOGOUT:
       localStorage.removeItem("CMCFlow");
       return {
@@ -24,6 +32,7 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case Action.TURN_OFF_QUIZ:
+    case Action.GET_CURRENT_MEDITATION:
       return {
         ...state,
         hasRegistered: false,
@@ -56,7 +65,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.err.response.data.msg
+        error: action.error
       };
     case Action.LOGIN_START:
       return {
