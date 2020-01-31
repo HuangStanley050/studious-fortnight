@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { logout } from "../store/actions/authActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "./Logout.css";
 
 const Logout = ({ logOut, history }) => {
@@ -31,12 +31,12 @@ const Logout = ({ logOut, history }) => {
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
         </ModalBody>
         <ModalFooter>
-          <div className="confirm-button" onClick={handleLogout}>
+          <Button className="confirm-button" onClick={handleLogout}>
             Yes
-          </div>{" "}
-          <div className="cancel-button" onClick={toggle}>
+          </Button>{" "}
+          <Button className="cancel-button" onClick={toggle}>
             Cancel
-          </div>
+          </Button>
         </ModalFooter>
       </Modal>
     </div>
