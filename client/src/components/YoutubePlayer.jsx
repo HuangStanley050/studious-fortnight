@@ -89,19 +89,6 @@ class YoutubePlayer extends React.Component {
     // access to player in all event handlers via event.target
     event.target.playVideo();
   };
-  onPause = async event => {
-    // console.log("current time: ", event.target.getCurrentTime());
-    // console.log("duration: ", event.target.getDuration());
-    // console.log(event.target.getDuration());
-    const token = localStorage.getItem("CMCFlow");
-    await axios({
-      headers: { Authorization: `bearer ${token}` },
-      url: API.updateMeditationTime,
-      method: "post",
-      data: { currentTime: event.target.getCurrentTime() }
-    });
-    //console.log(result.data);
-  };
   onEnd = async event => {
     //console.log(event);
     console.log("video has ended");
@@ -146,7 +133,6 @@ class YoutubePlayer extends React.Component {
           videoId={videoId}
           opts={opts}
           onReady={this._onReady}
-          onPause={this.onPause} // defaults -> noop
           onEnd={this.onEnd.bind(this)}
         />
       </div>
