@@ -8,7 +8,7 @@ import PageFour from "./PageFour";
 import { closeQuiz } from "../store/actions/quizActions";
 import API from "../api";
 import "./Quiz.css";
-import { Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, Button } from "reactstrap";
 import axios from "axios";
 
 let Quiz = ({ hasRegistered, turnOffQuiz }) => {
@@ -33,18 +33,28 @@ let Quiz = ({ hasRegistered, turnOffQuiz }) => {
   return (
     <div>
       <Modal
-        size="lg"
-        style={{ maxWidth: "1900px", width: "90%" }}
+        //backdrop={false}
+        centered
+        size="xl"
+        style={{
+          minWidth: "100vw",
+          minheight: "100vh",
+          margin: "0"
+        }}
         isOpen={modal}
         toggle={toggle}
-        external={externalCloseBtn}
+        //external={externalCloseBtn}
       >
-        <ModalHeader>Start the Quiz</ModalHeader>
+        <ModalHeader style={{ backgroundColor: "#ddd6d6" }}>
+          <Button onClick={toggle} className="cancel-button">
+            Close
+          </Button>{" "}
+        </ModalHeader>
 
         {/*<span>
           <button onClick={turnOffQuiz}>Close Quiz</button>
         </span>*/}
-        <ModalBody>
+        <ModalBody style={{ backgroundColor: "rgba(84, 84, 84, 0.1)" }}>
           {currentPage === 1 && <PageOne nextPage={nextPage} />}
           {currentPage === 2 && (
             <PageTwo prevPage={prevPage} nextPage={nextPage} />
