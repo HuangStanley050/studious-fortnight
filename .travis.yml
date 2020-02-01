@@ -4,6 +4,7 @@ node_js:
 before_install:
   - cd client
   - npm install
+  - cd ..
 install:
   - npm install
 
