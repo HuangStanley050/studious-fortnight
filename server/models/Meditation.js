@@ -5,18 +5,18 @@ const meditationSchema = new mongoose.Schema(
     sessionDetail: {
       level: String,
       quote: String,
-      currentTime:  Number,
+      currentTime: Number,
       totalTime: Number
     },
     completed: Boolean,
     active: Boolean,
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "user"
     },
     courseId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Courses"
+      ref: "course"
     }
   },
   { collection: "meditation", timestamps: true }

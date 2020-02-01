@@ -1,0 +1,23 @@
+.confirm-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: var(--popup-background2);
+  border-radius: 25px;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: red;
+  border-radius: 25px;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+}

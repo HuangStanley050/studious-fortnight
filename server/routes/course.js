@@ -73,4 +73,10 @@ router.post(
   courseController.deactivateAccount
 );
 
+router.get(
+  "/api/account/check-badges",
+  passport.authenticate("jwt", { session: false }),
+  courseController.checkBadges
+);
+
 module.exports = router;

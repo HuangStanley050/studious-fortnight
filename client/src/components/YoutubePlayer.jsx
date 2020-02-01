@@ -19,45 +19,7 @@ const youtubeSession = meditationTime => {
     case 600:
       videoURL = "KAHKP313P2I";
       return videoURL;
-    // // 3minutes below
-    // case "1":
-    //   videoURL = "iHdviZkM7S4"; //3 mins
-    //   return videoURL;
-    // case "2":
-    //   videoURL = "4Lm0o3XGKIY";
-    //   return videoURL;
-    // case "3":
-    //   videoURL = "UIrLyE7iz50";
-    //   return videoURL;
-    // //5minutes below
-    // case "4":
-    //   videoURL = "W0bSen8Qjg";
-    //   return videoURL;
-    // case "5":
-    //   videoURL = "xTczn5RUgnk";
-    //   return videoURL;
-    // case "6":
-    //   videoURL = "6_akBtKZdE";
-    //   return videoURL;
-    // case "7":
-    //   videoURL = "nkqnuxKj8Dk";
-    //   return videoURL;
-    // //10 minutes below
-    // case "8":
-    //   videoURL = "KAHKP313P2I";
-    //   return videoURL;
-    // case "9":
-    //   videoURL = "4ASKMcdCc3g";
-    //   return videoURL;
-    // case "10":
-    //   videoURL = "OvxwaacXTUA";
-    //   return videoURL;
-    // case "11":
-    //   videoURL = "smZbpBsny9c";
-    //   return videoURL;
-    // case "12":
-    //   videoURL = "Ihq64W33cyo";
-    //   return videoURL;
+
     default:
       return;
   }
@@ -88,19 +50,6 @@ class YoutubePlayer extends React.Component {
   _onReady = event => {
     // access to player in all event handlers via event.target
     event.target.playVideo();
-  };
-  onPause = async event => {
-    // console.log("current time: ", event.target.getCurrentTime());
-    // console.log("duration: ", event.target.getDuration());
-    // console.log(event.target.getDuration());
-    const token = localStorage.getItem("CMCFlow");
-    await axios({
-      headers: { Authorization: `bearer ${token}` },
-      url: API.updateMeditationTime,
-      method: "post",
-      data: { currentTime: event.target.getCurrentTime() }
-    });
-    //console.log(result.data);
   };
   onEnd = async event => {
     //console.log(event);
@@ -148,7 +97,6 @@ class YoutubePlayer extends React.Component {
           videoId={videoId}
           opts={opts}
           onReady={this._onReady}
-          onPause={this.onPause} // defaults -> noop
           onEnd={this.onEnd.bind(this)}
           className="vidPlayer"
         />

@@ -32,6 +32,14 @@ const Register = ({
   const [successMsg, setSuccessMsg] = useState(
     "Registration Successful, Please Login."
   );
+  const warnBeforeLeave = e => "are you sure you want to leave?";
+
+  useEffect(() => {
+    window.onbeforeunload = warnBeforeLeave;
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
   const buttonStyle = {
     width: "40%",
     margin: "0 auto"

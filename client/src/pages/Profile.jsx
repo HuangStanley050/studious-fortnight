@@ -10,14 +10,15 @@ import {
 import axios from "axios";
 import API from "../api";
 import Account from "../components/Account.jsx";
+import Loader from "../components/Loader";
 
 const Profile = () => {
   const [display, setDisplay] = useState("stats");
+  const [isLoading, setIsLoading] = useState(false);
 
   const displayContent = e => {
     const setThis = e.currentTarget.getAttribute("value");
     setDisplay(setThis);
-    // console.log(`clicked ${setThis}`);
   };
 
   //======================
@@ -37,12 +38,12 @@ const Profile = () => {
     //get all meditations:
     const getMeditations = async () => {
       const token = localStorage.getItem("CMCFlow");
+      setIsLoading(true);
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
         url: API.meditationData
       });
-
       //logic to work out total time meditated and set it
       let totalTime = 0;
       response.data.forEach(meditation => {
@@ -77,11 +78,13 @@ const Profile = () => {
 
       //logic to work out current runstreak
       currentRunStreakCalc(response, setRunStreak);
+      setIsLoading(false);
     };
     getMeditations();
 
     const getBadgesUnlocked = async () => {
       const token = localStorage.getItem("CMCFlow");
+      setIsLoading(true);
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
@@ -94,11 +97,13 @@ const Profile = () => {
         }
       });
       setBadgesUnlocked(unlockedBadges);
+      setIsLoading(false);
     };
     getBadgesUnlocked();
 
     const getJourneyItems = async () => {
       const token = localStorage.getItem("CMCFlow");
+      setIsLoading(true);
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
@@ -111,46 +116,54 @@ const Profile = () => {
         }
       });
       setJourneyItems(theJourneyItems);
+      setIsLoading(false);
     };
     getJourneyItems();
 
     const setTheUser = async () => {
       const token = localStorage.getItem("CMCFlow");
+      setIsLoading(true);
       const response = await axios({
         headers: { Authorization: `bearer ${token}` },
         method: "get",
         url: API.getUser
       });
       setUser(response.data);
+      setIsLoading(false);
     };
     setTheUser();
   }, []);
 
   return (
-    <>
-      <ProfileNavBar display={display} displayContent={displayContent} />
-      <h1> </h1>
-      <h1>
-        {display === "stats" ? (
-          <Stats
-            totalTimeMeditated={totalTimeMeditated}
-            runStreak={runStreak}
-            sessionsCompleted={sessionsCompleted}
-            badgesUnlocked={badgesUnlocked}
-            longestRunStreak={longestRunStreak}
-            lastTimeMeditated={lastTimeMeditated}
-          />
-        ) : null}
-      </h1>
-      <div>
-        {display === "journey" ? (
-          <Journey
-            totalTimeMeditated={totalTimeMeditated}
-            journeyItems={journeyItems}
-          />
-        ) : null}
-      </div>
-      <div>{display === "account" ? <Account user={user} /> : null}</div>
+    <>{isLoading ? 
+      <Loader /> 
+      : 
+      <>
+        <ProfileNavBar display={display} displayContent={displayContent} />
+        <h1> </h1>
+        <h1>
+          {display === "stats" ? (
+            <Stats
+              totalTimeMeditated={totalTimeMeditated}
+              runStreak={runStreak}
+              sessionsCompleted={sessionsCompleted}
+              badgesUnlocked={badgesUnlocked}
+              longestRunStreak={longestRunStreak}
+              lastTimeMeditated={lastTimeMeditated}
+            />
+          ) : null}
+        </h1>
+        <div>
+          {display === "journey" ? (
+            <Journey
+              totalTimeMeditated={totalTimeMeditated}
+              journeyItems={journeyItems}
+            />
+          ) : null}
+        </div>
+        <div>{display === "account" ? <Account user={user} /> : null}</div>
+      </>
+      }
     </>
   );
 };
