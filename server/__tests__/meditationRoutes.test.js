@@ -7,6 +7,7 @@ const request = supertest(app);
 const password = "Password@1";
 const email = "doNotDelete@test.com";
 let token;
+let userEmail;
 beforeAll(async done => {
   jest.setTimeout(30000);
   await request.post("/api/auth/local/register").send({
@@ -19,11 +20,13 @@ beforeAll(async done => {
   });
   const response = JSON.parse(res.text);
   token = response.token;
-  console.log("token from beforeEach: ", token);
+  userEmail = response.userInfo.email;
+  //console.log(response);
+  //console.log("token from beforeEach: ", token);
   done();
 });
 
-afterEach(async done => {
+afterAll(async done => {
   await User.findOneAndDelete({ email });
   done();
 });
@@ -47,5 +50,10 @@ test("Route '/api/course/meditation_update' should update current meditation", a
   // after update, current meditation should be meditation2 vice versa for meditation 2
   // if current meditation is meditation3
   // after update should not change, current meditation should still be meditation 3
+  const user = await User.findOne({ email: userEmail }).populate(
+    "meditationId"
+  );
+
+  console.log(user);
   done();
 });

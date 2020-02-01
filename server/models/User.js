@@ -49,19 +49,19 @@ const userSchema = new mongoose.Schema(
     courseId: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Course"
+        ref: "course"
       }
     ],
     meditationId: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Meditation"
+        ref: "meditation"
       }
     ],
     donationId: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Donation"
+        ref: "donation"
       }
     ]
   },
