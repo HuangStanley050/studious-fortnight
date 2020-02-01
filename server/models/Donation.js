@@ -13,7 +13,7 @@ const donationSchema = new mongoose.Schema(
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "user"
     }
   },
   { collection: "donation", timestamps: true }
