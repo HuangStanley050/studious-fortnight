@@ -105,7 +105,7 @@ let PageOne = ({ nextPage, values }) => {
         <div
           style={{ display: "flex", justifyContent: "center", width: "100%" }}
         >
-          <Button color="primary" type="submit" className="next">
+          <Button className="confirm-button" color="primary" type="submit">
             Next
           </Button>
         </div>

@@ -1,6 +1,11 @@
 const Course = require("../models/Courses");
 const Meditation = require("../models/Meditation");
 const User = require("../models/User");
+const {
+  createCourse,
+  createSessionDetail,
+  updateCurrentMeditation
+} = require("../utils/starterCourseHelper.js");
 
 exports.returnUserMeditation = async (req, res) => {
   // const {id} = req.body;
@@ -17,6 +22,15 @@ exports.returnUserMeditation = async (req, res) => {
     //console.log("result of finding the meditation from user: ", result);
     if (!result.currentMeditation) {
       throw new Error("user has no existing meditation");
+      // const startingChoice = "beginner";
+      // const courseDetail = {
+      //   difficulty: "beginner",
+      //   levels: 3,
+      //   music: "MkPlp1Vt8YY" //dummy data used for now.
+      // };
+      // await createCourse(id, startingChoice, courseDetail, res);
+      // updateCurrentMeditation(id, res);
+      // return;
     }
     const meditationId = result.currentMeditation;
 
@@ -25,6 +39,7 @@ exports.returnUserMeditation = async (req, res) => {
     return res.send(meditation);
   } catch (err) {
     console.log("no current Meditation");
+
     return res.status(500).send({ msg: "Unable to find current meditation" });
   }
 };

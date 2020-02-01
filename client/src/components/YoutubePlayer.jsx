@@ -16,6 +16,7 @@ import 'react-circular-progressbar/dist/styles.css';
 //3. check if the new percentage logic works on line 49.
 //4. figure out a way to style the component: overlap circlePlay / circlePause using fixed position or something? 
 //5. try to style circularProgressionbar better. different colours etc check out: https://www.npmjs.com/package/react-circular-progressbar
+//6. display the complete page
 
 const youtubeSession = meditationTime => {
   let videoURL;
@@ -123,7 +124,15 @@ const YoutubePlayer = (props) => {
 
         {finished ? 
           <div>
-            finished
+            **finished**
+            left side: 
+            "well done"
+            total time meditated
+
+            right side: 
+            display quote here 
+            click "complete" button
+            x is removed from top left hand corner, complete button has same functionality
           </div> 
         : 
           <div className="meditation-component">

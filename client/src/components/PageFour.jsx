@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { connect } from "react-redux";
 import axios from "axios";
@@ -12,6 +12,7 @@ import { Container, Col, Button } from "reactstrap";
 
 let PageFour = ({ values, prevPage, dispatch }) => {
   let selection;
+  const [disableSubmit, setDisableSubmit] = useState(false);
   const morning = "morning";
   const afternoon = "afternoon";
   const night = "night";
@@ -20,6 +21,7 @@ let PageFour = ({ values, prevPage, dispatch }) => {
   };
   const submitHandler = async e => {
     e.preventDefault();
+    setDisableSubmit(!disableSubmit);
     let experience;
     if (!values) {
       experience = "No experience";
@@ -44,6 +46,7 @@ let PageFour = ({ values, prevPage, dispatch }) => {
     });
     //console.log(result.data);
     dispatch(closeQuiz(result.data));
+    setDisableSubmit(!disableSubmit);
   };
 
   if (values) {
@@ -138,12 +141,17 @@ let PageFour = ({ values, prevPage, dispatch }) => {
           <Button
             type="button"
             color="info"
-            className="previous"
+            className="cancel-button"
             onClick={prevPage}
           >
             Previous
           </Button>
-          <Button type="submit" color="danger">
+          <Button
+            disabled={disableSubmit}
+            className="confirm-button"
+            type="submit"
+            color="danger"
+          >
             Submit
           </Button>
         </div>
