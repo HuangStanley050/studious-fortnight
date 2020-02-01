@@ -1,17 +1,20 @@
 const app = require("../app"); // Link to your server file
 const supertest = require("supertest");
 const User = require("../models/User");
+const Course = require("../models/Courses");
+const Meditation = require("../models/Meditation");
 const makeEmail = require("../utils/makeEmail");
 const request = supertest(app);
 
 const password = "Password@1";
 const email = "doNotDelete@test.com";
 let token;
+let userId;
 let userEmail;
 let currentTime;
 
 beforeAll(async done => {
-  //jest.setTimeout(30000);
+  jest.setTimeout(30000);
   currentTime = 180;
   await request.post("/api/auth/local/register").send({
     email,
@@ -24,12 +27,15 @@ beforeAll(async done => {
   const response = JSON.parse(res.text);
   token = response.token;
   userEmail = response.userInfo.email;
+  userId = response.userInfo.id;
   //console.log(response);
   //console.log("token from beforeEach: ", token);
   done();
 });
 
 afterAll(async done => {
+  await Course.deleteMany({ userId });
+  await Meditation.deleteMany({ userId });
   await User.findOneAndDelete({ email });
   done();
 });
@@ -62,14 +68,14 @@ test("Route '/api/course/meditation_update' should update current meditation", a
     .send({ currentTime })
     .set("Authorization", "bearer " + token);
 
-  // const updatedCurrentMeditation = await User.findOne(
-  //   { email: userEmail },
-  //   "currentMeditation"
-  // );
+  const updatedCurrentMeditation = await User.findOne(
+    { email: userEmail },
+    "currentMeditation"
+  );
 
-  // console.log("Meditation array: ", JSON.stringify(meditations, null, 3));
-  // console.log("Updated meditation: ", updatedCurrentMeditation);
-  // console.log("current meditation: ", currentMeditation);
+  console.log("Meditation array: ", JSON.stringify(meditations, null, 3));
+  console.log("Updated meditation: ", updatedCurrentMeditation);
+  console.log("current meditation: ", currentMeditation);
 
   done();
-}, 30000);
+});
