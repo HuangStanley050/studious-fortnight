@@ -8,6 +8,7 @@ const request = supertest(app);
 
 const password = "Password@1";
 const email = "doNotDelete@test.com";
+const startingChoice = "beginner";
 let token;
 let userId;
 let userEmail;
@@ -41,8 +42,6 @@ afterAll(async done => {
 });
 
 test("Route '/api/meditation_user' should return the current meditation base on user id", async done => {
-  const startingChoice = "beginner";
-
   const currentMeditation = await request
     .post("/api/course/start")
     .send({ startingChoice })
@@ -63,19 +62,34 @@ test("Route '/api/course/meditation_update' should update current meditation", a
     return meditation._id.equals(currentMeditation);
   });
 
-  await request
-    .post("/api/course/meditation_update")
-    .send({ currentTime })
-    .set("Authorization", "bearer " + token);
+  if (positionCurrentMeditation === meditations.length - 1) {
+    // current meditation is at the end of meditation, no need to update
+    expect(
+      meditations[positionCurrentMeditation].toEqual(
+        meditations[meditations.length - 1]
+      )
+    );
+  } else {
+    await request
+      .post("/api/course/meditation_update")
+      .send({ currentTime })
+      .set("Authorization", "bearer " + token);
 
-  const updatedCurrentMeditation = await User.findOne(
-    { email: userEmail },
-    "currentMeditation"
-  );
+    const updatedCurrentMeditation = await User.findOne(
+      { email: userEmail },
+      "currentMeditation"
+    );
 
-  console.log("Meditation array: ", JSON.stringify(meditations, null, 3));
-  console.log("Updated meditation: ", updatedCurrentMeditation);
-  console.log("current meditation: ", currentMeditation);
+    const positionUpdatedMeditation = meditations.findIndex(meditation => {
+      return meditation._id.equals(updatedCurrentMeditation.currentMeditation);
+    });
+
+    expect(
+      meditations[positionUpdatedMeditation]._id.equals(
+        updatedCurrentMeditation.currentMeditation
+      )
+    ).toBe(true);
+  }
 
   done();
 });
