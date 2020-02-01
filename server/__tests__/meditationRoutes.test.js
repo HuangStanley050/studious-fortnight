@@ -8,8 +8,11 @@ const password = "Password@1";
 const email = "doNotDelete@test.com";
 let token;
 let userEmail;
+let currentTime;
+
 beforeAll(async done => {
-  jest.setTimeout(30000);
+  //jest.setTimeout(30000);
+  currentTime = 180;
   await request.post("/api/auth/local/register").send({
     email,
     password
@@ -44,16 +47,29 @@ test("Route '/api/meditation_user' should return the current meditation base on 
 });
 
 test("Route '/api/course/meditation_update' should update current meditation", async done => {
-  //after update user current meditation should be the one after it in the array unless the previous meditation is already at the end of the array
-  // [meditation1,meditation2,meditation3]
-  // current meditation === meditation1
-  // after update, current meditation should be meditation2 vice versa for meditation 2
-  // if current meditation is meditation3
-  // after update should not change, current meditation should still be meditation 3
   const user = await User.findOne({ email: userEmail }).populate(
     "meditationId"
   );
+  //test only beginner time
+  const meditations = user.meditationId; //all meditations in current user course
+  const currentMeditation = user.currentMeditation;
+  const positionCurrentMeditation = meditations.findIndex(meditation => {
+    return meditation._id.equals(currentMeditation);
+  });
 
-  console.log(user);
+  await request
+    .post("/api/course/meditation_update")
+    .send({ currentTime })
+    .set("Authorization", "bearer " + token);
+
+  // const updatedCurrentMeditation = await User.findOne(
+  //   { email: userEmail },
+  //   "currentMeditation"
+  // );
+
+  // console.log("Meditation array: ", JSON.stringify(meditations, null, 3));
+  // console.log("Updated meditation: ", updatedCurrentMeditation);
+  // console.log("current meditation: ", currentMeditation);
+
   done();
-});
+}, 30000);

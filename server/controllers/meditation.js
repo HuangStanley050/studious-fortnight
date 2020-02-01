@@ -1,11 +1,6 @@
 const Course = require("../models/Courses");
 const Meditation = require("../models/Meditation");
 const User = require("../models/User");
-const {
-  createCourse,
-  createSessionDetail,
-  updateCurrentMeditation
-} = require("../utils/starterCourseHelper.js");
 
 exports.returnUserMeditation = async (req, res) => {
   const { id } = req.user;
@@ -94,4 +89,5 @@ exports.updateUserMeditation = async (req, res) => {
     await user.save();
   }
   await meditation.save();
+  return res.send("Meditation updated");
 };
