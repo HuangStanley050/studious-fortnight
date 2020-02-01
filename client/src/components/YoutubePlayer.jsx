@@ -130,8 +130,9 @@ class YoutubePlayer extends React.Component {
     //console.log(meditationSession.sessionDetail);
     return (
       <div className="meditation-player">
+        <div className="PlayerControls">
         <div onClick={this.props.updatePage} className="close-button">
-          X
+          End Session
         </div>
 
         {this.props.meditationSession ? (
@@ -142,13 +143,16 @@ class YoutubePlayer extends React.Component {
         ) : (
           <h1>Got no data</h1>
         )}
+        </div>
         <YouTube
           videoId={videoId}
           opts={opts}
           onReady={this._onReady}
           onPause={this.onPause} // defaults -> noop
           onEnd={this.onEnd.bind(this)}
+          className="vidPlayer"
         />
+        <img src='../assets/Clouds.svg' alt="clouds" className="clouds"></img>
       </div>
     );
   }
