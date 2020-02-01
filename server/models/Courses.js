@@ -12,7 +12,7 @@ const courseSchema = new mongoose.Schema(
     meditationId: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Meditation"
+        ref: "meditation"
       }
     ]
   },
