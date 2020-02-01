@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/HuangStanley050/studious-fortnight.svg?branch=master)](https://travis-ci.org/HuangStanley050/studious-fortnight)
 [![Coverage Status](https://coveralls.io/repos/github/HuangStanley050/studious-fortnight/badge.svg?branch=master)](https://coveralls.io/github/HuangStanley050/studious-fortnight?branch=master)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/HuangStanley050/studious-fortnight)
+![GitHub repo size](https://img.shields.io/github/repo-size/HuangStanley050/studious-fortnight)
 
 ## T3A2-B - Real World App (Part B)
 
