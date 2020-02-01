@@ -1,13 +1,12 @@
 language: node_js
 node_js:
   - 12.13.0
+before_install:
+  - cd client
+  - npm install
+  - cd ..
+install:
+  - npm install
 script:
   - "npm run test"
   - "npm run coveralls"
-  - "cd client"
-  - "npm install"
-  - "npm run test"
-# after_success:
-#   - cd client
-#   - npm install
-#   - npm run test
