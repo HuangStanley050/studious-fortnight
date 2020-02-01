@@ -1,10 +1,11 @@
 # **CMCFlow**
 
+[![Build Status](https://travis-ci.org/HuangStanley050/studious-fortnight.svg?branch=master)](https://travis-ci.org/HuangStanley050/studious-fortnight)
+[![Coverage Status](https://coveralls.io/repos/github/HuangStanley050/studious-fortnight/badge.svg?branch=master)](https://coveralls.io/github/HuangStanley050/studious-fortnight?branch=master)
+
 ## T3A2-B - Real World App (Part B)
 
-[![Build Status](https://travis-ci.org/HuangStanley050/studious-fortnight.svg?branch=master)](https://travis-ci.org/HuangStanley050/studious-fortnight)
-[![Coverage Status](https://coveralls.io/repos/github/HuangStanley050/studious-fortnight/badge.svg?branch=master)]
-![GitHub repo size](https://img.shields.io/github/repo-size/HuangStanley050/studious-fortnight)
+
 
 # **R1** At a minimum use the following technologies: Mongo / Mongoose Express React.js Node.js
 
