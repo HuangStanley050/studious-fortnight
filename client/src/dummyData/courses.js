@@ -1,26 +1,3 @@
-//api call to discover all available courses, hard coded for now:
-
-//what we actually get back:
-
-// [
-//   {
-//       "courseDetail": {
-//           "difficulty": "beginner",
-//           "levels": 3,
-//           "music": "testmusic.mp3"
-//       },
-//       "meditationId": [
-//           "5e279d2d53efda5eac2b0094",
-//           "5e279d2e53efda5eac2b0095",
-//           "5e279d2e53efda5eac2b0096"
-//       ],
-//       "_id": "5e279d2d53efda5eac2b0093",
-//       "createdAt": "2020-01-22T00:54:05.662Z",
-//       "updatedAt": "2020-01-22T00:54:06.717Z",
-//       "__v": 1
-//   }
-// ]
-
 const courses = [
   {
     id: "1",

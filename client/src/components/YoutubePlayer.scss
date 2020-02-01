@@ -11,11 +11,69 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   
-  background: red;
+  background: white;
+  // background: red;
+
+  .close-button {
+    position: fixed; 
+    z-index: 1001; 
+    top: 10px;  
+    left: 10px; 
+  }
   .close-button:hover {
     cursor: pointer;
   }
+
+  .meditation-component {
+    height: 100%;
+    // background: orange;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    .loading-bar {
+      height: 240px;
+      width: 240px;
+      background: rgba(0, 0, 0, 0.1);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+      .circlePlay {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        background: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .circlePlay:hover {
+        cursor: pointer;
+      }
+      .circlePause {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        background: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .circlePause:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
 }
 
 
