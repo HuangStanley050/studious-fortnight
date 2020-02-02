@@ -78,6 +78,7 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
               updatePage={updatePage}
             />
           ) : (
+            
             displayButtonComponent()
           )}
         </>

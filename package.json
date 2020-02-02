@@ -28,6 +28,7 @@
     "passport-github2": "^0.1.11",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
+    "react-circular-progressbar": "^2.0.3",
     "react-hook-form": "^4.7.1",
     "react-youtube": "^7.9.0",
     "stripe": "^8.4.0",
