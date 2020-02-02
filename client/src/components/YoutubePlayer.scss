@@ -1,7 +1,6 @@
 .meditation-player {
-  // position: fixed;
   position: fixed;
-  z-index: 1000;
+  z-index: 200;
   top: 0;
   left: 0;
   right: 0;
@@ -9,63 +8,79 @@
   margin: 0 auto;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: url('../assets/Bground1.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  .clouds{
-    position: absolute;
-    height: 100%;
-    // width: auto;
-    left: -50vw;
-    animation: clouds 25s linear;
-
-  }
-  .PlayerControls{
+  .zwrapper {
+    position: relative;
+    // z-index: 24;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: space-evenly;
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 50px;
-    font-size: 1.5em;
-    margin: 0 auto;
-    padding: 5px;
-    display: inline-block;
-    color: black;
-    &:hover {
-      cursor: pointer;
-      animation: grow 2s infinite alternate;
-      color: rgb(180, 38, 38);
-      border: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url("../assets/Bground1.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+
+
+    .clouds {
+      
+      position: absolute;
+      border: none;
+      
+      left: -1vw;
+      animation: clouds 50s linear infinite;
+      z-index: 999;
+      
     }
-    &::before {
-        content: "";
+
+
+    .PlayerControls {
+      display: flex;
+      justify-content: space-evenly;
+      .close-button {
         position: absolute;
-        top: 0.05em;
-        bottom: 0.05em;
-        left: 0.25em;
-        right: 0.25em;
-        border-bottom: .5px ridge black;
-        // border-radius: 5px;
-        transform: scale(0, 1);
-        transition: transform ease-out 250ms;
-  }
-  &:hover, &:focus {
-    &::before {
-      transform: scale(1.05, 1);
+        top: 10px;
+        right: 50px;
+        font-size: 1.5em;
+        margin: 0 auto;
+        padding: 5px;
+        display: inline-block;
+        color: black;
+        &:hover {
+          cursor: pointer;
+          animation: grow 2s infinite alternate;
+          color: rgb(180, 38, 38);
+          border: none;
+        }
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0.05em;
+          bottom: 0.05em;
+          left: 0.25em;
+          right: 0.25em;
+          border-bottom: 0.5px ridge black;
+          // border-radius: 5px;
+          transform: scale(0, 1);
+          transition: transform ease-out 250ms;
+        }
+        &:hover,
+        &:focus {
+          &::before {
+            transform: scale(1.05, 1);
+          }
+        }
+      }
     }
-  }
-}
   }
 }
 
 @keyframes grow {
-  0%{
+  0% {
     transform: scale(1);
   }
   50% {
@@ -77,8 +92,12 @@
 }
 
 @keyframes clouds {
-  from{transform: translateX(-105%);}
-  to{transform: translateX(110vw);}
+  from {
+    transform: translateX(-105%);
+  }
+  to {
+    transform: translateX(150vw);
+  }
 }
 
 .vidPlayer {

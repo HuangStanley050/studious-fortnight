@@ -10,6 +10,7 @@ import { getCurrentMeditation } from "../store/actions/meditationActions";
 import { clearError } from "../store/actions/authActions";
 import "./Home.scss";
 
+
 const Home = ({ hasRegistered, meditationSession, dispatch }) => {
   const [playSession, setPlaySession] = useState(false);
 
