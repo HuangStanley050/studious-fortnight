@@ -26,6 +26,9 @@
   .close-button:hover {
     cursor: pointer;
   }
+  .skip:hover {
+    cursor: pointer;
+  }
 
   .meditation-component {
     height: 100%;
@@ -42,77 +45,104 @@
       width: 240px;
       background: rgba(0, 0, 0, 0.1);
 
+      border-radius: 50%;
+
+      margin-top: 200px;
+      position: fixed; 
+    }
+
+    .message {
+      margin-bottom: 200px;
+    }
+    .circlePlay {
+      height: 200px;
+      width: 200px;
+      border-radius: 50%;
+      background: var(--main-link-hover);
       display: flex;
       align-items: center;
       justify-content: center;
 
+      margin-top: 220px;
+      position: fixed; 
+    }
+    .circlePlay:hover {
+      cursor: pointer;
+    }
+    .circlePause {
+      height: 200px;
+      width: 200px;
       border-radius: 50%;
-      .circlePlay {
-        height: 200px;
-        width: 200px;
-        border-radius: 50%;
-        background: red;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .circlePlay:hover {
-        cursor: pointer;
-      }
-      .circlePause {
-        height: 200px;
-        width: 200px;
-        border-radius: 50%;
-        background: red;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .circlePause:hover {
-        cursor: pointer;
-      }
+      background: var(--main-link-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-top: 220px;
+      position: fixed; 
+    }
+    .circlePause:hover {
+      cursor: pointer;
     }
   }
-
 }
 
+.finished-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
 
-.vidPlayer{
-    pointer-events: none;
+
+  .left-side {
+    width: 50%;
+    height: 100%;
+    background: var(--popup-background2);
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    .left-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 5px;
+    }
   }
-  
-  .playerButton{
-    cursor: pointer;
-    background: transparent;
-    font-size: 16px;
-    border-radius: 3px;
-    color: palevioletred;
-    border: 2px solid palevioletred;
-    margin: 0 1em;
-    padding: 0.25em 1em;
-    transition: 0.5s all ease-out;
-    &:hover {
-      background-color: palevioletred;
+
+  .right-side {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: var(--popup-background);
+    flex-direction: column;
+
+    .quote {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .complete-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: white;
-            }
+  
+      background: var(--popup-background2);
+      border-radius: 25px;
+      width: 150px;
+      height: 40px;
+      &:hover{
+        cursor: pointer;
+      }
     }
-  
-    .track{
-      width: 100%;
-      height: 20px;
-      background-color: #222;
-      border-radius: 10px;
-      box-shadow: inset 0 0 5px #000;
-      #thumb{
-        width: auto;
-        height: 100%;
-        background-color: #6bccf9;
-        border-radius: 8px;
-        transition: width 0.5s linear;
-    }  
-    }
-      
-  
-  
-  
-  
+  }
+}

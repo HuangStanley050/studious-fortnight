@@ -10,9 +10,9 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 //when server is running: 
-//0. check if video starts paused (changed opts autoplay to 2 so it should be)
-//1. check if player.setVolume(50) in useEffect works
-//2. check if we can use videos with sound, in the youtubeSession function below.
+//need to create loading screen until (video !== 0)
+
+
 //3. check if the new percentage logic works on line 49.
 //4. figure out a way to style the component: overlap circlePlay / circlePause using fixed position or something? 
 //5. try to style circularProgressionbar better. different colours etc check out: https://www.npmjs.com/package/react-circular-progressbar
@@ -22,19 +22,19 @@ const youtubeSession = meditationTime => {
   let videoURL;
   switch (meditationTime) {
     case 180:
-      videoURL = "iHdviZkM7S4";
+      // videoURL = "iHdviZkM7S4";
       //instead use this one, it has sound:
-      // videoURL = "cI4ryatVkKw";
+      videoURL = "cI4ryatVkKw";
       return videoURL;
     case 300:
-      videoURL = "xTczn5RUgnk";
+      // videoURL = "xTczn5RUgnk";
       //instead use this one, it has sound:
-      // videoURL = "_6_akBtKZdE";
+      videoURL = "_6_akBtKZdE";
       return videoURL;
     case 600:
-      videoURL = "KAHKP313P2I";
+      // videoURL = "KAHKP313P2I";
       //instead use this one, it has sound:
-      // videoURL = "w6wIqnK5GPE";
+      videoURL = "w6wIqnK5GPE";
       return videoURL;
     default:
       return;
@@ -45,12 +45,8 @@ const YoutubePlayer = (props) => {
   const [finished, setFinished] = useState(false)
   const [video, setVideo] = useState(0);
   const [videoPlaying, setVideoPlaying] = useState(false)
-
-  //hardcoded, needs to be dynamic using video somehow
-  let percentage = 60;
-
-  //let percentage = video.getCurrentTime() / video.getDuration()
-  console.log(video);
+  const [percentage, setPercentage] = useState(0);
+  const [intervalId, setIntervalId] = useState(0);
 
   useEffect(() => {
     return () => {
@@ -62,29 +58,43 @@ const YoutubePlayer = (props) => {
     }
   }, []);
 
-  const _onReady = event => {
-    setVideo(event.target)
-    // access to player in all event handlers via event.target
-
-    //should set the volume at 50: 
-    // video.setVolume(50);
-
-    //it should pause automatically now without the below? 
-    // event.target.pauseVideo();
+  const _onReady = (event) => {
+    setVideo(event.target);
+    // access to player outside of this using "video"
   };
+
+  const playOrPause = (info) => {
+    if (info === "play") {
+      setIntervalId(
+        setInterval(() => {
+          const newPercentage = video.getCurrentTime() / video.getDuration()
+          const newPercentageCalculated = Math.round(newPercentage * 100);
+          // console.log(newPercentageCalculated);
+          setPercentage(newPercentageCalculated);
+        }, 1000)
+      );
+    } else if (info === "pause") {
+      clearInterval(intervalId);
+    }
+  }
 
   const playTheVideo = () => {
     video.playVideo();
+    video.setVolume(50);
     setVideoPlaying(true);
+
+    playOrPause("play");
   }
+
   const pauseTheVideo = () => {
     video.pauseVideo();
     setVideoPlaying(false);
+
+    playOrPause("pause");
   }
 
-  const onEnd = async event => {
-    //console.log(event);
-    console.log("video has ended");
+  const onEnd = async (event) => {
+    // console.log("video has ended");
     setFinished(true);
     const token = localStorage.getItem("CMCFlow");
     await axios({
@@ -93,26 +103,34 @@ const YoutubePlayer = (props) => {
       method: "post",
       data: { currentTime: event.target.getCurrentTime() }
     });
-    
   }
 
     const { meditationSession } = props;
     const videoId = youtubeSession(meditationSession.sessionDetail.totalTime);
 
     const opts = {
-      height: "100",
-      width: "200",
+      height: "0",
+      width: "0",
       playerVars: {
         // https://developers.google.com/youtube/player_parameters
         autoplay: 2
       }
     };
 
+    const skipTrack = async () => {
+      console.log("video has ended");
+      setFinished(true);
+      const token = localStorage.getItem("CMCFlow");
+      await axios({
+        headers: { Authorization: `bearer ${token}` },
+        url: API.updateMeditationTime,
+        method: "post",
+        data: { currentTime: video.getDuration() }
+      });
+    }
+
     return (
       <div className="meditation-player">
-        <div onClick={props.updatePage} className="close-button">
-          X
-        </div>
           {/* {props.meditationSession ? (
             <>
               <h1>Got meditation session data</h1>
@@ -123,33 +141,39 @@ const YoutubePlayer = (props) => {
           )} */}
 
         {finished ? 
-          <div>
-            **finished**
-            left side: 
-            "well done"
-            total time meditated
-
-            right side: 
-            display quote here 
-            click "complete" button
-            x is removed from top left hand corner, complete button has same functionality
+          <div className="finished-screen">
+            <div className="left-side">
+              <p>WELL DONE</p>
+              <div className="left-time">
+                <h1>{meditationSession.sessionDetail.totalTime / 60}</h1>
+                <p>MINUTES MEDITATED</p>
+              </div>
+            </div>
+            <div className="right-side">
+              <div className="quote">{meditationSession.sessionDetail.quote}</div>
+              <div onClick={props.updatePage} className="complete-button">COMPLETE</div>
+            </div>
           </div> 
         : 
+        <>
+          <div onClick={props.updatePage} className="close-button">
+            X
+          </div>
+          <div onClick={skipTrack} className="skip">>></div>
           <div className="meditation-component">
             <div>{meditationSession.sessionDetail.totalTime == 180 && "BEGINNER"}
             {meditationSession.sessionDetail.totalTime == 300 && "INTERMEDIATE"}
             {meditationSession.sessionDetail.totalTime == 600 && "EXPERT"}
             &nbsp;
              {meditationSession.sessionDetail.level}</div>
-            <h4>Lets start your meditation session.</h4>
+            <h4 className="message">Lets start your meditation session.</h4>
             <YouTube
               videoId={videoId}
               opts={opts}
               onReady={_onReady}
               onEnd={onEnd}
             />
-            <CircularProgressbar value={percentage} text={`${percentage}%`} />;
-            <div className="loading-bar">
+            <CircularProgressbar value={percentage} className="loading-bar" />
               {
                 videoPlaying ? 
                 <div className="circlePause" onClick={pauseTheVideo}>
@@ -160,14 +184,14 @@ const YoutubePlayer = (props) => {
                   <i class="fas fa-play fa-4x"></i>
                 </div>
               }
-            </div>
             <div>{meditationSession.sessionDetail.totalTime / 60} MINUTES</div>
           </div>
+        </>
         }  
       </div>
+
     )
 }
-
 
 const mapDispatch = dispatch => ({
   getCurrentMeditation: () => dispatch(getCurrentMeditation())
