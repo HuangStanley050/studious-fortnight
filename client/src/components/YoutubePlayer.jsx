@@ -103,7 +103,10 @@ class YoutubePlayer extends React.Component {
             onEnd={this.onEnd.bind(this)}
             className="vidPlayer"
           />
-          <img src={clouds} className="clouds" />
+          <img src={cloudOne} className="clouds" id="cloud1" />
+          <img src={cloudOne} className="clouds" id="cloud2" />
+          <img src={cloudOne} className="clouds" id="cloud3" />
+          <img src={cloudOne} className="clouds" id="cloud4" />
           {/* <img src={cloudOne} className="clouds"/> */}
             
         </div>
