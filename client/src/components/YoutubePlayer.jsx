@@ -7,16 +7,16 @@ import { connect } from "react-redux";
 import { getCurrentMeditation } from "../store/actions/meditationActions";
 import "./YoutubePlayer.scss";
 import { CircularProgressbar } from 'react-circular-progressbar';
+import Loader from "./Loader";
 import 'react-circular-progressbar/dist/styles.css';
 
 //when server is running: 
 //need to create loading screen until (video !== 0)
 
-
-//3. check if the new percentage logic works on line 49.
-//4. figure out a way to style the component: overlap circlePlay / circlePause using fixed position or something? 
 //5. try to style circularProgressionbar better. different colours etc check out: https://www.npmjs.com/package/react-circular-progressbar
-//6. display the complete page
+
+import clouds from '../assets/Clouds.svg';
+import cloudOne from "../assets/Cloud_one.svg";
 
 const youtubeSession = meditationTime => {
   let videoURL;
@@ -129,68 +129,74 @@ const YoutubePlayer = (props) => {
       });
     }
 
-    return (
-      <div className="meditation-player">
-          {/* {props.meditationSession ? (
-            <>
-              <h1>Got meditation session data</h1>
-              <h1>PLAY VIDEO HERE</h1>
-            </>
-          ) : (
-            <h1>Got no data</h1>
-          )} */}
-
-        {finished ? 
-          <div className="finished-screen">
-            <div className="left-side">
-              <p>WELL DONE</p>
-              <div className="left-time">
-                <h1>{meditationSession.sessionDetail.totalTime / 60}</h1>
-                <p>MINUTES MEDITATED</p>
-              </div>
-            </div>
-            <div className="right-side">
-              <div className="quote">{meditationSession.sessionDetail.quote}</div>
-              <div onClick={props.updatePage} className="complete-button">COMPLETE</div>
-            </div>
-          </div> 
-        : 
-        <>
-          <div onClick={props.updatePage} className="close-button">
-            X
-          </div>
-          <div onClick={skipTrack} className="skip">>></div>
-          <div className="meditation-component">
-            <div>{meditationSession.sessionDetail.totalTime == 180 && "BEGINNER"}
-            {meditationSession.sessionDetail.totalTime == 300 && "INTERMEDIATE"}
-            {meditationSession.sessionDetail.totalTime == 600 && "EXPERT"}
-            &nbsp;
-             {meditationSession.sessionDetail.level}</div>
-            <h4 className="message">Lets start your meditation session.</h4>
-            <YouTube
-              videoId={videoId}
-              opts={opts}
-              onReady={_onReady}
-              onEnd={onEnd}
-            />
-            <CircularProgressbar value={percentage} className="loading-bar" />
-              {
-                videoPlaying ? 
-                <div className="circlePause" onClick={pauseTheVideo}>
-                  <i class="fas fa-pause fa-4x"></i>
-                </div>
-                :
-                <div className="circlePlay" onClick={playTheVideo}>
-                  <i class="fas fa-play fa-4x"></i>
-                </div>
-              }
-            <div>{meditationSession.sessionDetail.totalTime / 60} MINUTES</div>
-          </div>
-        </>
-        }  
-      </div>
-
-    )
+  return (
+    <>
+    {/* need some logic here to check if video is finished loading, instead of just "true" */}
+    {true ?
+       <div className="meditation-player">      
+       {finished ? 
+       // if meditation session is finished 
+       <div className="finished-screen">
+         <div className="left-side">
+           <p>WELL DONE</p>
+           <div className="left-time">
+             <h1>{meditationSession.sessionDetail.totalTime / 60}</h1>
+             <p>MINUTES MEDITATED</p>
+           </div>
+         </div>
+         <div className="right-side">
+           <div className="quote">{meditationSession.sessionDetail.quote}</div>
+           <div onClick={props.updatePage} className="complete-button">COMPLETE</div>
+         </div>
+       </div> 
+       : 
+       // if not finished
+       <>
+       <div className="zwrapper">
+         <h4 onClick={props.updatePage} className="close-button">
+           X
+         </h4>
+         <h4 onClick={skipTrack} className="skip">>></h4>
+         <div className="meditation-component">
+           <div>{meditationSession.sessionDetail.totalTime == 180 && "BEGINNER"}
+           {meditationSession.sessionDetail.totalTime == 300 && "INTERMEDIATE"}
+           {meditationSession.sessionDetail.totalTime == 600 && "EXPERT"}
+           &nbsp;
+           {meditationSession.sessionDetail.level}</div>
+           <h4 className="message">Lets start your meditation session.</h4>
+           <YouTube
+             videoId={videoId}
+             opts={opts}
+             onReady={_onReady}
+             onEnd={onEnd}
+           />
+           <CircularProgressbar value={percentage} className="loading-bar" />
+             {
+               videoPlaying ? 
+               <div className="circlePause" onClick={pauseTheVideo}>
+                 <i className="fas fa-pause fa-4x"></i>
+               </div>
+               :
+               <div className="circlePlay" onClick={playTheVideo}>
+                 <i className="fas fa-play fa-4x"></i>
+               </div>
+             }
+           <div>{meditationSession.sessionDetail.totalTime / 60} MINUTES</div>
+ 
+           <img src={cloudOne} className="clouds" id="cloud1" />
+           <img src={cloudOne} className="clouds" id="cloud2" />
+           <img src={cloudOne} className="clouds" id="cloud3" />
+           <img src={cloudOne} className="clouds" id="cloud4" />
+         </div>
+       </div>
+       </>
+       } 
+     </div> 
+      : 
+      <Loader />
+      }
+    </>
+  )
 }
 
 const mapDispatch = dispatch => ({
