@@ -78,36 +78,8 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
               updatePage={updatePage}
             />
           ) : (
-            <div className="landing-page">
-              <p>Level {meditationSession.sessionDetail.level}</p>
-
-              {meditationSession.sessionDetail.totalTime === 180 ? (
-                <h1>Beginner</h1>
-              ) : (
-                ""
-              )}
-              {meditationSession.sessionDetail.totalTime === 300 ? (
-                <h1>Intermediate</h1>
-              ) : (
-                ""
-              )}
-              
-            {meditationSession.sessionDetail.totalTime === 600 ? (
-                <h1>Expert</h1>
-              ) : (
-                ""
-              )}
-              {/* <p onClick={updatePage}>Click to play</p> */}
-              <div className="buttons">
-                <div className="begin-button" onClick={updatePage}>
-                  BEGIN
-                </div>
-                <div className="time-button" onClick={updatePage}>
-                  {meditationSession.sessionDetail.totalTime / 60} MIN
-                </div>
-              </div>
-            </div>
-            // displayButtonComponent()
+            
+            displayButtonComponent()
           )}
         </>
       ) : (
