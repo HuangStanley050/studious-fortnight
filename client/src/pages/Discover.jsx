@@ -141,6 +141,8 @@ const Discover = ({ user }) => {
           <h2>Courses</h2>
           {/* <p>Active course id: {activeCourse.courseId} </p>  */}
           <DiscoverCoursesList
+            currentlyShowing={currentlyShowing}
+            activeCourse={activeCourse}
             courses={courses}
             usersMeditations={usersMeditations}
             setTheCourseDisplay={setTheCourseDisplay}
@@ -154,6 +156,8 @@ const Discover = ({ user }) => {
             <p>You unlocked all the badges, congrats!</p>
           }
           <DiscoverBadgesList
+            currentlyShowing={currentlyShowing}
+            activeBadge={activeBadge}
             badges={usersBadges}
             setTheBadgeDisplay={setTheBadgeDisplay}
           />

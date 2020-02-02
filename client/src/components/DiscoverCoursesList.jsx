@@ -1,15 +1,27 @@
 import React from 'react';
 
-const DiscoverCoursesList = ({courses, setTheCourseDisplay}) => {
-  // console.log(courses)
-
+const DiscoverCoursesList = ({currentlyShowing, activeCourse, courses, setTheCourseDisplay}) => {
   return (
     <>
     {courses.map((course) => {
       const {id, name} = course;
-      return (
-          <h6 key={id} className="course-link" onClick={setTheCourseDisplay} value={name}>- {name}</h6>
+      if (activeCourse.name === name && currentlyShowing === "courses") {
+        return (
+          <h6 key={id} className="course-link-active" onClick={setTheCourseDisplay} value={name}>
+            <i class="fas fa-angle-double-right"></i>
+            &nbsp;
+            {name}
+          </h6>
       )
+      } else {
+        return (
+          <h6 key={id} className="course-link" onClick={setTheCourseDisplay} value={name}>
+            <i className="fas fa-angle-right"></i>
+            &nbsp;
+            {name}
+          </h6>
+      )
+      }
     })}
     </>
   );
