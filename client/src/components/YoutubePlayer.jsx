@@ -6,6 +6,8 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { getCurrentMeditation } from "../store/actions/meditationActions";
 import "./YoutubePlayer.scss";
+import clouds from '../assets/Clouds.svg';
+import cloudOne from "../assets/Cloud_one.svg";
 
 const youtubeSession = meditationTime => {
   let videoURL;
@@ -79,24 +81,32 @@ class YoutubePlayer extends React.Component {
     //console.log(meditationSession.sessionDetail);
     return (
       <div className="meditation-player">
-        <div onClick={this.props.updatePage} className="close-button">
-          X
-        </div>
+        <div className="zwrapper">
+          <div className="PlayerControls">
+            <div onClick={this.props.updatePage} className="close-button">
+              End Session
+            </div>
 
-        {this.props.meditationSession ? (
-          <>
-            <h1>Got meditation session data</h1>
-            <h1>PLAY VIDEO HERE</h1>
-          </>
-        ) : (
-          <h1>Got no data</h1>
-        )}
-        <YouTube
-          videoId={videoId}
-          opts={opts}
-          onReady={this._onReady}
-          onEnd={this.onEnd.bind(this)}
-        />
+            {this.props.meditationSession ? (
+              <>
+                <h1>Got meditation session data</h1>
+                <h1>PLAY VIDEO HERE</h1>
+              </>
+            ) : (
+              <h1>Got no data</h1>
+            )}
+          </div>
+          <YouTube
+            videoId={videoId}
+            opts={opts}
+            onReady={this._onReady}
+            onEnd={this.onEnd.bind(this)}
+            className="vidPlayer"
+          />
+          <img src={clouds} className="clouds" />
+          {/* <img src={cloudOne} className="clouds"/> */}
+            
+        </div>
       </div>
     );
   }
@@ -104,7 +114,4 @@ class YoutubePlayer extends React.Component {
 const mapDispatch = dispatch => ({
   getCurrentMeditation: () => dispatch(getCurrentMeditation())
 });
-export default connect(
-  null,
-  mapDispatch
-)(YoutubePlayer);
+export default connect(null, mapDispatch)(YoutubePlayer);
