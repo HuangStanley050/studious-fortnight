@@ -10,7 +10,7 @@
   height: 100vh;
   .zwrapper {
     position: relative;
-    // z-index: 24;
+    z-index: 1;
     height: 100vh;
     width: 100%;
     margin: 0;
@@ -27,16 +27,28 @@
 
 
     .clouds {
-      
       position: absolute;
       border: none;
-      
       left: -1vw;
-      animation: clouds 50s linear infinite;
-      z-index: 999;
-      
+            z-index: -1;
+      height: 2em;
     }
-
+    #cloud1{
+      top: 20%;
+      animation: clouds 20s -10s linear infinite;
+    }
+    #cloud2{
+      top: 25%;
+      animation: clouds 20s -1s linear infinite;
+    }
+    #cloud3{
+      top: 50%;
+      animation: clouds 20s -18s linear infinite;
+    }
+    #cloud4{
+      top: 65%;
+      animation: clouds 20s -12s linear infinite;
+    }
 
     .PlayerControls {
       display: flex;
@@ -96,44 +108,45 @@
     transform: translateX(-105%);
   }
   to {
-    transform: translateX(150vw);
+    transform: translateX(105vw);
   }
 }
 
 .vidPlayer {
-  pointer-events: none;
+  z-index: 999;
+  // pointer-events: none;
   // height: 0px;
   // width: 0px;
-  display: none;
+  // display: none;
 }
 
-.playerButton {
-  cursor: pointer;
-  background: transparent;
-  font-size: 16px;
-  border-radius: 3px;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-  margin: 0 1em;
-  padding: 0.25em 1em;
-  transition: 0.5s all ease-out;
-  &:hover {
-    background-color: palevioletred;
-    color: white;
-  }
-}
+// .playerButton {
+//   cursor: pointer;
+//   background: transparent;
+//   font-size: 16px;
+//   border-radius: 3px;
+//   color: palevioletred;
+//   border: 2px solid palevioletred;
+//   margin: 0 1em;
+//   padding: 0.25em 1em;
+//   transition: 0.5s all ease-out;
+//   &:hover {
+//     background-color: palevioletred;
+//     color: white;
+//   }
+// }
 
-.track {
-  width: 100%;
-  height: 20px;
-  background-color: #222;
-  border-radius: 10px;
-  box-shadow: inset 0 0 5px #000;
-  #thumb {
-    width: auto;
-    height: 100%;
-    background-color: #6bccf9;
-    border-radius: 8px;
-    transition: width 0.5s linear;
-  }
-}
+// .track {
+//   width: 100%;
+//   height: 20px;
+//   background-color: #222;
+//   border-radius: 10px;
+//   box-shadow: inset 0 0 5px #000;
+//   #thumb {
+//     width: auto;
+//     height: 100%;
+//     background-color: #6bccf9;
+//     border-radius: 8px;
+//     transition: width 0.5s linear;
+//   }
+// }
