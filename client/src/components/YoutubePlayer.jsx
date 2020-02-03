@@ -9,15 +9,11 @@ import "./YoutubePlayer.scss";
 import { CircularProgressbar } from "react-circular-progressbar";
 import Loader from "./Loader";
 import "react-circular-progressbar/dist/styles.css";
-
 //when server is running:
 //need to create loading screen until (video !== 0)
-
 //5. try to style circularProgressionbar better. different colours etc check out: https://www.npmjs.com/package/react-circular-progressbar
-
 import clouds from "../assets/Clouds.svg";
 import cloudOne from "../assets/Cloud_one.svg";
-
 const youtubeSession = meditationTime => {
   let videoURL;
   switch (meditationTime) {
@@ -40,7 +36,6 @@ const youtubeSession = meditationTime => {
       return;
   }
 };
-
 const YoutubePlayer = props => {
   const [finished, setFinished] = useState(false);
   const [video, setVideo] = useState(0);
@@ -48,7 +43,6 @@ const YoutubePlayer = props => {
   const [percentage, setPercentage] = useState(0);
   const [intervalId, setIntervalId] = useState(0);
   const [theLoader, setTheLoader] = useState(false);
-
   useEffect(() => {
     return () => {
       //runs when component unmounts!
@@ -57,20 +51,17 @@ const YoutubePlayer = props => {
       );
       props.getCurrentMeditation();
     };
-  }, []);
-
+  }, [props]);
   useEffect(() => {
-    if(video !== 0) {
+    if (video !== 0) {
       setTheLoader(true);
     }
     console.log(video);
-  }, [video])
-
-  const _onReady = (event) => {
+  }, [video]);
+  const _onReady = event => {
     setVideo(event.target);
     // access to player outside of this using "video"
   };
-
   const playOrPause = info => {
     if (info === "play") {
       setIntervalId(
@@ -85,27 +76,22 @@ const YoutubePlayer = props => {
       clearInterval(intervalId);
     }
   };
-
   const playTheVideo = () => {
-    if(video !== 0 ) { //logic to test if video is loader
+    if (video !== 0) {
+      //logic to test if video is loader
       video.playVideo();
       video.setVolume(50);
       setVideoPlaying(true);
-
       playOrPause("play");
     } else {
       //do nothing
     }
-  
-  }
-
+  };
   const pauseTheVideo = () => {
     video.pauseVideo();
     setVideoPlaying(false);
-
     playOrPause("pause");
   };
-
   const onEnd = async event => {
     // console.log("video has ended");
     setFinished(true);
@@ -117,28 +103,31 @@ const YoutubePlayer = props => {
       data: { currentTime: event.target.getCurrentTime() }
     });
   };
-
   const { meditationSession } = props;
   const videoId = youtubeSession(meditationSession.sessionDetail.totalTime);
-
-    const skipTrack = async () => {
-      if (video !== 0) { //logic to check it video is loaded
-        setFinished(true);
-        const token = localStorage.getItem("CMCFlow");
-        await axios({
-          headers: { Authorization: `bearer ${token}` },
-          url: API.updateMeditationTime,
-          method: "post",
-          data: { currentTime: video.getDuration() }
-        });
-      } else {
-        //do nothing 
-      }
+  const opts = {
+    height: "0",
+    width: "0",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 2
     }
   };
-
-  
-
+  const skipTrack = async () => {
+    if (video !== 0) {
+      //logic to check it video is loaded
+      setFinished(true);
+      const token = localStorage.getItem("CMCFlow");
+      await axios({
+        headers: { Authorization: `bearer ${token}` },
+        url: API.updateMeditationTime,
+        method: "post",
+        data: { currentTime: video.getDuration() }
+      });
+    } else {
+      //do nothing
+    }
+  };
   return (
     <>
       {/* need some logic here to check if video is finished loading, instead of just "true" */}
@@ -167,62 +156,54 @@ const YoutubePlayer = props => {
             // if not finished
             <>
               <div className="zwrapper">
-                <section className="meditation_information">
-                  <div className="buttons">
-                  <h4 onClick={props.updatePage} className="close-button">
-                    X
-                  </h4>
-                  <h4 onClick={skipTrack} className="skip">
-                    {" "}
-                    Next Meditation
-                  </h4>
+                <h4 onClick={props.updatePage} className="close-button">
+                  X
+                </h4>
+                <h4 onClick={skipTrack} className="skip">
+                  >>
+                </h4>
+                <div className="meditation-component">
+                  <div>
+                    {meditationSession.sessionDetail.totalTime == 180 &&
+                      "BEGINNER"}
+                    {meditationSession.sessionDetail.totalTime == 300 &&
+                      "INTERMEDIATE"}
+                    {meditationSession.sessionDetail.totalTime == 600 &&
+                      "EXPERT"}
+                    &nbsp;
+                    {meditationSession.sessionDetail.level}
                   </div>
-
-                  <div className="meditation-component">
-                    <div>
-                      {meditationSession.sessionDetail.totalTime == 180 &&
-                        "BEGINNER"}
-                      {meditationSession.sessionDetail.totalTime == 300 &&
-                        "INTERMEDIATE"}
-                      {meditationSession.sessionDetail.totalTime == 600 &&
-                        "EXPERT"}
-                      &nbsp;
-                      {meditationSession.sessionDetail.level}
+                  <h4 className="message">
+                    Lets start your meditation session.
+                  </h4>
+                  <YouTube
+                    videoId={videoId}
+                    opts={opts}
+                    onReady={_onReady}
+                    onEnd={onEnd}
+                  />
+                  <CircularProgressbar
+                    value={percentage}
+                    className="loading-bar"
+                  />
+                  {videoPlaying ? (
+                    <div className="circlePause" onClick={pauseTheVideo}>
+                      <i className="fas fa-pause fa-4x"></i>
                     </div>
-                    <h4 className="message">
-                      Lets start your meditation session.
-                    </h4>
+                  ) : (
+                    <div className="circlePlay" onClick={playTheVideo}>
+                      <i className="fas fa-play fa-4x"></i>
+                    </div>
+                  )}
+                  <div>
+                    {meditationSession.sessionDetail.totalTime / 60} MINUTES
                   </div>
-                </section>
 
-                <YouTube
-                  videoId={videoId}
-                  opts={opts}
-                  onReady={_onReady}
-                  onEnd={onEnd}
-                  className="medPlayer"
-                />
-                <CircularProgressbar
-                  value={percentage}
-                  className="loading-bar"
-                />
-                {videoPlaying ? (
-                  <div className="circlePause" onClick={pauseTheVideo}>
-                    <i className="fas fa-pause fa-4x"></i>
-                  </div>
-                ) : (
-                  <div className="circlePlay" onClick={playTheVideo}>
-                    <i className="fas fa-play fa-4x"></i>
-                  </div>
-                )}
-                <aside>
-                  {meditationSession.sessionDetail.totalTime / 60} MINUTES
-                </aside>
-
-                
-                <img src={clouds} className="clouds" id="cloud2" />
-                
-                <img src={clouds} className="clouds" id="cloud4" />
+                  <img src={cloudOne} className="clouds" id="cloud1" />
+                  <img src={cloudOne} className="clouds" id="cloud2" />
+                  <img src={cloudOne} className="clouds" id="cloud3" />
+                  <img src={cloudOne} className="clouds" id="cloud4" />
+                </div>
               </div>
             </>
           )}
@@ -233,7 +214,6 @@ const YoutubePlayer = props => {
     </>
   );
 };
-
 const mapDispatch = dispatch => ({
   getCurrentMeditation: () => dispatch(getCurrentMeditation())
 });
