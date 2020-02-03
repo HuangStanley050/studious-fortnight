@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --env=node --forceExit",
-    "coveralls": "jest --env=node --forceExit --coverage --coverageReporters=text-lcov  | coveralls",
+    "test": "jest ./server/__tests__ --env=node --forceExit",
+    "coveralls": "jest ./server/__tests --env=node --forceExit --coverage --coverageReporters=text-lcov  | coveralls",
     "start": "node ./server/server",
     "client": "npm run start --prefix client",
     "server": "nodemon ./server/server.js",

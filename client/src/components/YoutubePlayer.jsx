@@ -59,7 +59,6 @@ const youtubeSession = meditationTime => {
     if (video !== 0) {
       setTheLoader(true);
     }
-    console.log(video);
   }, [video])
   const _onReady = (event) => {
     setVideo(event.target);
@@ -72,7 +71,7 @@ const youtubeSession = meditationTime => {
         setInterval(() => {
           const newPercentage = video.getCurrentTime() / video.getDuration()
           const newPercentageCalculated = Math.round(newPercentage * 100);
-          // console.log(newPercentageCalculated);
+          console.log(newPercentageCalculated);
           setPercentage(newPercentageCalculated);
         }, 1000)
       );
@@ -109,6 +108,8 @@ const youtubeSession = meditationTime => {
       method: "post",
       data: { currentTime: event.target.getCurrentTime() }
     });
+    clearInterval(intervalId);
+
   }
     const { meditationSession } = props;
     const videoId = youtubeSession(meditationSession.sessionDetail.totalTime);
@@ -163,7 +164,7 @@ const youtubeSession = meditationTime => {
           <h4 onClick={props.updatePage} className="close-button">
              X
           </h4>
-         <h4 onClick={skipTrack} className="skip">>></h4>
+         <h4 onClick={skipTrack} className="skip">  </h4>
          </div>
          <div className="meditation-component">
            <div>
@@ -193,7 +194,7 @@ const youtubeSession = meditationTime => {
                  <i className="fas fa-play fa-4x"></i>
                </div>
              }
-           <div>{meditationSession.sessionDetail.totalTime / 60} MINUTES</div>
+           <aside>{meditationSession.sessionDetail.totalTime / 60} MINUTES</aside>
  
            
            <img src={clouds} className="clouds" id="cloud2" />

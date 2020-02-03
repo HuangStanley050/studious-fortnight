@@ -111,16 +111,14 @@
         }
   
 
-        .skip {   
+        .skip { 
+          margin-right: 1em;  
           &::after{
             content: " >> " 
           }
           &:hover {
             cursor: pointer;
-            &:after{
-              content: " >> ";
-              color: white;
-              animation: skipbutton 1s ease-in-out infinite; 
+            animation: skipbutton .5s ease infinite alternate;     
             }
           }
         }
@@ -139,26 +137,18 @@
       z-index: -1;
       height: 2em;
     }
-    // #cloud1{
-    //   top: 20%;
-    //   animation: clouds 20s -10s linear infinite;
-    // }
     #cloud2{
       animation: clouds 68s -35s linear infinite;
       height: 68vh;
       top: 10vh;
     }
-    // #cloud3{
-    //   top: 50%;
-    //   animation: clouds 15s -18s linear infinite;
-    // }
+
     #cloud4{
       
       animation: clouds 108s -12s linear infinite;
       height: 100vh;
     }
   }
-}
 
 .finished-screen {
   display: flex;
@@ -243,19 +233,10 @@
 }
 
 @keyframes skipbutton{
-  0% {
+  from {
     transform: translateX(0px);
   }
-  20% {
-    transform: translateX(2px);
-  }
-  40% {
-    transform: translateX(5px);
-  }
-  80%{
-    transform: translateX(2px);
-  }
-  100% {
-    transform: translateX(2px);
+  to {
+    transform: translateX(1em);
   }
 }
