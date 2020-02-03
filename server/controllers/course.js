@@ -335,7 +335,7 @@ exports.deactivateAccount = async (req, res) => {
   try {
     let user = await User.findById({ _id: id });
     user.activeUser = false;
-    user.save();
+    await user.save();
     res.send(user);
   } catch (err) {
     res.status(500).send(err);
