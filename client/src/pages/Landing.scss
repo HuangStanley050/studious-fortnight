@@ -1,0 +1,34 @@
+.landing-content {
+  margin-top: 20px;
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  // background: red;
+  flex-direction: column;
+  align-items: center;
+  flex-direction: center;
+
+  background-image: url("../assets/landing-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.5;
+
+  .login-register-button {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    background: var(--popup-background2);
+    border-radius: 25px;
+    width: 150px;
+    height: 40px;
+    &:hover{
+      cursor: pointer;
+      color: var(--popup-background2);
+      background: white;
+      border: 1px solid var(--popup-background2);
+    }
+  }
+}
