@@ -10,12 +10,11 @@ const Landing = ({ isAuth }) => {
     return <Redirect to="/my" />;
   }
   return (
-    <div className="background-img">
-      <div className="landing-content">
-        <h1>Your guide to metal clarity</h1>
-        <p>Live a healthier, happier, more well-rested life with CMCFlow.</p>
-        <Link className="login-register-button" to="/auth">Login or Register</Link>
-      </div>
+    <div className="landing-content">
+      <h1>Your guide to metal clarity</h1>
+      <p>Live a healthier, happier, more well-rested life with CMCFlow.</p>
+      <Link className="login-register-button" to="/auth">Login or Register</Link>
+      <div className="background-img"></div>
     </div>
   );
 };
