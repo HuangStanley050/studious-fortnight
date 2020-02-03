@@ -71,6 +71,8 @@ const Home = ({
           {meditationSession.sessionDetail.totalTime / 60} MIN
         </div>
       </div>
+
+      <div className="image-area"></div>
     </div>
   );
 
