@@ -13,6 +13,7 @@ import 'react-circular-progressbar/dist/styles.css';
 //need to create loading screen until (video !== 0)
 //5. try to style circularProgressionbar better. different colours etc check out: https://www.npmjs.com/package/react-circular-progressbar
 import clouds from '../assets/Clouds.svg';
+
 import cloudOne from "../assets/Cloud_one.svg";
 const youtubeSession = meditationTime => {
   let videoURL;
@@ -36,8 +37,9 @@ const youtubeSession = meditationTime => {
       return;
   }
 };
-const YoutubePlayer = (props) => {
-  const [finished, setFinished] = useState(false)
+
+  const YoutubePlayer = props => {
+  const [finished, setFinished] = useState(false);
   const [video, setVideo] = useState(0);
   const [videoPlaying, setVideoPlaying] = useState(false)
   const [percentage, setPercentage] = useState(0);
@@ -52,8 +54,9 @@ const YoutubePlayer = (props) => {
       props.getCurrentMeditation();
     }
   }, []);
+
   useEffect(() => {
-    if(video !== 0) {
+    if (video !== 0) {
       setTheLoader(true);
     }
     console.log(video);
@@ -63,6 +66,7 @@ const YoutubePlayer = (props) => {
     // access to player outside of this using "video"
   };
   const playOrPause = (info) => {
+
     if (info === "play") {
       setIntervalId(
         setInterval(() => {
@@ -75,9 +79,11 @@ const YoutubePlayer = (props) => {
     } else if (info === "pause") {
       clearInterval(intervalId);
     }
-  }
+  };
+
   const playTheVideo = () => {
-    if(video !== 0 ) { //logic to test if video is loader
+    if (video !== 0) {
+      //logic to test if video is loader
       video.playVideo();
       video.setVolume(50);
       setVideoPlaying(true);
@@ -85,14 +91,15 @@ const YoutubePlayer = (props) => {
     } else {
       //do nothing
     }
-  
-  }
+  };
+
   const pauseTheVideo = () => {
     video.pauseVideo();
     setVideoPlaying(false);
     playOrPause("pause");
-  }
-  const onEnd = async (event) => {
+
+  };
+  const onEnd = async event => {
     // console.log("video has ended");
     setFinished(true);
     const token = localStorage.getItem("CMCFlow");
