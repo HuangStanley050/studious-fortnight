@@ -163,7 +163,7 @@ const youtubeSession = meditationTime => {
           <h4 onClick={props.updatePage} className="close-button">
              X
           </h4>
-         <h4 onClick={skipTrack} className="skip">>></h4>
+         <h4 onClick={skipTrack} className="skip">  </h4>
          </div>
          <div className="meditation-component">
            <div>
@@ -193,7 +193,7 @@ const youtubeSession = meditationTime => {
                  <i className="fas fa-play fa-4x"></i>
                </div>
              }
-           <div>{meditationSession.sessionDetail.totalTime / 60} MINUTES</div>
+           <aside>{meditationSession.sessionDetail.totalTime / 60} MINUTES</aside>
  
            
            <img src={clouds} className="clouds" id="cloud2" />

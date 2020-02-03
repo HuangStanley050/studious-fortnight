@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import "./NavBar.scss";
+import LOGO from "../assets/Logo1.png"
+import LOGO2 from "../assets/Logo2.png"
 
 const NavBar = ({ isAuth }) => {
   return (
@@ -13,7 +15,7 @@ const NavBar = ({ isAuth }) => {
           activeClassName="is-active"
           exact={true}
         >
-          CMCflow
+          <img src={LOGO} className="logo" />
         </NavLink>
 
         <div className="links">
