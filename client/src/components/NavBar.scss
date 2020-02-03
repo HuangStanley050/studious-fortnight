@@ -26,6 +26,10 @@
       font-size: 24px;
       color: var(--main-link-color);
       text-decoration: none;
+      img{
+        height: 80px;
+        // width: 20vw;
+      }
     }
     .logo-text:hover {
       color: var(--main-link-hover);

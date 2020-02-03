@@ -156,7 +156,7 @@ const YoutubePlayer = (props) => {
           <h4 onClick={props.updatePage} className="close-button">
              X
           </h4>
-         <h4 onClick={skipTrack} className="skip"> Next </h4>
+         <h4 onClick={skipTrack} className="skip">  </h4>
          </div>
          <div className="meditation-component">
            <div>

@@ -5,8 +5,8 @@ test("adds 1 + 2 to equal 3", () => {
 });
 
 
-test("hitting play/ pause should change the player", () => {
-  expect( .toBe())
-}
+// test("hitting play/ pause should change the player", () => {
+//   expect( .toBe())
+// }
 
-)
+// )

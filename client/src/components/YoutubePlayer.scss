@@ -111,7 +111,8 @@
         }
   
 
-        .skip {   
+        .skip { 
+          margin-right: 1em;  
           &::after{
             content: " >> " 
           }
@@ -236,6 +237,6 @@
     transform: translateX(0px);
   }
   to {
-    transform: translateX(2em);
+    transform: translateX(1em);
   }
 }
