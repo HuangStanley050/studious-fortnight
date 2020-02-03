@@ -10,10 +10,8 @@ const Landing = ({ isAuth }) => {
   }
   return (
     <>
-      <h1>Landing page</h1>
-      <Link to="/auth">Login/Register</Link>
-      <br />
-      <br />
+        <h1>Landing page</h1>
+        <Link to="/auth">Login/Register</Link>
     </>
   );
 };

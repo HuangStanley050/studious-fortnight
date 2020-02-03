@@ -16,7 +16,6 @@ import PasswordReset from "./pages/PasswordReset";
 import PrivateRoute from './components/PrivateRoute';
 import PasswordRecovery from "./pages/PasswordRecovery";
 
-
 function App() {
   return (
     <div className="meta">

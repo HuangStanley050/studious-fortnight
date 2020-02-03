@@ -27,7 +27,8 @@ const DiscoverDisplay = (props) => {
       <>
         <h1>{activeBadge.name}</h1>
         <p>Description: {activeBadge.description}</p>
-        <img className="badge-image" src={activeBadge.image_url} />
+        {console.log(activeBadge)}
+        <img className="badge-image" src={activeBadge.image_url} alt="" />
       </>
     )}
   </>
