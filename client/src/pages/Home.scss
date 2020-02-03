@@ -36,4 +36,17 @@
       cursor: pointer;
     }
   }
+
+  .image-area {
+    margin-top: 20px;
+    background-image: url("../assets/landing-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    // opacity: 0.5;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    height: 30vh;
+    width: 80%;
+  }
 }

@@ -1,0 +1,42 @@
+.landing-content {
+  margin-top: 20px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  // background: red;
+  flex-direction: column;
+  align-items: center;
+  flex-direction: center;
+
+  .login-register-button {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    background: var(--popup-background2);
+    border-radius: 25px;
+    width: 150px;
+    height: 40px;
+    &:hover{
+      cursor: pointer;
+      color: var(--popup-background2);
+      background: white;
+      border: 1px solid var(--popup-background2);
+    }
+  }
+
+  .background-img {
+    margin-top: 20px;
+    background-image: url("../assets/landing-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    // opacity: 0.5;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    height: 30vh;
+    width: 80%;
+  }
+}

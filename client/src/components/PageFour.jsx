@@ -56,7 +56,7 @@ let PageFour = ({ values, prevPage, dispatch }) => {
     <Container>
       <h2 style={{ textAlign: "center" }}>Preferred Meditation Time</h2>
       <form className="row" onSubmit={submitHandler}>
-        <Col sm="4" md="4" lg="4">
+        <Col lg="4">
           <label className="special-label">
             <Field
               className="card-input-element"
@@ -74,14 +74,16 @@ let PageFour = ({ values, prevPage, dispatch }) => {
                   src={morningPic}
                   className="card-image-top"
                   alt="morning"
-                  style={{ width: "278px", height: "259px" }}
+                  style={{ width: "100%", height: "259px" }}
                 />
-                <div className="card-title">Morning</div>
+                <div className="card-title">
+                  <h3 style={{ textAlign: "center" }}>Morning</h3>
+                </div>
               </div>
             </div>
           </label>
         </Col>
-        <Col sm="4" md="4" lg="4">
+        <Col lg="4">
           <label className="special-label">
             <Field
               className="card-input-element"
@@ -99,14 +101,16 @@ let PageFour = ({ values, prevPage, dispatch }) => {
                   src={noonPic}
                   className="card-image-top"
                   alt="morning"
-                  style={{ width: "278px", height: "259px" }}
+                  style={{ width: "100%", height: "259px" }}
                 />
-                <div className="card-title">Afternoon</div>
+                <div className="card-title">
+                  <h3 style={{ textAlign: "center" }}>Afternoon</h3>
+                </div>
               </div>
             </div>
           </label>
         </Col>
-        <Col sm="4" md="4" lg="4">
+        <Col lg="4">
           <label className="special-label">
             <Field
               className="card-input-element"
@@ -124,9 +128,11 @@ let PageFour = ({ values, prevPage, dispatch }) => {
                   src={nightPic}
                   className="card-image-top"
                   alt="morning"
-                  style={{ width: "278px", height: "259px" }}
+                  style={{ width: "100%", height: "259px" }}
                 />
-                <div className="card-title">Night</div>
+                <div className="card-title">
+                  <h3 style={{ textAlign: "center" }}>Night</h3>
+                </div>
               </div>
             </div>
           </label>

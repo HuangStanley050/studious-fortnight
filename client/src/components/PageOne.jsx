@@ -24,7 +24,7 @@ let PageOne = ({ nextPage, values }) => {
     <Container>
       <h2 style={{ textAlign: "center" }}>How much experience do you have?</h2>
       <form className="row" onSubmit={nextPage}>
-        <Col sm="4" md="4" lg="4">
+        <Col lg="4">
           <label className="special-label">
             <Field
               className="card-input-element"
@@ -38,19 +38,21 @@ let PageOne = ({ nextPage, values }) => {
               className="card card-input"
               style={selection === noExperience ? selectionStyle : null}
             >
-              <div className="card-body">
+              <div className="card-body mx-auto">
                 <img
                   alt="beginner meditation"
-                  style={{ width: "278px", height: "259px" }}
-                  className="card-image-top"
+                  style={{ width: "100%", height: "259px" }}
+                  className="card-image-top "
                   src={beginner}
                 />
-                <div className="card-title">No experience</div>
+                <div className="card-title">
+                  <h3 style={{ textAlign: "center" }}>No experience</h3>
+                </div>
               </div>
             </div>
           </label>
         </Col>
-        <Col sm="4" md="4" lg="4">
+        <Col lg="4">
           <label className="special-label">
             <Field
               className="card-input-element"
@@ -64,19 +66,21 @@ let PageOne = ({ nextPage, values }) => {
               className="card card-input"
               style={selection === someExperience ? selectionStyle : null}
             >
-              <div className="card-body">
+              <div className="card-body mx-auto">
                 <img
                   alt="intermediate meditation"
-                  style={{ width: "278px", height: "259px" }}
-                  className="card-image-top"
+                  style={{ width: "100%", height: "259px" }}
+                  className="card-image-top "
                   src={intermediate}
                 />
-                <div className="card-title">Some experience</div>
+                <div className="card-title">
+                  <h3 style={{ textAlign: "center" }}>Expert experience</h3>
+                </div>
               </div>
             </div>
           </label>
         </Col>
-        <Col sm="4" md="4" lg="4">
+        <Col lg="4">
           <label className="special-label">
             <Field
               className="card-input-element"
@@ -90,14 +94,16 @@ let PageOne = ({ nextPage, values }) => {
               className="card card-input "
               style={selection === expertExperience ? selectionStyle : null}
             >
-              <div className="card-body">
+              <div className="card-body mx-auto">
                 <img
                   alt="expert meditation"
-                  style={{ width: "278px", height: "259px" }}
-                  className="card-image-top"
+                  style={{ width: "100%", height: "259px" }}
+                  className="card-image-top "
                   src={expert}
                 />
-                <div className="card-title">Expert experience</div>
+                <div className="card-title">
+                  <h3 style={{ textAlign: "center" }}>Expert experience</h3>
+                </div>
               </div>
             </div>
           </label>
