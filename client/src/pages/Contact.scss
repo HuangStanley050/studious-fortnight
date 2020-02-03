@@ -1,0 +1,26 @@
+.contact-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  .left-side {
+    width: 60%;
+    margin-top: 20px;
+  }
+  .right-side {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .image {
+      margin-top: 20px;
+      background-image: url("../assets/landing-background.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+      border-top-right-radius: 25px;
+      height: 70vh;
+      width: 85%;
+    }
+  }
+}
