@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ProfileNavBar = (props) => {
+export const ProfileNavBar = (props) => {
   return (
     <div className="profile-navbar">
         <div className="link-div">
-          <span className={(props.display === "stats" ? "selected-link" : "link" )} onClick={props.displayContent} value="stats">
+          <span className={(props.display === "stats" ? "selected-link" : "link" )} onClick={props.displayContent} value="stats" id="stats-test" data-testid="stats-test">
             STATS
           </span>
           <div className={ (props.display === "stats" ? "hover-box" : "normal-box" )}></div>
