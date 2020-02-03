@@ -23,7 +23,7 @@ let PageTwo = ({ prevPage, nextPage, values }) => {
     <Container>
       <h2 style={{ textAlign: "center" }}>What brings you to CMCFlow</h2>
       <form className="row" onSubmit={nextPage}>
-        <Col sm="4" md="4" lg="4">
+        <Col lg="4">
           <label className="special-label">
             <Field
               className="card-input-element"
@@ -41,14 +41,16 @@ let PageTwo = ({ prevPage, nextPage, values }) => {
                   src={friendsPic}
                   alt="friends"
                   className="card-image-top"
-                  style={{ width: "278px", height: "259px" }}
+                  style={{ width: "100%", height: "259px" }}
                 />
-                <div className="card-title">Friend</div>
+                <div className="card-title">
+                  <h3 style={{ textAlign: "center" }}>Friend</h3>
+                </div>
               </div>
             </div>
           </label>
         </Col>
-        <Col sm="4" md="4" lg="4">
+        <Col lg="4">
           <label className="special-label">
             <Field
               className="card-input-element"
@@ -66,14 +68,16 @@ let PageTwo = ({ prevPage, nextPage, values }) => {
                   src={internetPic}
                   alt="internet"
                   className="card-image-top"
-                  style={{ width: "278px", height: "259px" }}
+                  style={{ width: "100%", height: "259px" }}
                 />
-                <div className="card-title">Internet</div>
+                <div className="card-title">
+                  <h3 stye={{ textAlign: "center" }}>Internet</h3>
+                </div>
               </div>
             </div>
           </label>
         </Col>
-        <Col sm="4" md="4" lg="4">
+        <Col lg="4">
           <label className="special-label">
             <Field
               className="card-input-element"
@@ -90,10 +94,12 @@ let PageTwo = ({ prevPage, nextPage, values }) => {
                 <img
                   src={tvPic}
                   className="card-image-top"
-                  style={{ width: "278px", height: "259px" }}
+                  style={{ width: "100%", height: "259px" }}
                   alt="tv"
                 />
-                <div className="card-title">TV</div>
+                <div className="card-title">
+                  <h3 style={{ textAlign: "center" }}>TV</h3>
+                </div>
               </div>
             </div>
           </label>
