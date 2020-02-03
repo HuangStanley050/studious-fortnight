@@ -47,6 +47,7 @@ const YoutubePlayer = (props) => {
   const [videoPlaying, setVideoPlaying] = useState(false)
   const [percentage, setPercentage] = useState(0);
   const [intervalId, setIntervalId] = useState(0);
+  const [theLoader, setTheLoader] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -57,6 +58,13 @@ const YoutubePlayer = (props) => {
       props.getCurrentMeditation();
     }
   }, []);
+
+  useEffect(() => {
+    if(video !== 0) {
+      setTheLoader(true);
+    }
+    console.log(video);
+  }, [video])
 
   const _onReady = (event) => {
     setVideo(event.target);
@@ -79,11 +87,16 @@ const YoutubePlayer = (props) => {
   }
 
   const playTheVideo = () => {
-    video.playVideo();
-    video.setVolume(50);
-    setVideoPlaying(true);
+    if(video !== 0 ) { //logic to test if video is loader
+      video.playVideo();
+      video.setVolume(50);
+      setVideoPlaying(true);
 
-    playOrPause("play");
+      playOrPause("play");
+    } else {
+      //do nothing
+    }
+  
   }
 
   const pauseTheVideo = () => {
@@ -118,15 +131,18 @@ const YoutubePlayer = (props) => {
     };
 
     const skipTrack = async () => {
-      console.log("video has ended");
-      setFinished(true);
-      const token = localStorage.getItem("CMCFlow");
-      await axios({
-        headers: { Authorization: `bearer ${token}` },
-        url: API.updateMeditationTime,
-        method: "post",
-        data: { currentTime: video.getDuration() }
-      });
+      if (video !== 0) { //logic to check it video is loaded
+        setFinished(true);
+        const token = localStorage.getItem("CMCFlow");
+        await axios({
+          headers: { Authorization: `bearer ${token}` },
+          url: API.updateMeditationTime,
+          method: "post",
+          data: { currentTime: video.getDuration() }
+        });
+      } else {
+        //do nothing 
+      }
     }
 
   return (
@@ -177,7 +193,7 @@ const YoutubePlayer = (props) => {
                  <i className="fas fa-pause fa-4x"></i>
                </div>
                :
-               <div className="circlePlay" onClick={playTheVideo}>
+               <div className="circlePlay" disabled onClick={playTheVideo}>
                  <i className="fas fa-play fa-4x"></i>
                </div>
              }
