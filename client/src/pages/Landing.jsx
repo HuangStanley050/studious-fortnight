@@ -3,16 +3,20 @@ import { Link } from "react-router-dom";
 //import Logout from "../components/Logout";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import "./Landing.scss";
 
 const Landing = ({ isAuth }) => {
   if (isAuth) {
     return <Redirect to="/my" />;
   }
   return (
-    <>
-        <h1>Landing page</h1>
-        <Link to="/auth">Login/Register</Link>
-    </>
+    <div className="background-img">
+      <div className="landing-content">
+        <h1>Your guide to metal clarity</h1>
+        <p>Live a healthier, happier, more well-rested life with CMCFlow.</p>
+        <Link className="login-register-button" to="/auth">Login or Register</Link>
+      </div>
+    </div>
   );
 };
 const mapState = state => ({

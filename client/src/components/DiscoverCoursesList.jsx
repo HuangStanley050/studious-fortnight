@@ -8,7 +8,7 @@ const DiscoverCoursesList = ({currentlyShowing, activeCourse, courses, setTheCou
       if (activeCourse.name === name && currentlyShowing === "courses") {
         return (
           <h6 key={id} className="course-link-active" onClick={setTheCourseDisplay} value={name}>
-            <i class="fas fa-angle-double-right"></i>
+            <i className="fas fa-angle-double-right"></i>
             &nbsp;
             {name}
           </h6>
