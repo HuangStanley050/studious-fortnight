@@ -193,7 +193,7 @@ const YoutubePlayer = (props) => {
                  <i className="fas fa-pause fa-4x"></i>
                </div>
                :
-               <div className="circlePlay" disabled onClick={playTheVideo}>
+               <div className="circlePlay" onClick={playTheVideo}>
                  <i className="fas fa-play fa-4x"></i>
                </div>
              }
