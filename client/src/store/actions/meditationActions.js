@@ -2,13 +2,20 @@ import API from "../../api";
 import axios from "axios";
 import Action from "./index";
 
+export const updateMeditation = condition => ({
+  type: Action.UPDATE_MEDITATION,
+  condition
+});
+
 const getCurrentMeditationOkay = data => ({
   type: Action.GET_CURRENT_MEDITATION,
   data
 });
+
 const getCurrentMeditationError = () => ({
   type: Action.GET_CURRENT_MEDITATION_ERROR
 });
+
 export const getCurrentMeditation = () => {
   return async dispatch => {
     try {

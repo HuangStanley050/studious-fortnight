@@ -6,22 +6,33 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import API from "../api";
 import YoutubePlayer from "../components/YoutubePlayer.jsx";
-import { getCurrentMeditation } from "../store/actions/meditationActions";
+import {
+  getCurrentMeditation,
+  updateMeditation
+} from "../store/actions/meditationActions";
 import { clearError } from "../store/actions/authActions";
 import "./Home.scss";
 
-
-const Home = ({ hasRegistered, meditationSession, dispatch }) => {
+const Home = ({
+  hasRegistered,
+  meditationSession,
+  dispatch,
+  needUpdateMeditation
+}) => {
   const [playSession, setPlaySession] = useState(false);
 
   useEffect(() => {
     if (!meditationSession) {
       dispatch(getCurrentMeditation());
     }
+    if (needUpdateMeditation) {
+      dispatch(getCurrentMeditation());
+      dispatch(updateMeditation(false));
+    }
     // return () => {
     //   dispatch(clearError());
     // };
-  }, [dispatch, hasRegistered, meditationSession]);
+  }, [dispatch, hasRegistered, meditationSession, needUpdateMeditation]);
 
   const errorMsg = (
     <div
@@ -78,7 +89,6 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
               updatePage={updatePage}
             />
           ) : (
-            
             displayButtonComponent()
           )}
         </>
@@ -90,6 +100,7 @@ const Home = ({ hasRegistered, meditationSession, dispatch }) => {
 };
 const mapState = state => ({
   hasRegistered: state.auth.hasRegistered,
-  meditationSession: state.auth.meditationSession
+  meditationSession: state.auth.meditationSession,
+  needUpdateMeditation: state.auth.needUpdateMeditation
 });
 export default connect(mapState)(Home);

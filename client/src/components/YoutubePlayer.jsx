@@ -47,6 +47,7 @@ const YoutubePlayer = props => {
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [percentage, setPercentage] = useState(0);
   const [intervalId, setIntervalId] = useState(0);
+  const [theLoader, setTheLoader] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -58,7 +59,14 @@ const YoutubePlayer = props => {
     };
   }, []);
 
-  const _onReady = event => {
+  useEffect(() => {
+    if(video !== 0) {
+      setTheLoader(true);
+    }
+    console.log(video);
+  }, [video])
+
+  const _onReady = (event) => {
     setVideo(event.target);
     // access to player outside of this using "video"
   };
@@ -79,12 +87,17 @@ const YoutubePlayer = props => {
   };
 
   const playTheVideo = () => {
-    video.playVideo();
-    video.setVolume(50);
-    setVideoPlaying(true);
+    if(video !== 0 ) { //logic to test if video is loader
+      video.playVideo();
+      video.setVolume(50);
+      setVideoPlaying(true);
 
-    playOrPause("play");
-  };
+      playOrPause("play");
+    } else {
+      //do nothing
+    }
+  
+  }
 
   const pauseTheVideo = () => {
     video.pauseVideo();
@@ -108,12 +121,19 @@ const YoutubePlayer = props => {
   const { meditationSession } = props;
   const videoId = youtubeSession(meditationSession.sessionDetail.totalTime);
 
-  const opts = {
-    height: "0",
-    width: "0",
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 2
+    const skipTrack = async () => {
+      if (video !== 0) { //logic to check it video is loaded
+        setFinished(true);
+        const token = localStorage.getItem("CMCFlow");
+        await axios({
+          headers: { Authorization: `bearer ${token}` },
+          url: API.updateMeditationTime,
+          method: "post",
+          data: { currentTime: video.getDuration() }
+        });
+      } else {
+        //do nothing 
+      }
     }
   };
 
@@ -227,4 +247,7 @@ const YoutubePlayer = props => {
 const mapDispatch = dispatch => ({
   getCurrentMeditation: () => dispatch(getCurrentMeditation())
 });
-export default connect(null, mapDispatch)(YoutubePlayer);
+export default connect(
+  null,
+  mapDispatch
+)(YoutubePlayer);

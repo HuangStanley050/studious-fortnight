@@ -7,10 +7,22 @@
     margin-left: 2.5%;
     margin-right: 2.5%;
 
+    .course-link-active {
+      color: var(--purple-color);
+      &:hover {
+        cursor:pointer;
+      }
+    }
     .course-link:hover {
       cursor: pointer;
     }
 
+    .badge-link-active {
+      color: var(--purple-color);
+      &:hover {
+        cursor:pointer;
+      }
+    }
     .badge-link:hover {
       cursor: pointer;
     }
