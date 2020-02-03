@@ -137,17 +137,7 @@ const YoutubePlayer = props => {
     }
   };
 
-  const skipTrack = async () => {
-    console.log("video has ended");
-    setFinished(true);
-    const token = localStorage.getItem("CMCFlow");
-    await axios({
-      headers: { Authorization: `bearer ${token}` },
-      url: API.updateMeditationTime,
-      method: "post",
-      data: { currentTime: video.getDuration() }
-    });
-  };
+  
 
   return (
     <>
