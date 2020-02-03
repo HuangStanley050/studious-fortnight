@@ -12,7 +12,7 @@ import API from "../api";
 import Account from "../components/Account.jsx";
 import Loader from "../components/Loader";
 
-const Profile = () => {
+export const Profile = () => {
   const [display, setDisplay] = useState("stats");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -136,7 +136,7 @@ const Profile = () => {
 
   return (
     <>{isLoading ? 
-      <Loader /> 
+      <Loader data-testid="username-input"/> 
       : 
       <>
         <ProfileNavBar display={display} displayContent={displayContent} />
@@ -144,6 +144,7 @@ const Profile = () => {
         <h1>
           {display === "stats" ? (
             <Stats
+              data-testid="username-input"
               totalTimeMeditated={totalTimeMeditated}
               runStreak={runStreak}
               sessionsCompleted={sessionsCompleted}
