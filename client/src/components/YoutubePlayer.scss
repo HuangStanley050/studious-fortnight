@@ -1,3 +1,4 @@
+
 .meditation-player {
   position: fixed;
   z-index: 200;
@@ -8,89 +9,73 @@
   margin: 0 auto;
   width: 100vw;
   height: 100vh;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
   background: white;
-  // background: red;
-
-  .close-button {
-    position: fixed; 
-    z-index: 1001; 
-    top: 10px;  
-    left: 10px; 
-  }
-  .close-button:hover {
-    cursor: pointer;
-  }
-
-  .skip {
-    margin-top: 10px;
-  }
-  .skip:hover {
-    cursor: pointer;
-  }
-
   .meditation-component {
     height: 100%;
-    // background: orange;
+    width: 100vw;
     display: flex; 
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
     margin-bottom: 20px;
+    .message {
+      margin-bottom: 5vh;
+    }
+  }
 
     .loading-bar {
-      height: 240px;
-      width: 240px;
+      // height: 240px;
+      // width: 240px;
+      height: 25vh;
+      width: 25vh;
       background: rgba(0, 0, 0, 0.1);
 
       border-radius: 50%;
 
-      margin-top: 200px;
+      top: 45%;
       position: fixed; 
     }
 
-    .message {
-      margin-bottom: 200px;
-    }
+
     .circlePlay {
-      height: 200px;
-      width: 200px;
+      // height: 200px;
+      // width: 200px;
+      height: 20.25vh;
+      width: 20.25vh;
       border-radius: 50%;
       background: var(--main-link-hover);
       display: flex;
       align-items: center;
       justify-content: center;
 
-      margin-top: 220px;
+      top: 47.45%;
       position: fixed; 
     }
     .circlePlay:hover {
       cursor: pointer;
     }
     .circlePause {
-      height: 200px;
-      width: 200px;
+      // height: 200px;
+      // width: 200px;
+      height: 20.25vh;
+      width: 20.25vh;
       border-radius: 50%;
       background: var(--main-link-hover);
       display: flex;
       align-items: center;
       justify-content: center;
-
-      margin-top: 220px;
+      top: 47.45%;
       position: fixed; 
     }
     .circlePause:hover {
       cursor: pointer;
     }
-  }
 
-  //cloud stuff:
   .zwrapper {
     position: relative;
     z-index: 1;
@@ -100,13 +85,52 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     background: url("../assets/Bground1.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
+    .meditation_information{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      height: 20vh;
+      .buttons{
+        width: 100vw;
+        padding: 2em;
+        display: flex;
+        justify-content: space-between;
+        .close-button {
+          z-index: 1001; 
+          
+          &:hover {
+            cursor: pointer;
+          }
+        }
+  
+
+        .skip {   
+          &::after{
+            content: " >> " 
+          }
+          &:hover {
+            cursor: pointer;
+            &:after{
+              content: " >> ";
+              color: white;
+              animation: skipbutton 1s ease-in-out infinite; 
+            }
+          }
+        }
+      }
+    }
+        & > aside {
+          position: absolute;
+          bottom: 2em;
+          text-align: center;
+        }
 
     .clouds {
       position: absolute;
@@ -115,21 +139,23 @@
       z-index: -1;
       height: 2em;
     }
-    #cloud1{
-      top: 20%;
-      animation: clouds 20s -10s linear infinite;
-    }
+    // #cloud1{
+    //   top: 20%;
+    //   animation: clouds 20s -10s linear infinite;
+    // }
     #cloud2{
-      top: 25%;
-      animation: clouds 20s -1s linear infinite;
+      animation: clouds 68s -35s linear infinite;
+      height: 68vh;
+      top: 10vh;
     }
-    #cloud3{
-      top: 50%;
-      animation: clouds 20s -18s linear infinite;
-    }
+    // #cloud3{
+    //   top: 50%;
+    //   animation: clouds 15s -18s linear infinite;
+    // }
     #cloud4{
-      top: 65%;
-      animation: clouds 20s -12s linear infinite;
+      
+      animation: clouds 108s -12s linear infinite;
+      height: 100vh;
     }
   }
 }
@@ -213,5 +239,23 @@
   }
   to {
     transform: translateX(105vw);
+  }
+}
+
+@keyframes skipbutton{
+  0% {
+    transform: translateX(0px);
+  }
+  20% {
+    transform: translateX(2px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  80%{
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(2px);
   }
 }
