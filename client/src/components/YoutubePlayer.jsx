@@ -59,7 +59,6 @@ const youtubeSession = meditationTime => {
     if (video !== 0) {
       setTheLoader(true);
     }
-    console.log(video);
   }, [video])
   const _onReady = (event) => {
     setVideo(event.target);
@@ -72,7 +71,7 @@ const youtubeSession = meditationTime => {
         setInterval(() => {
           const newPercentage = video.getCurrentTime() / video.getDuration()
           const newPercentageCalculated = Math.round(newPercentage * 100);
-          // console.log(newPercentageCalculated);
+          console.log(newPercentageCalculated);
           setPercentage(newPercentageCalculated);
         }, 1000)
       );
@@ -109,6 +108,8 @@ const youtubeSession = meditationTime => {
       method: "post",
       data: { currentTime: event.target.getCurrentTime() }
     });
+    clearInterval(intervalId);
+
   }
     const { meditationSession } = props;
     const videoId = youtubeSession(meditationSession.sessionDetail.totalTime);
