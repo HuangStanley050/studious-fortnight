@@ -164,7 +164,7 @@ const YoutubePlayer = props => {
                   </h4>
                   <h4 onClick={skipTrack} className="skip">
                     {" "}
-                    Next Meditation >>
+                    Next Meditation
                   </h4>
                   </div>
 

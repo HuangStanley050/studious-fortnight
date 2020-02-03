@@ -111,11 +111,19 @@
             cursor: pointer;
           }
         }
-        .skip {
-          
-      
+  
+
+        .skip {   
+          &::after{
+            content: " >> " 
+          }
           &:hover {
             cursor: pointer;
+            &:after{
+              content: " >> ";
+              color: white;
+              animation: skipbutton 1s ease-in-out infinite; 
+            }
           }
         }
       }
@@ -233,5 +241,23 @@
   }
   to {
     transform: translateX(105vw);
+  }
+}
+
+@keyframes skipbutton{
+  0% {
+    transform: translateX(0px);
+  }
+  20% {
+    transform: translateX(2px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  80%{
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(2px);
   }
 }
