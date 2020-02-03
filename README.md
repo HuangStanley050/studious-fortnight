@@ -7,6 +7,8 @@
 
 ## T3A2-B - Real World App (Part B)
 
+## Please install watchman if you are using MAC, 'brew install watchman' or 'brew upgrade watchman'
+
 # **R1** At a minimum use the following technologies: Mongo / Mongoose Express React.js Node.js
 
 # **R2** Write well designed code that: Separates the program into modules that each deal with one particular focus, or concern; Demonstrates DRY (Don’t Repeat Yourself) coding principles; Uses appropriate libraries; Demonstrates good code flow control for user stories; Applies Object Oriented (OO) principles/patterns; Uses appropriate data structures
