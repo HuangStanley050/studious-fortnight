@@ -1,10 +1,9 @@
-import Footer from "../components/Footer";
+import Footer from "../../components/Footer";
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { render } from "@testing-library/react";
 
 test("<Footer /> should render 'contact and 'about'", () => {
-  //https://create-react-app.dev/docs/running-tests/
   const testComponent = (
     <BrowserRouter>
       <Route component={Footer} />

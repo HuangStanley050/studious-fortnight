@@ -12,7 +12,7 @@ import { withRouter } from "react-router-dom";
 import { logout } from "../store/actions/authActions";
 import { connect } from "react-redux";
 
-const Account = ({ user, history, logOut }) => {
+export const Account = ({ user, history, logOut }) => {
   const [loading, setLoading] = useState(false);
 
   return (
