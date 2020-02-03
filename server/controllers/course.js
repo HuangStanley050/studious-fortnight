@@ -224,7 +224,7 @@ exports.nextCourse = async (req, res) => {
   });
 };
 
-exports.addCourse = (req, res) => {
+exports.addCourse = async (req, res) => {
   const { id } = req.user;
   const { courseName } = req.body;
 
@@ -236,7 +236,7 @@ exports.addCourse = (req, res) => {
       music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
-    createCourseDiscover(id, courseName, courseDetail, res);
+    await createCourseDiscover(id, courseName, courseDetail, res);
     updateCurrentMeditationDiscover(id);
   } else if (courseName === "intermediate") {
     //intermediate session: 5 minutes each, 4 sessions
@@ -246,7 +246,7 @@ exports.addCourse = (req, res) => {
       music: "MkPlp1Vt8YY" //dummy data used for now.
     };
     //create new course:
-    createCourseDiscover(id, courseName, courseDetail, res);
+    await createCourseDiscover(id, courseName, courseDetail, res);
     updateCurrentMeditationDiscover(id);
   } else if (courseName === "expert") {
     //intermediate session: 5 minutes each, 5 sessions
@@ -255,7 +255,7 @@ exports.addCourse = (req, res) => {
       levels: 5,
       music: "MkPlp1Vt8YY" //dummy data used for now.
     };
-    createCourseDiscover(id, courseName, courseDetail, res);
+    await createCourseDiscover(id, courseName, courseDetail, res);
     updateCurrentMeditationDiscover(id);
   } else {
     console.log("invalid data provided!");

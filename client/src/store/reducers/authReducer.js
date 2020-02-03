@@ -5,12 +5,19 @@ const initialState = {
   hasRegistered: false,
   userInfo: {},
   loading: false,
+  needUpdateMeditation: false,
   meditationSession: null,
   error: ""
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case Action.UPDATE_MEDITATION:
+      //console.log(action.condition);
+      return {
+        ...state,
+        needUpdateMeditation: action.condition
+      };
     case Action.GET_CURRENT_MEDITATION_ERROR:
       const errorMeditation = "No current meditation";
       console.log(errorMeditation);
