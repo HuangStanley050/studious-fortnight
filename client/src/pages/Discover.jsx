@@ -11,7 +11,7 @@ import Loader from "../components/Loader";
 import courses from "../dummyData/courses";
 import API from "../api";
 
-const Discover = ({ user }) => {
+export const Discover = ({ user }) => {
   // const loggedInUserId = user.id;
   const [usersCourses, setUsersCourses] = useState([]);
   const [usersMeditations, setUsersMeditations] = useState([]);
