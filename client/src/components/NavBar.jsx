@@ -5,7 +5,7 @@ import "./NavBar.scss";
 import LOGO from "../assets/Logo1.png"
 import LOGO2 from "../assets/Logo2.png"
 
-const NavBar = ({ isAuth }) => {
+export const NavBar = ({ isAuth }) => {
   return (
     <div className="nav-container">
       <div className="nested-nav-container">
