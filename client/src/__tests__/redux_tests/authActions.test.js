@@ -5,7 +5,7 @@ import * as authAction from "../../store/actions/authActions";
 const mockStore = configureStore();
 const initialState = {};
 const store = mockStore(initialState);
-describe("Action creators for Redx", () => {
+describe("Auth action creators for Redx", () => {
   beforeEach(() => {
     // Runs before each test in the suite
     store.clearActions();
