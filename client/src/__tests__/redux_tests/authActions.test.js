@@ -52,4 +52,20 @@ describe("Action creators for Redx", () => {
     let result = store.getActions();
     expect(result[0]).toEqual(expectedAction);
   });
+  test("should create an action when logging out", () => {
+    const expectedAction = {
+      type: Action.LOGOUT
+    };
+    store.dispatch(authAction.logout());
+    let result = store.getActions();
+    expect(result[0]).toEqual(expectedAction);
+  });
+  test("should clear error in authReducer", () => {
+    const expectedAction = {
+      type: Action.CLEAR_AUTH_ERROR
+    };
+    store.dispatch(authAction.clearError());
+    let result = store.getActions();
+    expect(result[0]).toEqual(expectedAction);
+  });
 });
