@@ -5,7 +5,7 @@ import "./NavBar.scss";
 import LOGO from "../assets/Logo1.png"
 import LOGO2 from "../assets/Logo2.png"
 
-const NavBar = ({ isAuth }) => {
+export const NavBar = ({ isAuth }) => {
   return (
     <div className="nav-container">
       <div className="nested-nav-container">
@@ -50,7 +50,7 @@ const NavBar = ({ isAuth }) => {
             </NavLink>
           ) : null}
           {isAuth ? null : (
-            <NavLink className="link" to="/auth" activeClassName="is-acitve">
+            <NavLink data-testid="NavbarLogin" className="link" to="/auth" activeClassName="is-active">
               Login
             </NavLink>
           )}
