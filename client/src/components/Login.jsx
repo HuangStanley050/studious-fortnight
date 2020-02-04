@@ -97,23 +97,23 @@ export const Login = ({
               <Button className={loginStyle.btn}>Login</Button>
             </FormGroup>
             <FormGroup style={buttonStyle}>
-              <NavLink
+              <Button
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.fb} ${loginStyle.btn}`}
                 href="/auth/facebook"
               >
                 <i className="fab fa-facebook"></i> Login with Facebook
-              </NavLink>
+              </Button>
             </FormGroup>
 
             <FormGroup style={buttonStyle}>
-              <NavLink
+              <Button
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.google} ${loginStyle.btn}`}
                 href="/auth/google"
               >
                 <i className="fab fa-google"></i> Login with Google
-              </NavLink>
+              </Button>
             </FormGroup>
             <FormGroup style={buttonStyle}>
               <Button style={{ width: "100%" }} color="info" onClick={toggle}>
