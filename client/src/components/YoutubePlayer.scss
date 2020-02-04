@@ -116,10 +116,10 @@
           &::after{
             content: " >> " 
           }
-          &:hover {
-            cursor: pointer;
-            animation: skipbutton .5s ease infinite alternate;     
-            }
+          // &:hover {
+          //   cursor: pointer;
+          //   animation: skipbutton .5s ease infinite alternate;     
+          //   }
           }
         }
       }
