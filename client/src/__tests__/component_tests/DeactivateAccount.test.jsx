@@ -37,9 +37,10 @@ test("<DeactivateAccount /> should render 'Are you deactivating your account?' w
   );
 
   const { getByText } = render(testComponent);
-  expect(getByText("DEACTIVATE ACCOUNT")).toBeInTheDocument();
-
   const deactivateButton = getByText("DEACTIVATE ACCOUNT");
+
+  expect(deactivateButton).toBeInTheDocument();
+
   fireEvent.click(deactivateButton);
   expect(getByText("Are you deactivating your account?")).toBeInTheDocument();
 });

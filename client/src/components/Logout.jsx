@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "./Logout.css";
 
-const Logout = ({ logOut, history }) => {
+export const Logout = ({ logOut, history }) => {
   const handleLogout = () => {
     //if (window.confirm("Are you logging out?")) {
     logOut();
@@ -21,9 +21,9 @@ const Logout = ({ logOut, history }) => {
   };
 
   return (
-    <div className="account-update-section" onClick={toggle}>
+    <div data-testid="Logout-Test" className="account-update-section" onClick={toggle}>
       LOGOUT
-      <Modal isOpen={modal}>
+      <Modal data-testid="Logout-Modal" isOpen={modal}>
         <ModalHeader toggle={toggle}>Are you logging out?</ModalHeader>
         <ModalBody>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
