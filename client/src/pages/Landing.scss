@@ -15,15 +15,15 @@
     justify-content: center;
     color: white;
 
-    background: var(--popup-background2);
+    background: var(--purple-color);
     border-radius: 25px;
     width: 150px;
     height: 40px;
     &:hover{
       cursor: pointer;
-      color: var(--popup-background2);
+      color: var(--purple-color);
       background: white;
-      border: 1px solid var(--popup-background2);
+      border: 1px solid var(--purple-color);
     }
   }
 
