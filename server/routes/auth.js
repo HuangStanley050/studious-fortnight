@@ -13,26 +13,26 @@ router
   .post("/api/auth/local/login", AuthController.localLogin)
   .post("/api/auth/local/register", AuthController.localRegister)
   .get(
-    "/api/auth/google",
+    "/auth/google",
     passport.authenticate("google", {
       scope: ["profile", "email"],
       session: false
     })
   )
   .get(
-    "/api/auth/google/callback",
+    "/auth/google/callback",
     passport.authenticate("google", { session: false }),
     AuthController.oAuthLogin
   )
   .get(
-    "/api/auth/facebook",
+    "/auth/facebook",
     passport.authenticate("facebook", {
       scope: ["email"],
       session: false
     })
   )
   .get(
-    "/api/auth/facebook/callback",
+    "/auth/facebook/callback",
     passport.authenticate("facebook", { session: false }),
     AuthController.oAuthLogin
   );

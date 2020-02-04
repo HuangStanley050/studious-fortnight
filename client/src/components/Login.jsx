@@ -39,7 +39,13 @@ const useForm = () => {
   return [form, handleChange, resetFields];
 };
 
-export const Login = ({ login, error, clearError, toggle, loginOrRegister }) => {
+export const Login = ({
+  login,
+  error,
+  clearError,
+  toggle,
+  loginOrRegister
+}) => {
   const [form, handleChange, resetFields] = useForm();
   const buttonStyle = {
     width: "40%",
@@ -94,7 +100,7 @@ export const Login = ({ login, error, clearError, toggle, loginOrRegister }) => 
               <NavLink
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.fb} ${loginStyle.btn}`}
-                href="/api/auth/facebook"
+                href="/auth/facebook"
               >
                 <i className="fab fa-facebook"></i> Login with Facebook
               </NavLink>
@@ -104,7 +110,7 @@ export const Login = ({ login, error, clearError, toggle, loginOrRegister }) => 
               <NavLink
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.google} ${loginStyle.btn}`}
-                href="/api/auth/google"
+                href="/auth/google"
               >
                 <i className="fab fa-google"></i> Login with Google
               </NavLink>
