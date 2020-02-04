@@ -11,7 +11,7 @@ import "./Quiz.css";
 import { Modal, ModalHeader, ModalBody, Button } from "reactstrap";
 import axios from "axios";
 
-let Quiz = ({ hasRegistered, turnOffQuiz }) => {
+export let Quiz = ({ hasRegistered, turnOffQuiz }) => {
   const [currentPage, setPage] = useState(1);
   const [modal, setModal] = useState(true);
   const toggle = () => {
@@ -34,6 +34,7 @@ let Quiz = ({ hasRegistered, turnOffQuiz }) => {
     <div>
       <Modal
         //backdrop={false}
+        data-testid="quiz-modal"
         centered
         size="xl"
         style={{
@@ -82,6 +83,7 @@ const mapDispatch = dispatch => ({
     dispatch(closeQuiz(result.data));
   }
 });
+
 Quiz = connect(
   null,
   mapDispatch
