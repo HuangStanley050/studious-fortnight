@@ -1,18 +1,16 @@
-import {Account} from "../../components/Account";
+import Contact from "../../pages/Contact";
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { render, fireEvent } from "@testing-library/react";
 import {Provider} from "react-redux";
 
-test("<Account /> should render 'RESET PASSWORD'", () => {
+test("<Contact /> should render 'Contact us'", () => {
   const store = {getState: () => {}, subscribe: () => {}}
-  const user = {email: "mark@mark.com"}
   const testComponent = (
     <Provider store={store}>
       <Router>
-        <Route render={( user ) => (
-                <Account
-                  user={user}
+        <Route render={() => (
+                <Contact
                 />
         )} />
       </Router>
@@ -20,5 +18,5 @@ test("<Account /> should render 'RESET PASSWORD'", () => {
   );
 
   const { getByText } = render(testComponent);
-  expect(getByText("RESET PASSWORD")).toBeInTheDocument();
+  expect(getByText("Contact us")).toBeInTheDocument();
 });
