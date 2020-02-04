@@ -1,7 +1,7 @@
 import {Account} from "../../components/Account";
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import {Provider} from "react-redux";
 
 test("<Account /> should render 'RESET PASSWORD'", () => {

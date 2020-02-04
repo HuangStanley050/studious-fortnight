@@ -39,7 +39,7 @@ const useForm = () => {
   return [form, handleChange, resetFields];
 };
 
-const Login = ({ login, error, clearError, toggle, loginOrRegister }) => {
+export const Login = ({ login, error, clearError, toggle, loginOrRegister }) => {
   const [form, handleChange, resetFields] = useForm();
   const buttonStyle = {
     width: "40%",
