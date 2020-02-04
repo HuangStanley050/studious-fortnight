@@ -16,7 +16,7 @@ import PasswordReset from "./pages/PasswordReset";
 import PrivateRoute from './components/PrivateRoute';
 import PasswordRecovery from "./pages/PasswordRecovery";
 
-function App() {
+export const App = () => {
   return (
     <div className="meta">
       <NavBar />

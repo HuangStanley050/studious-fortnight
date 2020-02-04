@@ -69,10 +69,11 @@ export const YoutubePlayer = props => {
       setIntervalId(
         setInterval(() => {
           const newPercentage = video.getCurrentTime() / video.getDuration();
-          const newPercentageCalculated = Math.round(newPercentage * 100);
+          // const newPercentageCalculated = Math.round(newPercentage * 100);
+          const newPercentageCalculated = newPercentage * 100;
           console.log(newPercentageCalculated);
           setPercentage(newPercentageCalculated);
-        }, 1000)
+        }, 100)
       );
     } else if (info === "pause") {
       clearInterval(intervalId);

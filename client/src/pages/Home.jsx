@@ -13,7 +13,7 @@ import {
 import { clearError } from "../store/actions/authActions";
 import "./Home.scss";
 
-const Home = ({
+export const Home = ({
   hasRegistered,
   meditationSession,
   dispatch,

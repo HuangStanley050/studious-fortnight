@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import "./Landing.scss";
 
-const Landing = ({ isAuth }) => {
+export const Landing = ({ isAuth }) => {
   if (isAuth) {
     return <Redirect to="/my" />;
   }
