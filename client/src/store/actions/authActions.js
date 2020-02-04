@@ -2,7 +2,7 @@ import Action from "./index";
 import axios from "axios";
 import API from "../../api";
 
-const loginStart = () => ({
+export const loginStart = () => ({
   type: Action.LOGIN_START
 });
 
@@ -16,7 +16,7 @@ export const loginFail = error => ({
   error
 });
 
-const registerStart = () => ({
+export const registerStart = () => ({
   type: Action.REGISTER_START
 });
 
@@ -24,7 +24,7 @@ export const registerOkay = () => ({
   type: Action.REGISTER_OKAY
 });
 
-const registerFail = err => ({
+export const registerFail = err => ({
   type: Action.REGISTER_FAIL,
   err
 });
