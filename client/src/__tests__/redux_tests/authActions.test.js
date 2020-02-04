@@ -5,7 +5,7 @@ import * as authAction from "../../store/actions/authActions";
 const mockStore = configureStore();
 const initialState = {};
 const store = mockStore(initialState);
-describe("Action creators for Redx", () => {
+describe("Auth action creators for Redx", () => {
   beforeEach(() => {
     // Runs before each test in the suite
     store.clearActions();
@@ -49,6 +49,22 @@ describe("Action creators for Redx", () => {
       err: "some error message"
     };
     store.dispatch(authAction.registerFail("some error message"));
+    let result = store.getActions();
+    expect(result[0]).toEqual(expectedAction);
+  });
+  test("should create an action when logging out", () => {
+    const expectedAction = {
+      type: Action.LOGOUT
+    };
+    store.dispatch(authAction.logout());
+    let result = store.getActions();
+    expect(result[0]).toEqual(expectedAction);
+  });
+  test("should clear error in authReducer", () => {
+    const expectedAction = {
+      type: Action.CLEAR_AUTH_ERROR
+    };
+    store.dispatch(authAction.clearError());
     let result = store.getActions();
     expect(result[0]).toEqual(expectedAction);
   });

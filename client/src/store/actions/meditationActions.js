@@ -7,12 +7,12 @@ export const updateMeditation = condition => ({
   condition
 });
 
-const getCurrentMeditationOkay = data => ({
+export const getCurrentMeditationOkay = data => ({
   type: Action.GET_CURRENT_MEDITATION,
   data
 });
 
-const getCurrentMeditationError = () => ({
+export const getCurrentMeditationError = () => ({
   type: Action.GET_CURRENT_MEDITATION_ERROR
 });
 
