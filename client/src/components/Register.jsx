@@ -15,7 +15,7 @@ import {
   Container
 } from "reactstrap";
 
-const Register = ({
+export const Register = ({
   register,
   error,
   clearError,
