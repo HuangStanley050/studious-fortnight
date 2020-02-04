@@ -24,6 +24,8 @@ test("<Discover /> should render 'Loading...'", () => {
   expect(getByText("Loading...")).toBeInTheDocument();
 });
 
+//trying to simulate some kind of API call?
+
 // jest.mock("../../dummyData/badges");
 // jest.mock("/api/course");
 // jest.mock("/api/account/check-badges");
