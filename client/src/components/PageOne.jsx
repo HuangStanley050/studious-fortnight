@@ -7,7 +7,7 @@ import beginner from "../assets/noExperience.jpg";
 import intermediate from "../assets/someExperience.png";
 import expert from "../assets/expertExperience.jpg";
 
-let PageOne = ({ nextPage, values }) => {
+export let PageOne = ({ nextPage, values }) => {
   const selectionStyle = {
     boxShadow: "0 0 5px 5px #2ecc71"
   };
