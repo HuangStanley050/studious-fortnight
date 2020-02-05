@@ -5,27 +5,27 @@ const router = express.Router();
 
 router
   .get(
-    "/oauth/google",
+    "/auth/google",
     passport.authenticate("google", {
       scope: ["profile", "email"],
       session: false
     })
   )
   .get(
-    "/oauth/facebook",
+    "/auth/facebook",
     passport.authenticate("facebook", {
       scope: ["email"],
       session: false
     })
   )
   .get(
-    "/oauth/google/callback",
+    "/auth/google/callback",
     passport.authenticate("google", { session: false }),
     AuthController.oAuthLogin
   )
 
   .get(
-    "/oauth/facebook/callback",
+    "/auth/facebook/callback",
     passport.authenticate("facebook", { session: false }),
     AuthController.oAuthLogin
   )

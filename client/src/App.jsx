@@ -44,14 +44,15 @@ export const App = () => {
             path="/oauth/facebook"
             component={() => {
               window.location.href =
-                "https://meditation-chill.herokuapp.com/oauth/facebook";
+                "https://meditation-chill.herokuapp.com/auth/facebook";
               return null;
             }}
           />
           <Route
             path="/oauth/google"
             component={() => {
-              window.location.href = "https://meditation-chill.herokuapp.com";
+              window.location.href =
+                "https://meditation-chill.herokuapp.com/auth/google";
               return null;
             }}
           />
