@@ -417,6 +417,10 @@ https://trello.com/b/7fbHxovo/mern-project-part-b
 
 # **R9** Utilises a formal testing framework
 
+**Jest**
+
+![jest](./docs/jestcoverage.png)
+
 # **R10** A link (URL) to your deployed website
 
 Link to deployed site [site](https://meditation-chill.herokuapp.com/)
