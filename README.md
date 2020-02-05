@@ -317,6 +317,8 @@ https://trello.com/b/7fbHxovo/mern-project-part-b
 
 # **R1** At a minimum use the following technologies: Mongo / Mongoose Express React.js Node.js
 
+[click here](#tech-stack)
+
 # **R2** Write well designed code that: Separates the program into modules that each deal with one particular focus, or concern; Demonstrates DRY (Don’t Repeat Yourself) coding principles; Uses appropriate libraries; Demonstrates good code flow control for user stories; Applies Object Oriented (OO) principles/patterns; Uses appropriate data structures
 
 # **R3** Employ and utilise proper source control methodology (git)
