@@ -17,8 +17,7 @@ export const NavBar = ({ isAuth }) => {
         >
           <img src={LOGO} className="logo" />
         </NavLink>
-        <a href="/auth/google">google login</a>
-        <a href="/auth/facebook">facebook login</a>
+
         <div className="links">
           {isAuth ? (
             <NavLink
