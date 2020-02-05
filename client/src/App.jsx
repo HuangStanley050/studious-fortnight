@@ -1,6 +1,6 @@
 import "./App.scss";
 import React from "react";
-import { Route, Switch} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/NavBar.jsx";
 import Landing from "./pages/Landing.jsx";
 import Home from "./pages/Home.jsx";
@@ -13,7 +13,7 @@ import About from "./pages/About.jsx";
 import AuthPage from "./pages/Auth.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import PasswordReset from "./pages/PasswordReset";
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from "./components/PrivateRoute";
 import PasswordRecovery from "./pages/PasswordRecovery";
 
 export const App = () => {
@@ -40,12 +40,27 @@ export const App = () => {
               />
             )}
           />
+          <Route
+            path="/oauth/facebook"
+            component={() => {
+              window.location.href =
+                "https://meditation-chill.herokuapp.com/oauth/facebook";
+              return null;
+            }}
+          />
+          <Route
+            path="/oauth/google"
+            component={() => {
+              window.location.href = "https://meditation-chill.herokuapp.com";
+              return null;
+            }}
+          />
           <Route component={NotFoundPage} />
         </Switch>
       </div>
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
