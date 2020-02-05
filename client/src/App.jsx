@@ -41,25 +41,6 @@ export const App = () => {
               />
             )}
           />
-          <Route
-            exact
-            path="/auth/facebook"
-            component={() => {
-              window.location.href =
-                "https://meditation-chill.herokuapp.com/auth/facebook";
-              return null;
-            }}
-          />
-          <Route
-            exact
-            path="/auth/google"
-            component={() => {
-              window.location.href =
-                "https://meditation-chill.herokuapp.com/auth/google";
-              return null;
-            }}
-          />
-          <Route component={NotFoundPage} />
         </Switch>
       </div>
       <Footer />
