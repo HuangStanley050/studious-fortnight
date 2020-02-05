@@ -30,6 +30,7 @@ export const App = () => {
           <Route path="/contact" component={Contact} />
           <Route path="/about" component={About} />
           <Route path="/auth" component={AuthPage} />
+
           <Route path="/password_recovery" component={PasswordRecovery} />
           <Route
             path="/reset_password/:userId/:token"
@@ -41,7 +42,8 @@ export const App = () => {
             )}
           />
           <Route
-            path="/oauth/facebook"
+            exact
+            path="/auth/facebook"
             component={() => {
               window.location.href =
                 "https://meditation-chill.herokuapp.com/auth/facebook";
@@ -49,7 +51,8 @@ export const App = () => {
             }}
           />
           <Route
-            path="/oauth/google"
+            exact
+            path="/auth/google"
             component={() => {
               window.location.href =
                 "https://meditation-chill.herokuapp.com/auth/google";
