@@ -415,6 +415,12 @@ https://trello.com/b/7fbHxovo/mern-project-part-b
 
 # **R8** Provides evidence of user testing: In the development environment and In the production environment
 
+**Development testing**
+
+![devtesting](./docs/developmenttesting.png)
+
+**Production testing**
+
 # **R9** Utilises a formal testing framework
 
 **Jest**
