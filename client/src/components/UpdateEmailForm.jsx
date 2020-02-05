@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import API from "../api";
@@ -7,6 +7,10 @@ import Loader from "../components/Loader";
 const UpdateEmailForm = ({ user }) => {
   const { register, handleSubmit, watch, errors } = useForm();
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState(user.email);
+
+  useEffect(() => {
+  }, [email])
 
   const onSubmit = data => {
     const updateEmailFunc = async () => {
@@ -19,11 +23,9 @@ const UpdateEmailForm = ({ user }) => {
         method: "post",
         url: API.updateEmail
       });
-      setLoading(false);
-      //turn loading screen off
-
       switch (response.data) {
         case "success":
+          setEmail(data.email);
           window.alert("Email updated.");
           break;
         case "failure":
@@ -35,6 +37,9 @@ const UpdateEmailForm = ({ user }) => {
         default:
           break;
       }
+
+      //turn loading screen off
+      setLoading(false);
     };
     updateEmailFunc();
   };
@@ -51,7 +56,7 @@ const UpdateEmailForm = ({ user }) => {
             <input
               className="account-update-section"
               name="email"
-              defaultValue={user.email}
+              defaultValue={email}
               ref={register({
                 required: true,
                 pattern: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
