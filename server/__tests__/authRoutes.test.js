@@ -65,14 +65,14 @@ test("Local register should be okay with valid password", async done => {
   done();
 });
 
-test("Oauth login should redirect to facebook for /api/auth/facebook", async done => {
-  const res = await request.get("/auth/facebook");
+test("Oauth login should redirect to facebook for /oauth/facebook", async done => {
+  const res = await request.get("/oauth/facebook");
   expect(res.statusCode).toBe(302); //redirect to facebook
   done();
 });
 
-test("Oauth login should redirect to google for /api/auth/google", async done => {
-  const res = await request.get("/auth/google");
+test("Oauth login should redirect to google for /oauth/google", async done => {
+  const res = await request.get("/oauth/google");
   expect(res.statusCode).toBe(302); //redirect to facebook
   done();
 });
