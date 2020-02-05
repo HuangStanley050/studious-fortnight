@@ -97,23 +97,23 @@ export const Login = ({
               <Button className={loginStyle.btn}>Login</Button>
             </FormGroup>
             <FormGroup style={buttonStyle}>
-              <a
+              <Button
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.fb} ${loginStyle.btn}`}
-                href="https://meditation-chill.herokuapp.com/oauth/facebook"
+                href="/oauth/facebook"
               >
                 <i className="fab fa-facebook"></i> Login with Facebook
-              </a>
+              </Button>
             </FormGroup>
 
             <FormGroup style={buttonStyle}>
-              <a
+              <Button
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.google} ${loginStyle.btn}`}
-                href="https://meditation-chill.herokuapp.com/oauth/google"
+                href="/oauth/google"
               >
                 <i className="fab fa-google"></i> Login with Google
-              </a>
+              </Button>
             </FormGroup>
             <FormGroup style={buttonStyle}>
               <Button style={{ width: "100%" }} color="info" onClick={toggle}>
