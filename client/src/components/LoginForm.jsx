@@ -17,13 +17,27 @@ const Form = (props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
 
-      <input name="email" placeholder="email" ref={register({required: true, minLength: 4, maxLength: 15 })} />
+      <input 
+        name="email" 
+        placeholder="email" 
+        ref={register({required: true, minLength: 4, maxLength: 15 })}
+        data-testid="email-input" 
+      />
       {errors.name && "Please add an email between 4 and 15 characters."}
       <br />
-      <input name="password" type="password" placeholder="password" ref={register({ required: true })} />
+      <input 
+        name="password" 
+        type="password" 
+        placeholder="password" 
+        ref={register({ required: true })} 
+        data-testid="password-input" 
+      />
       {errors.location && "Please add a location."}
       <br />
-      <input type="submit" />
+      <input 
+        type="submit"
+        data-testid="submit-input"
+      />
       <br />
       <a href="/auth/google"><p> Google </p></a>
       <a href="/auth/facebook"><p> Facebook </p></a> 
