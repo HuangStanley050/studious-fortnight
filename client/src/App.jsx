@@ -29,7 +29,7 @@ export const App = () => {
           <PrivateRoute path="/my/profile/stats" component={Profile} />
           <Route path="/contact" component={Contact} />
           <Route path="/about" component={About} />
-          <Route path="/auth" component={AuthPage} />
+          <Route exact path="/auth" component={AuthPage} />
 
           <Route path="/password_recovery" component={PasswordRecovery} />
           <Route
