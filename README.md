@@ -50,15 +50,94 @@ Including the libraries:
 
 React
 Including libraries:
- 
-- *React Hooks*
-- *React Router*
-- *Axios*
-- *Redux*
-- *React Redux*
-- *Redux Thunk*
-- *Reactstrap*
-- *List may be updated depending on developments during production (Possible more UI libraries to handle graphics)*
+
+- _redux_
+
+  Redux is a state management library for our meditation app. It is the central location of state that is needed for our components in react.
+
+- _react-redux_
+
+  React-redux is a library which provide the binding between redux and our react application. It has a higher order function called 'connect' that allows react component to interact with redux.
+
+- _redux-thunk_
+
+  It is a redux middleware that handles async actions between our app and redux in particular about changing the state in redux.
+
+- _axios_
+
+  This library is a promise based HTTP client for our react application when we need to make our api call to our server.
+
+- _bootstrap_
+
+  Bootstrap is an open source library for styling web applications. It provides responsive solution to HTML and ready to use styling.
+
+- _fetch-mock_
+
+  fetch-mock allows mocking http requests for unit test that involves redux and action creators.
+
+- _jwt-decode_
+
+  A library that determines if a jwt received is valid or not, used for authentication.
+
+- _moment_
+
+  This library parse, validate, manipulate, and display dates and times in JavaScript.
+
+- _moxios_
+
+  Mock axios requests for testing, intercept all axios request during test so we can run fake api calls.
+
+- _mutationobserver-shim_
+
+  A library that was used in our app in conjunction with react-hook-form for testing.
+
+* _node-sass_
+
+  Node-sass is a library that provides binding for sass files in our app to make it work with CRA.
+
+* _react_
+
+  React is a JavaScript library for creating user interfaces. This is what makes this application work in the first place.
+
+- _react-router-dom_
+
+  Enables routing in our web applications.
+
+- _react-circular-progressbar_
+
+  Style the main component of our app in terms of meditation progress.
+
+- _react-dom_
+
+  This package serves as the entry point to the DOM and server renderers for React. It is intended to be paired with the generic React package, which is shipped as react to npm.
+
+- _react-hook-form_
+
+  A form library that handles simple form in our application.
+
+- _react-scripts_
+
+This package includes scripts and configuration used by Create React App for app development.
+
+- _react-stripe-checkout_
+
+Makes payment possible with Stripe payment service from a front end application.
+
+- _react-youtube_
+
+  Simple React component acting as a thin layer over the YouTube IFrame Player API.
+
+- _reactstrap_
+
+  A react ui library that make it easy to use Bootstrap 4 components
+
+- _redux-form_
+
+  Utilized to manage our form state in Redux especially with our wizard form.
+
+- _redux_mock_store_
+
+  A mock store for testing Redux async action creators and middleware. The mock store will create an array of dispatched actions which serve as an action log for tests.
 
 ## DataFlow Diagram
 
@@ -214,14 +293,13 @@ Wireframes for multiple standard screen sizes, created using industry standard s
 
 To view interactive wireframes showing relationships between screens, intended actions and content prioritisation:
 
-[Interactive Figma Wireframes](https://www.figma.com/proto/jMT92SwJQZLZzjR2GpOHlQ/MeditationApp_Interactive?node-id=1%3A78&scaling=min-zoom )
+[Interactive Figma Wireframes](https://www.figma.com/proto/jMT92SwJQZLZzjR2GpOHlQ/MeditationApp_Interactive?node-id=1%3A78&scaling=min-zoom)
 
 **Website Size**
 
 ![Figma Wireframe](./docs/wireframes/website/00_wholeApp.png "Figma Wireframe")
 
 ![Figma Wireframe](./docs/wireframes/website/00_wholeApp_withConnections.png "Figma Wireframe")
-
 
 **iPad Size**
 
@@ -263,27 +341,27 @@ MyProfile - Account:
 
 **Mobile Size**
 
-Landing: 
+Landing:
 
 ![Figma Wireframe](./docs/wireframes/mobile/01_landingPage.png "Figma Wireframe")
 
-Home: 
+Home:
 
 ![Figma Wireframe](./docs/wireframes/mobile/02_home.png "Figma Wireframe")
 
-Meditation App Popup: 
+Meditation App Popup:
 
 ![Figma Wireframe](./docs/wireframes/mobile/03_homeMEditationAppPopup.png "Figma Wireframe")
 
-Discover: 
+Discover:
 
 ![Figma Wireframe](./docs/wireframes/mobile/04_Discover.png "Figma Wireframe")
 
-Discover - Specific Course: 
+Discover - Specific Course:
 
 ![Figma Wireframe](./docs/wireframes/mobile/05_discoverCoursePage.png "Figma Wireframe")
 
-My Profile - Stats: 
+My Profile - Stats:
 
 ![Figma Wireframe](./docs/wireframes/mobile/06_myProfileStats.png "Figma Wireframe")
 
@@ -291,11 +369,11 @@ My Profile - Journey:
 
 ![Figma Wireframe](./docs/wireframes/mobile/07_myProfileJourney.png "Figma Wireframe")
 
-My Profile - Journey Popup: 
+My Profile - Journey Popup:
 
 ![Figma Wireframe](./docs/wireframes/mobile/08_myProfileJourneyPopup.png "Figma Wireframe")
 
-MyProfile - Account: 
+MyProfile - Account:
 
 ![Figma Wireframe](./docs/wireframes/mobile/09_myProfileAccount.png "Figma Wireframe")
 
@@ -325,7 +403,7 @@ https://trello.com/b/7fbHxovo/mern-project-part-b
 
 # **R4** Demonstrate your ability to work in a team: Use a recognised project management methodology; Use a recognised task delegation methodology
 
- [click on this link](#agile-methodology)
+[click on this link](#agile-methodology)
 
 # **R5** Produce a working application that meets client and user needs
 
@@ -346,5 +424,3 @@ Link to deployed site [site](https://meditation-chill.herokuapp.com/)
 Link to github repo [repo](https://github.com/HuangStanley050/studious-fortnight)
 
 # R12
-
-
