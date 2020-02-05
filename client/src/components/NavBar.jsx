@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import "./NavBar.scss";
+import "./NavBar.css";
 import LOGO from "../assets/Logo1.png"
 
 
