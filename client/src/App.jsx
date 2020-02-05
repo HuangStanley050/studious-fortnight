@@ -1,6 +1,6 @@
 import "./App.scss";
 import React from "react";
-import { Route, Switch} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/NavBar.jsx";
 import Landing from "./pages/Landing.jsx";
 import Home from "./pages/Home.jsx";
@@ -13,7 +13,7 @@ import About from "./pages/About.jsx";
 import AuthPage from "./pages/Auth.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import PasswordReset from "./pages/PasswordReset";
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from "./components/PrivateRoute";
 import PasswordRecovery from "./pages/PasswordRecovery";
 
 export const App = () => {
@@ -29,7 +29,8 @@ export const App = () => {
           <PrivateRoute path="/my/profile/stats" component={Profile} />
           <Route path="/contact" component={Contact} />
           <Route path="/about" component={About} />
-          <Route path="/auth" component={AuthPage} />
+          <Route exact path="/auth" component={AuthPage} />
+
           <Route path="/password_recovery" component={PasswordRecovery} />
           <Route
             path="/reset_password/:userId/:token"
@@ -46,6 +47,6 @@ export const App = () => {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;

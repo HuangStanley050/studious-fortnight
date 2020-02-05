@@ -2,8 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import "./NavBar.scss";
-import LOGO from "../assets/Logo1.png"
-import LOGO2 from "../assets/Logo2.png"
+import LOGO from "../assets/Logo1.png";
+import LOGO2 from "../assets/Logo2.png";
 
 export const NavBar = ({ isAuth }) => {
   return (
@@ -50,7 +50,12 @@ export const NavBar = ({ isAuth }) => {
             </NavLink>
           ) : null}
           {isAuth ? null : (
-            <NavLink data-testid="NavbarLogin" className="link" to="/auth" activeClassName="is-active">
+            <NavLink
+              data-testid="NavbarLogin"
+              className="link"
+              to="/auth"
+              activeClassName="is-active"
+            >
               Login
             </NavLink>
           )}
