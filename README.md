@@ -37,14 +37,26 @@ This application will be written entirely in _Javascript_ and divided into two d
 
 #### The back end:
 
-Node.js
-Express
-MongoDB
+- Node.js
+- Express
+- MongoDB
+- Atlas
+
 Including the libraries:
 
-- _Mongoose_
-- _Atlas_
-- _Passport.js_
+- Sengrid: Delivers transactional (password reset) emails through the world's largest cloud-based email delivery platform
+- Axios: Promise based HTTP client for the browser and node.js, making API calls easier.
+- Bcrypt: A a password hashing library used to enhance user security.
+- Coveralls: Provides a user interface to easily show which areas of our code isn't covered by tests.
+- Passport: Passport is authentication middleware for Node.js, enabling certain API access to be allowed or rejected based on if the user is authenticated or not. 
+- Passport-facebook: Passport for facebook allows a simple one-click login for the user by using their facebook account. 
+- Passport-google-oauth20: Passport for google allows a simple one-click login for the user by using their facebook account. 
+- Passport-jwt: A json web token library that integrates with passport.  
+- Stripe: Stripe payments is used to allow users to donate money to CMCflow. 
+- Supertest: Provides a high-level abstraction for testing HTTP requests from express, used in combination with Jest.
+- Concurrently: Allows us to run multiple commands concurrently. In our application we run both the backend server and the front end client at the same time with "npm run dev".
+- Jest: A javascript testing framework, used for testing the backend.
+- Nodemon: A tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
 
 #### The front end:
 
