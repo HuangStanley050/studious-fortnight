@@ -100,7 +100,7 @@ export const Login = ({
               <a
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.fb} ${loginStyle.btn}`}
-                href="/oauth/facebook"
+                href="https://meditation-chill.herokuapp.com/oauth/facebook"
               >
                 <i className="fab fa-facebook"></i> Login with Facebook
               </a>
@@ -110,7 +110,7 @@ export const Login = ({
               <a
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.google} ${loginStyle.btn}`}
-                href="/oauth/google"
+                href="https://meditation-chill.herokuapp.com/oauth/google"
               >
                 <i className="fab fa-google"></i> Login with Google
               </a>
