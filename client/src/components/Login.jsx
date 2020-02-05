@@ -100,7 +100,7 @@ export const Login = ({
               <Button
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.fb} ${loginStyle.btn}`}
-                href="/auth/facebook"
+                href="/oauth/facebook"
               >
                 <i className="fab fa-facebook"></i> Login with Facebook
               </Button>
@@ -110,7 +110,7 @@ export const Login = ({
               <Button
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.google} ${loginStyle.btn}`}
-                href="/auth/google"
+                href="/oauth/google"
               >
                 <i className="fab fa-google"></i> Login with Google
               </Button>
