@@ -2,8 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import "./NavBar.scss";
-import LOGO from "../assets/Logo1.png";
-import LOGO2 from "../assets/Logo2.png";
+import LOGO from "../assets/Logo1.png"
+
 
 export const NavBar = ({ isAuth }) => {
   return (
