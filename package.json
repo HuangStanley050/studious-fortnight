@@ -25,8 +25,6 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
-    "react-circular-progressbar": "^2.0.3",
-    "react-hook-form": "^4.7.1",
     "stripe": "^8.4.0",
     "supertest": "^4.0.2"
   },
