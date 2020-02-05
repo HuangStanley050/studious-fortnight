@@ -85,6 +85,7 @@ const Journey = ({totalTimeMeditated, journeyItems}) => {
               <div className="journey-item" 
                     value={item._id}
                     onClick={popupDisplay}
+                    data-testid="journey-item"
               >
                 <JourneyInfo item={item} />
               </div>

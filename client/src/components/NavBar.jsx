@@ -50,7 +50,12 @@ export const NavBar = ({ isAuth }) => {
             </NavLink>
           ) : null}
           {isAuth ? null : (
-            <NavLink data-testid="NavbarLogin" className="link" to="/auth" activeClassName="is-active">
+            <NavLink
+              data-testid="NavbarLogin"
+              className="link"
+              to="/auth"
+              activeClassName="is-active"
+            >
               Login
             </NavLink>
           )}

@@ -6,7 +6,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { getCurrentMeditation } from "../store/actions/meditationActions";
 import "./YoutubePlayer.scss";
-import { CircularProgressbar } from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import Loader from "./Loader";
 import "react-circular-progressbar/dist/styles.css";
 //when server is running:
@@ -69,10 +69,11 @@ export const YoutubePlayer = props => {
       setIntervalId(
         setInterval(() => {
           const newPercentage = video.getCurrentTime() / video.getDuration();
-          const newPercentageCalculated = Math.round(newPercentage * 100);
+          // const newPercentageCalculated = Math.round(newPercentage * 100);
+          const newPercentageCalculated = newPercentage * 100;
           console.log(newPercentageCalculated);
           setPercentage(newPercentageCalculated);
-        }, 1000)
+        }, 100)
       );
     } else if (info === "pause") {
       clearInterval(intervalId);
@@ -195,14 +196,21 @@ export const YoutubePlayer = props => {
                 <CircularProgressbar
                   value={percentage}
                   className="loading-bar"
+                  styles={buildStyles({
+                    // strokeLinecap: 'butt',
+                    // Colors
+                    pathColor: `rgba(84, 84, 84, 0.80)`,
+                    //background of trail
+                    trailColor: 'rgba(84, 84, 84, 0.20)'
+                  })}
                 />
                 {videoPlaying ? (
                   <div className="circlePause" onClick={pauseTheVideo}>
-                    <i className="fas fa-pause fa-4x"></i>
+                    <i className="fas fa-pause fa-3x"></i>
                   </div>
                 ) : (
                   <div className="circlePlay" onClick={playTheVideo}>
-                    <i className="fas fa-play fa-4x"></i>
+                    <i className="fas fa-play fa-3x"></i>
                   </div>
                 )}
                 <aside>
