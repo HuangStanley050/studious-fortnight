@@ -1,0 +1,125 @@
+/* .nav-container {
+  height: 80px;
+  width: 100%;
+  border-bottom: var(--main-border);
+
+  overflow: hidden;
+  top: 0;
+  z-index: 100;
+  position: fixed;
+  background: white;
+
+  display: flex;
+  align-items: center;
+
+  .nested-nav-container {
+    width: 100%;
+  
+    margin-left: 4%;
+    margin-right: 4%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    .logo-text {
+      font-size: 24px;
+      color: var(--main-link-color);
+      text-decoration: none;
+      img{
+        height: 80px;
+        // width: 20vw;
+      }
+    }
+    .logo-text:hover {
+      color: var(--main-link-hover);
+    }
+    //link div:
+    .links {
+      display: flex;
+      align-items: center;
+  
+      //individual links:
+      .link {
+        margin-left: 40px;
+        font-size: 16px;
+        color: var(--main-link-color);
+        text-decoration: none;
+      }
+  
+      .link:hover {
+        color: var(--main-link-hover);
+      }
+    }
+  }
+} */
+
+.nav-container {
+  height: 80px;
+  width: 100%;
+  border-bottom: var(--main-border);
+
+  overflow: hidden;
+  top: 0;
+  z-index: 100;
+  position: fixed;
+  background: white;
+
+  display: flex;
+  align-items: center;
+}
+
+.nested-nav-container {
+  width: 100%;
+
+  margin-left: 4%;
+  margin-right: 4%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.nested-nav-container .logo-text {
+  font-size: 24px;
+  color: var(--main-link-color);
+  text-decoration: none;
+}
+
+.nested-nav-container .logo-text img{
+  height: 80px;
+  /* // width: 20vw; */
+}
+
+.nested-nav-container .logo-text:hover {
+  color: var(--main-link-hover);
+}
+
+/* //link div: */
+.nested-nav-container .links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 500px) {
+  .nested-nav-container .links {
+    display: flex;
+    align-items: center;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+  }
+}
+
+/* //individual links */
+.nested-nav-container .links .link {
+  margin-left: 40px;
+  font-size: 16px;
+  color: var(--main-link-color);
+  text-decoration: none;
+}
+
+.nested-nav-container .links .link:hover {
+  color: var(--main-link-hover);
+}

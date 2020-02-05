@@ -1,15 +1,15 @@
 .stats-content {
-  height: 100vh;
+  // height: 100vh;
   width: 100%;
   // background: red;
 
   display: flex;
-  align-items: space-between;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
 
   .stats-card {
-    width: 45%;
+    width: 310px;
     height: 30%;
     border: 4px solid var(--main-link-color);
 
@@ -18,6 +18,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-right: 20px;
+    margin-bottom: 20px;
 
     i {
       color: var(--purple-color);
@@ -29,5 +31,18 @@
       color: var(--main-link-color);
       font-size: 20px;
     }
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  .stats-content {
+    justify-content: center;
+  }
+  .stats-card {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
   }
 }
