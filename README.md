@@ -401,6 +401,8 @@ https://trello.com/b/7fbHxovo/mern-project-part-b
 
 # **R3** Employ and utilise proper source control methodology (git)
 
+![git](./docs/git.png)
+
 # **R4** Demonstrate your ability to work in a team: Use a recognised project management methodology; Use a recognised task delegation methodology
 
 [click on this link](#agile-methodology)
