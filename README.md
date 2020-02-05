@@ -117,11 +117,11 @@ Including libraries:
 
 - _react-scripts_
 
-This package includes scripts and configuration used by Create React App for app development.
+  This package includes scripts and configuration used by Create React App for app development.
 
 - _react-stripe-checkout_
 
-Makes payment possible with Stripe payment service from a front end application.
+  Makes payment possible with Stripe payment service from a front end application.
 
 - _react-youtube_
 
