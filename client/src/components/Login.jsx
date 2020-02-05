@@ -94,12 +94,13 @@ export const Login = ({
               />
             </FormGroup>
             <FormGroup style={buttonStyle}>
-              <Button className={loginStyle.btn}>Login</Button>
+              <Button className={loginStyle.btn} data-testid="login-button">Login</Button>
             </FormGroup>
             <FormGroup style={buttonStyle}>
               <Button
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.fb} ${loginStyle.btn}`}
+                data-testid="facebook-button"
                 href="/auth/facebook"
               >
                 <i className="fab fa-facebook"></i> Login with Facebook
@@ -110,6 +111,7 @@ export const Login = ({
               <Button
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.google} ${loginStyle.btn}`}
+                data-testid="google-button"
                 href="/auth/google"
               >
                 <i className="fab fa-google"></i> Login with Google
@@ -126,6 +128,7 @@ export const Login = ({
                 style={{ width: "100%", textAlign: "center" }}
                 tag={Link}
                 onClick={toggle}
+                data-testid="forgot-button"
               >
                 Forgot password?
               </NavLink>
