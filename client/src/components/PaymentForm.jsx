@@ -6,7 +6,7 @@ import axios from "axios";
 
 // this jwt is only temporariy for testing, will need to fetch it from localstorage in the future
 
-const Payment = () => {
+export const Payment = () => {
   const jwtToken = localStorage.getItem("CMCFlow");
   const onToken = async token => {
     await axios({

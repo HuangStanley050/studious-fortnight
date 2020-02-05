@@ -1,4 +1,4 @@
-import Action from "../../store/actions";
+import Action from "../../store/Actions";
 import configureStore from "redux-mock-store";
 import * as meditationAction from "../../store/actions/meditationActions";
 

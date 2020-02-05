@@ -10,7 +10,7 @@ import noonPic from "../assets/noon.jpg";
 import nightPic from "../assets/night.jpeg";
 import { Container, Col, Button } from "reactstrap";
 
-let PageFour = ({ values, prevPage, dispatch }) => {
+export let PageFour = ({ values, prevPage, dispatch }) => {
   let selection;
   const [disableSubmit, setDisableSubmit] = useState(false);
   const morning = "morning";
@@ -54,7 +54,7 @@ let PageFour = ({ values, prevPage, dispatch }) => {
   }
   return (
     <Container>
-      <h2 style={{ textAlign: "center" }}>Preferred Meditation Time</h2>
+      <h2 data-testid="MeditationTime" style={{ textAlign: "center" }}>Preferred Meditation Time</h2>
       <form className="row" onSubmit={submitHandler}>
         <Col lg="4">
           <label className="special-label">

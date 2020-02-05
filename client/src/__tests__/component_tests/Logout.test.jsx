@@ -1,8 +1,5 @@
-// import { Logout } from "../../components/Logout.jsx";
+
 import Logout from "../../components/Logout.jsx";
-// import Logout from "../../components/Footer";
-// import { logout } from "../store/actions/authActions";
-// import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import React from "react";
 import {Account} from "../../components/Account";
 import { BrowserRouter, Route, BrowserRouter as Router } from "react-router-dom";
@@ -12,20 +9,23 @@ import {Provider} from "react-redux";
 
 
 test("<Logout /> should render LOGOUT to the screen", () => {
-    const store = {getState: () => {}, subscribe: () => {}}
+  const store = {getState: () => {}, subscribe: () => {}, dispatch: ()=> {}}
     const user = {email: "mark@mark.com"}
     const testComponent = (
         <Provider store={store}>
             <Router>
-                    <Route component={Logout} />
+            <Route render={( user ) => (
+                <Account
+                  user={user}
+                >
+                  <Route component={Logout} />
+                </Account>
+        )} />
             </Router>
       </Provider>
     );
-    const { getByText, findByText, getByTestId } = render(testComponent);
+    const { getByTestId } = render(testComponent);
     const LogoutButton = getByTestId("Logout-Test")
-    // const Modal = getByTestId("Logout-Modal")
-    // console.log(LogoutButton)
-
 
     expect(LogoutButton).toBeInTheDocument();
     
@@ -34,7 +34,7 @@ test("<Logout /> should render LOGOUT to the screen", () => {
 
 // <button>Logout</button>
 test("<Logout /> should render 'Are you logging out?' when modal (class of 'modal-title') is opened", () => {
-    const store = {getState: () => {}, subscribe: () => {}}
+  const store = {getState: () => {}, subscribe: () => {}, dispatch: ()=> {}}
 const user = {email: "mark@mark.com"}
     const testComponent = (
       <Provider store={store}>

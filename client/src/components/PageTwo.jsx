@@ -7,7 +7,7 @@ import friendsPic from "../assets/friends.jpeg";
 import internetPic from "../assets/internet.png";
 import tvPic from "../assets/tv.jpg";
 
-let PageTwo = ({ prevPage, nextPage, values }) => {
+export let PageTwo = ({ prevPage, nextPage, values }) => {
   //const { prevPage, nextPage } = props;
   const selectionStyle = {
     boxShadow: "0 0 5px 5px #2ecc71"
@@ -21,7 +21,7 @@ let PageTwo = ({ prevPage, nextPage, values }) => {
   }
   return (
     <Container>
-      <h2 style={{ textAlign: "center" }}>What brings you to CMCFlow</h2>
+      <h2 data-testid="MeditationWhy" style={{ textAlign: "center" }}>What brings you to CMCFlow</h2>
       <form className="row" onSubmit={nextPage}>
         <Col lg="4">
           <label className="special-label">
