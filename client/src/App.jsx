@@ -29,7 +29,7 @@ export const App = () => {
           <PrivateRoute path="/my/profile/stats" component={Profile} />
           <Route path="/contact" component={Contact} />
           <Route path="/about" component={About} />
-          <Route path="/auth" component={AuthPage} />
+          <Route exact path="/auth" component={AuthPage} />
 
           <Route path="/password_recovery" component={PasswordRecovery} />
           <Route
@@ -41,25 +41,6 @@ export const App = () => {
               />
             )}
           />
-          <Route
-            exact
-            path="/auth/facebook"
-            component={() => {
-              window.location.href =
-                "https://meditation-chill.herokuapp.com/auth/facebook";
-              return null;
-            }}
-          />
-          <Route
-            exact
-            path="/auth/google"
-            component={() => {
-              window.location.href =
-                "https://meditation-chill.herokuapp.com/auth/google";
-              return null;
-            }}
-          />
-          <Route component={NotFoundPage} />
         </Switch>
       </div>
       <Footer />
