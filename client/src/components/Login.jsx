@@ -98,7 +98,6 @@ export const Login = ({
             </FormGroup>
             <FormGroup style={buttonStyle}>
               <Button
-                disabled
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.fb} ${loginStyle.btn}`}
                 href="/auth/facebook"
@@ -109,7 +108,6 @@ export const Login = ({
 
             <FormGroup style={buttonStyle}>
               <Button
-                disabled
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.google} ${loginStyle.btn}`}
                 href="/auth/google"

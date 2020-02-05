@@ -41,6 +41,7 @@ export const App = () => {
               />
             )}
           />
+          <Route component={NotFoundPage} />
         </Switch>
       </div>
       <Footer />
