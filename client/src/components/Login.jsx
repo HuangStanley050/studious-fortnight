@@ -94,13 +94,14 @@ export const Login = ({
               />
             </FormGroup>
             <FormGroup style={buttonStyle}>
-              <Button className={loginStyle.btn}>Login</Button>
+              <Button className={loginStyle.btn} data-testid="login-button">Login</Button>
             </FormGroup>
             <FormGroup style={buttonStyle}>
               <a
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.fb} ${loginStyle.btn}`}
                 href="https://meditation-chill.herokuapp.com/oauth/facebook"
+                data-testid="facebook-button"
               >
                 <i className="fab fa-facebook"></i> Login with Facebook
               </a>
@@ -111,6 +112,7 @@ export const Login = ({
                 style={{ textAlign: "center" }}
                 className={`${loginStyle.google} ${loginStyle.btn}`}
                 href="https://meditation-chill.herokuapp.com/oauth/google"
+                data-testid="google-button"
               >
                 <i className="fab fa-google"></i> Login with Google
               </a>
@@ -126,6 +128,7 @@ export const Login = ({
                 style={{ width: "100%", textAlign: "center" }}
                 tag={Link}
                 onClick={toggle}
+                data-testid="forgot-button"
               >
                 Forgot password?
               </NavLink>
