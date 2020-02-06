@@ -22,7 +22,7 @@ export let PageOne = ({ nextPage, values }) => {
   //console.log(selection);
   return (
     <Container>
-      <h2 style={{ textAlign: "center" }}>How much experience do you have?</h2>
+      <h2 data-testid="MeditationExperience" style={{ textAlign: "center" }}>How much experience do you have?</h2>
       <form className="row" onSubmit={nextPage}>
         <Col lg="4">
           <label className="special-label">

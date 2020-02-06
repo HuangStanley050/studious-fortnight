@@ -4,7 +4,7 @@ import { Field, reduxForm, getFormValues } from "redux-form";
 import { connect } from "react-redux";
 import { Col, Container, Button } from "reactstrap";
 
-let PageThree = ({ prevPage, nextPage, values }) => {
+export let PageThree = ({ prevPage, nextPage, values }) => {
   //const { prevPage, nextPage } = props;
   const selectionStyle = {
     boxShadow: "0 0 5px 5px #2ecc71"
@@ -18,7 +18,7 @@ let PageThree = ({ prevPage, nextPage, values }) => {
   }
   return (
     <Container>
-      <h2 style={{ textAlign: "center" }}>Preferred Meditation Time</h2>
+      <h2 data-testid="MeditationHour" style={{ textAlign: "center" }}>Preferred Meditation Time</h2>
       <form className="row" onSubmit={nextPage}>
         <Col sm="4" md="4" lg="4">
           <label className="special-label">
