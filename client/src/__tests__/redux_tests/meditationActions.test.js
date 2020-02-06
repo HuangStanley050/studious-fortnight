@@ -1,8 +1,11 @@
 import Action from "../../store/Actions";
 import configureStore from "redux-mock-store";
 import * as meditationAction from "../../store/actions/meditationActions";
+import thunk from "redux-thunk";
+import moxios from "moxios";
 
-const mockStore = configureStore();
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
 const initialState = {};
 const store = mockStore(initialState);
 
@@ -10,6 +13,23 @@ describe("Meditation actions test cases", () => {
   beforeEach(() => {
     // Runs before each test in the suite
     store.clearActions();
+    moxios.install();
+  });
+  afterEach(() => moxios.uninstall());
+  test("After api call for getting meditation, shoudl dispatch get meditation okay", () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: {}
+      });
+    });
+    const expectedActions = { type: Action.GET_CURRENT_MEDITATION, data: {} };
+    const store = mockStore({ stuff: {} });
+    return store.dispatch(meditationAction.getCurrentMeditation()).then(() => {
+      const result = store.getActions()[0];
+      expect(result).toEqual(expectedActions);
+    });
   });
   test("Meditation sending out update actions", () => {
     const expectedAction = {

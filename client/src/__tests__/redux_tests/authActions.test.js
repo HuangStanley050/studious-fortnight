@@ -1,14 +1,60 @@
 import Action from "../../store/actions";
 import configureStore from "redux-mock-store";
+import thunk from "redux-thunk";
+import moxios from "moxios";
+
 import * as authAction from "../../store/actions/authActions";
 
-const mockStore = configureStore();
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
 const initialState = {};
 const store = mockStore(initialState);
 describe("Auth action creators for Redx", () => {
   beforeEach(() => {
     // Runs before each test in the suite
     store.clearActions();
+    moxios.install();
+  });
+  afterEach(() => moxios.uninstall());
+  test("should be able to send register success after register", () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: { userInfo: {} }
+      });
+    });
+    const expectedActions = [
+      { type: Action.REGISTER_START },
+      { type: Action.REGISTER_OKAY }
+    ];
+    const store = mockStore({ stuff: {} });
+    return store
+      .dispatch(authAction.register({ email: "test", password: "test" }))
+      .then(() => {
+        // return of async actions
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+  });
+  test("should be able to login with the right email and password", () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: { userInfo: {}, token: "token" }
+      });
+    });
+    const expectedActions = [
+      { type: Action.LOGIN_START },
+      { type: Action.LOGIN_OKAY, payload: { userInfo: {}, token: "token" } }
+    ];
+    const store = mockStore({ stuff: {} });
+    return store
+      .dispatch(authAction.login({ email: "test", password: "test" }))
+      .then(() => {
+        // return of async actions
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
   test("should create an action to start login", () => {
     const expectedAction = {
