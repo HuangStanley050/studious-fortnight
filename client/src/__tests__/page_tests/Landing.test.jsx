@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { render, fireEvent } from "@testing-library/react";
 import {Provider} from "react-redux";
 
-test("<Landing /> should render 'Your guide to metal clarity'", () => {
+test("<Landing /> should render 'Your guide to mental clarity'", () => {
   const store = {getState: () => {}, subscribe: () => {}}
   const testComponent = (
     <Provider store={store}>
