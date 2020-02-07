@@ -11,7 +11,7 @@ export const Landing = ({ isAuth }) => {
   }
   return (
     <div className="landing-content">
-      <h1>Your guide to metal clarity</h1>
+      <h1>Your guide to mental clarity</h1>
       <p>Live a healthier, happier, more well-rested life with CMCFlow.</p>
       <Link className="login-register-button" to="/auth">Login or Register</Link>
       <div className="background-img"></div>
