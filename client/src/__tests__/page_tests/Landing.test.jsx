@@ -18,5 +18,5 @@ test("<Landing /> should render 'Your guide to mental clarity'", () => {
   );
 
   const { getByText } = render(testComponent);
-  expect(getByText("Your guide to metal clarity")).toBeInTheDocument();
+  expect(getByText("Your guide to mental clarity")).toBeInTheDocument();
 });
